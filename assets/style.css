@@ -31,3 +31,5 @@
 @media(max-width:760px){.topics .wrap{grid-template-columns:repeat(3,minmax(0,1fr));text-align:center;gap:12px}.topics .wrap>span{min-width:0;line-height:1.5}}
 
 
+
+.service .service-ateco{margin:18px 0 0;font-size:10px;line-height:1.7;color:var(--muted)}
