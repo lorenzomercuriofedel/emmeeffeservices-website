@@ -45,3 +45,7 @@
 @media(max-width:420px){.creator-inner{gap:12px}.creator h2{font-size:28px}.creator-symbol{width:40px;height:30px}}
 
 .creator .creator-ateco{margin:22px 0 0;font-size:10px;line-height:1.7;letter-spacing:.6px;color:var(--muted)}
+
+.creator-channel{margin-top:24px}
+.creator-play{display:flex;flex-shrink:0;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+.creator-play:hover .creator-symbol{color:var(--ink)}
