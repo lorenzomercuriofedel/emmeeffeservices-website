@@ -29,3 +29,5 @@
 
 /* Etichette distribuite senza dipendere dalla loro posizione nel markup. */
 @media(max-width:760px){.topics .wrap{grid-template-columns:repeat(3,minmax(0,1fr));text-align:center;gap:12px}.topics .wrap>span{min-width:0;line-height:1.5}}
+
+
