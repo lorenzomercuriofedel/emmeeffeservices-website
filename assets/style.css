@@ -47,3 +47,16 @@
 /* Intestazione dell’attività sopra i recapiti. */
 .contact-business{font-family:var(--serif);font-size:28px;line-height:1.2;font-weight:400;color:var(--paper);margin:0 0 30px}
 .contact-business>span{display:block;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;letter-spacing:.3px;color:#d7e2ed;margin-top:8px}
+
+#ambiti .section-heading{display:block}
+#ambiti .section-heading h2{margin-bottom:0}
+
+/* Credito Rhaeticon su una riga dedicata del mini footer. */
+.footer{flex-wrap:wrap}
+.footer-credit{flex:0 0 100%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;color:#d7e2ed;font-size:12px;line-height:1.6}
+.footer-credit svg{flex-shrink:0}
+.footer-credit .credit-heart{color:var(--lime)}
+.footer-credit .credit-logo,.footer-credit strong{color:var(--paper)}
+.footer-credit:hover{color:#fff}
+@media(max-width:760px){.footer-credit{flex-basis:auto;align-self:stretch;margin-top:8px}}
+@media(max-width:480px){.footer-credit .credit-tagline{flex-basis:100%;text-align:center}}
