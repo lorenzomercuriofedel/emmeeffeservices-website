@@ -6,11 +6,13 @@ import { groupCustomers, customerDescription, customerPath, findCustomerByRouteI
 import { Link } from '@/src/i18n/navigation';
 
 const loadCustomer = cache(async (id) => {
-  const stations = await fetchStations();
+  // Customer assignments may change independently of weather readings.
+  // React cache deduplicates metadata/page requests without persisting old groups.
+  const stations = await fetchStations({ cache: 'no-store' });
   // The list endpoint may omit customer data; use the full station registry in that case.
   const fullStations = await Promise.all(stations.map(async (station) => {
     if (Object.hasOwn(station, 'customer')) return station;
-    const details = await fetchStationInfo(station.id);
+    const details = await fetchStationInfo(station.id, { cache: 'no-store' });
     return { ...station, ...details };
   }));
   return findCustomerByRouteId(groupCustomers(fullStations), id);

@@ -1,13 +1,13 @@
 const API_BASE = 'https://www.meteopine.altervista.org/api';
 
-export async function fetchStations() {
-  const res = await fetch(`${API_BASE}/stazioni_meteo.php?all=true&disabled=false`, { next: { revalidate: 60 } });
+export async function fetchStations(options = { next: { revalidate: 60 } }) {
+  const res = await fetch(`${API_BASE}/stazioni_meteo.php?all=true&disabled=false`, options);
   const data = await res.json();
   return data.stazioni;
 }
 
-export async function fetchStationInfo(id) {
-  const res = await fetch(`${API_BASE}/stazioni_meteo.php?id=${id}`, { next: { revalidate: 300 } });
+export async function fetchStationInfo(id, options = { next: { revalidate: 300 } }) {
+  const res = await fetch(`${API_BASE}/stazioni_meteo.php?id=${id}`, options);
   const data = await res.json();
   return data.anagrafica;
 }
