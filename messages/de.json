@@ -1,0 +1,233 @@
+{
+  "nav": {
+    "home": "Start",
+    "stations": "Stationen",
+    "contacts": "Kontakt",
+    "menu": "Menü"
+  },
+  "lang": {
+    "label": "Sprache",
+    "it": "Italienisch",
+    "en": "Englisch",
+    "de": "Deutsch"
+  },
+  "hero": {
+    "stationOf": "Station {name}",
+    "liveCount": "{count, plural, one {# Station live} other {# Stationen live}}",
+    "noStations": "Derzeit keine Station live.",
+    "loading": "Daten werden geladen…",
+    "humidity": "Luftfeuchtigkeit {value}%",
+    "windFrom": "{strength} Wind aus {dir}",
+    "strength": {
+      "calm": "ruhiger",
+      "light": "schwacher",
+      "moderate": "mäßiger",
+      "strong": "starker",
+      "intense": "heftiger"
+    }
+  },
+  "almanac": {
+    "title": "Almanach",
+    "sunrise": "Sonnenaufgang",
+    "sunset": "Sonnenuntergang",
+    "dayLength": "Tageslänge",
+    "moon": "Mond"
+  },
+  "moon": {
+    "0": "Neumond",
+    "1": "Zunehmende Sichel",
+    "2": "Erstes Viertel",
+    "3": "Zunehmender Mond",
+    "4": "Vollmond",
+    "5": "Abnehmender Mond",
+    "6": "Letztes Viertel",
+    "7": "Abnehmende Sichel",
+    "unknown": "—"
+  },
+  "wmo": {
+    "0": "Klar",
+    "1": "Überwiegend klar",
+    "2": "Teilweise bewölkt",
+    "3": "Bedeckt",
+    "45": "Nebel",
+    "48": "Reifnebel",
+    "51": "Leichter Nieselregen",
+    "53": "Nieselregen",
+    "55": "Starker Nieselregen",
+    "56": "Leichter gefrierender Nieselregen",
+    "57": "Starker gefrierender Nieselregen",
+    "61": "Leichter Regen",
+    "63": "Regen",
+    "65": "Starker Regen",
+    "66": "Leichter gefrierender Regen",
+    "67": "Starker gefrierender Regen",
+    "71": "Leichter Schneefall",
+    "73": "Schneefall",
+    "75": "Starker Schneefall",
+    "77": "Schneegriesel",
+    "80": "Leichte Schauer",
+    "81": "Schauer",
+    "82": "Heftige Schauer",
+    "85": "Leichte Schneeschauer",
+    "86": "Starke Schneeschauer",
+    "95": "Gewitter",
+    "96": "Gewitter mit Hagel",
+    "99": "Gewitter mit starkem Hagel"
+  },
+  "windName": {
+    "N": "Nord",
+    "NNE": "Nordnordost",
+    "NE": "Nordost",
+    "ENE": "Ostnordost",
+    "E": "Ost",
+    "ESE": "Ostsüdost",
+    "SE": "Südost",
+    "SSE": "Südsüdost",
+    "S": "Süd",
+    "SSW": "Südsüdwest",
+    "SW": "Südwest",
+    "WSW": "Westsüdwest",
+    "W": "West",
+    "WNW": "Westnordwest",
+    "NW": "Nordwest",
+    "NNW": "Nordnordwest"
+  },
+  "map": {
+    "title": "Live-Stationskarte",
+    "subtitle": "{online} von {total} Stationen online · für Details auf einen Marker klicken · aktualisiert um {time}",
+    "openStation": "Station öffnen →",
+    "offline": "offline",
+    "scale": "{metric}-Skala",
+    "metric": {
+      "temperature": "Temperatur",
+      "rain": "Regen",
+      "wind": "Wind"
+    }
+  },
+  "intro": {
+    "eyebrow": "Das Projekt",
+    "title": "Ein Amateur-Wetterportal, seit 2014",
+    "p1": "Meteo Altopiano di Piné sammelt die Messwerte der Wetterstationen auf der Hochebene von Piné (Trient, Italien), betreut vom örtlichen Wetterbegeisterten Lorenzo Mercurio Fedel.",
+    "p2": "Alle Stationen des Projekts gehören zum Vereinsnetzwerk der A.P.S. <b>Meteo Trentino Alto Adige</b>.",
+    "cta": "Kontaktieren Sie uns für Infos oder Anfragen"
+  },
+  "contacts": {
+    "eyebrow": "Kontakt",
+    "title": "Schreiben Sie uns",
+    "subtitle": "Für Informationen, Meldungen oder Anfragen zu den Wetterstationen des Projekts."
+  },
+  "footer": {
+    "tagline": "Amateur-Portal für Wetterbeobachtungen von der Hochebene von Piné (Trient, Italien). Echtzeitdaten aus dem lokalen Stationsnetz.",
+    "contactUs": "Kontaktieren Sie uns",
+    "partner": "Partner",
+    "usefulLinks": "Nützliche Links",
+    "weatherNetworks": "Wetternetzwerke",
+    "privacyPolicy": "Datenschutzerklärung",
+    "customizeTracking": "Werbe-Tracking anpassen",
+    "rights": "© {year} Meteo Altopiano di Piné · Alle Rechte vorbehalten",
+    "madeWith": "Gemacht mit",
+    "by": "von",
+    "agencyTagline": "— die Web-Agentur der Dolomiten",
+    "madeByAria": "Website erstellt von Rhaeticon"
+  },
+  "station": {
+    "backToAll": "Alle Stationen",
+    "title": "Station {name}",
+    "subtitle": "{comune} (TN) · {alt} m ü. NN",
+    "notFound": "Station nicht gefunden.",
+    "live": "Live",
+    "offline": "Offline",
+    "updatedAt": "Aktualisiert um {time}",
+    "currentMeasurements": "Aktuelle Messwerte",
+    "last24h": "Letzte 24 Std.",
+    "dailyExtremes": "Tageswerte",
+    "tabs": {
+      "temp": "Temperatur",
+      "hum": "Luftfeuchtigkeit",
+      "wind": "Wind",
+      "rain": "Regen",
+      "press": "Luftdruck"
+    },
+    "tiles": {
+      "temp": "Temp",
+      "hum": "Feuchte",
+      "wind": "Wind",
+      "rain": "Regen",
+      "press": "Druck"
+    },
+    "extremes": {
+      "minTemp": "Min. Temperatur",
+      "maxTemp": "Max. Temperatur",
+      "avgTemp": "Ø Temperatur",
+      "minHum": "Min. Feuchte",
+      "maxHum": "Max. Feuchte",
+      "avgHum": "Ø Feuchte",
+      "maxWspeed": "Max. Geschwindigkeit",
+      "avgWspeed": "Ø Geschwindigkeit",
+      "maxWgust": "Max. Böe",
+      "dominantDir": "Hauptwindrichtung",
+      "maxRrate": "Max. Intensität",
+      "minPress": "Min. Luftdruck",
+      "maxPress": "Max. Luftdruck",
+      "avgPress": "Ø Luftdruck"
+    },
+    "info": {
+      "eyebrow": "Informationen",
+      "registry": "Stammdaten",
+      "tabs": {
+        "location": "Standort",
+        "details": "Technische Details",
+        "info": "Info"
+      },
+      "locality": "Ort",
+      "municipality": "Gemeinde",
+      "hamlet": "Ortsteil",
+      "altitude": "Höhe",
+      "coordinates": "Koordinaten",
+      "installDate": "Installationsdatum",
+      "model": "Marke und Modell",
+      "issHeight": "ISS-Höhe über Grund",
+      "anemometerHeight": "Anemometerhöhe",
+      "placement": "Lage",
+      "terrainType": "Bodentyp",
+      "landOwnership": "Grundstückseigentum",
+      "operators": "Betreiber",
+      "solarShield": "Strahlungsschutz",
+      "noInfo": "Keine weiteren Informationen verfügbar.",
+      "altitudeValue": "{alt} m ü. NN",
+      "municipalityValue": "{comune} (TN)"
+    }
+  },
+  "charts": {
+    "temperature": "Temperatur (°C)",
+    "dewPoint": "Taupunkt (°C)",
+    "humidity": "Luftfeuchtigkeit (%)",
+    "wind": "Wind (km/h)",
+    "gust": "Böe (km/h)",
+    "rain": "Regen (mm)",
+    "rainRate": "Regenrate (mm/h)",
+    "pressure": "Luftdruck (hPa)"
+  },
+  "metadata": {
+    "home": {
+      "title": "Meteo Altopiano di Piné — Wetter Hochebene Piné",
+      "description": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien). Amateur-Wetterstationen in Miola, Bedollo, Faida, Montesover, Serraia und weiteren Orten der Trentiner Hochebene.",
+      "ogDescription": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien), seit 2014.",
+      "twitterDescription": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien)."
+    },
+    "contacts": {
+      "title": "Kontakt",
+      "description": "Kontaktieren Sie Meteo Altopiano di Piné für Informationen, Meldungen oder Anfragen zu den Wetterstationen der Trentiner Hochebene.",
+      "ogTitle": "Kontakt | Meteo Altopiano di Piné",
+      "ogDescription": "Kontaktieren Sie Meteo Altopiano di Piné für Informationen oder Anfragen."
+    },
+    "station": {
+      "title": "Station {name}",
+      "description": "Echtzeit-Wetterdaten der Station {name}, {comune} ({alt}m) — Hochebene von Piné (Trient, Italien). Temperatur, Luftfeuchtigkeit, Wind, Regen und Luftdruck minütlich aktualisiert.",
+      "ogTitle": "Station {name} | Meteo Altopiano di Piné",
+      "ogDescription": "Temperatur, Luftfeuchtigkeit, Wind, Regen und Luftdruck in Echtzeit von {name} ({alt}m).",
+      "twitterDescription": "Live-Wetterdaten von {name} ({alt}m) — Hochebene von Piné.",
+      "fallback": "Wetterstation"
+    }
+  }
+}

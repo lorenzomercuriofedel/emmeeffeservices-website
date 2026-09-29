@@ -1,0 +1,233 @@
+{
+  "nav": {
+    "home": "Home",
+    "stations": "Stations",
+    "contacts": "Contacts",
+    "menu": "Menu"
+  },
+  "lang": {
+    "label": "Language",
+    "it": "Italian",
+    "en": "English",
+    "de": "German"
+  },
+  "hero": {
+    "stationOf": "{name} station",
+    "liveCount": "{count, plural, one {# live station} other {# live stations}}",
+    "noStations": "No live stations right now.",
+    "loading": "Loading data…",
+    "humidity": "Humidity {value}%",
+    "windFrom": "{strength} wind from the {dir}",
+    "strength": {
+      "calm": "calm",
+      "light": "light",
+      "moderate": "moderate",
+      "strong": "strong",
+      "intense": "intense"
+    }
+  },
+  "almanac": {
+    "title": "Almanac",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "dayLength": "Day length",
+    "moon": "Moon"
+  },
+  "moon": {
+    "0": "New moon",
+    "1": "Waxing crescent",
+    "2": "First quarter",
+    "3": "Waxing gibbous",
+    "4": "Full moon",
+    "5": "Waning gibbous",
+    "6": "Last quarter",
+    "7": "Waning crescent",
+    "unknown": "—"
+  },
+  "wmo": {
+    "0": "Clear sky",
+    "1": "Mainly clear",
+    "2": "Partly cloudy",
+    "3": "Overcast",
+    "45": "Fog",
+    "48": "Rime fog",
+    "51": "Light drizzle",
+    "53": "Drizzle",
+    "55": "Heavy drizzle",
+    "56": "Light freezing drizzle",
+    "57": "Heavy freezing drizzle",
+    "61": "Light rain",
+    "63": "Rain",
+    "65": "Heavy rain",
+    "66": "Light freezing rain",
+    "67": "Heavy freezing rain",
+    "71": "Light snow",
+    "73": "Snow",
+    "75": "Heavy snow",
+    "77": "Snow grains",
+    "80": "Light showers",
+    "81": "Showers",
+    "82": "Violent showers",
+    "85": "Light snow showers",
+    "86": "Heavy snow showers",
+    "95": "Thunderstorm",
+    "96": "Thunderstorm with hail",
+    "99": "Thunderstorm with heavy hail"
+  },
+  "windName": {
+    "N": "North",
+    "NNE": "North-Northeast",
+    "NE": "Northeast",
+    "ENE": "East-Northeast",
+    "E": "East",
+    "ESE": "East-Southeast",
+    "SE": "Southeast",
+    "SSE": "South-Southeast",
+    "S": "South",
+    "SSW": "South-Southwest",
+    "SW": "Southwest",
+    "WSW": "West-Southwest",
+    "W": "West",
+    "WNW": "West-Northwest",
+    "NW": "Northwest",
+    "NNW": "North-Northwest"
+  },
+  "map": {
+    "title": "Live station map",
+    "subtitle": "{online} of {total} stations online · click a marker for details · updated at {time}",
+    "openStation": "Open station →",
+    "offline": "offline",
+    "scale": "{metric} scale",
+    "metric": {
+      "temperature": "Temperature",
+      "rain": "Rain",
+      "wind": "Wind"
+    }
+  },
+  "intro": {
+    "eyebrow": "The project",
+    "title": "An amateur weather portal, since 2014",
+    "p1": "Meteo Altopiano di Piné gathers readings from the weather stations on the Piné Plateau (Trento, Italy), run by local weather enthusiast Lorenzo Mercurio Fedel.",
+    "p2": "All the project's stations are part of the A.P.S. <b>Meteo Trentino Alto Adige</b> association network.",
+    "cta": "Get in touch for info or requests"
+  },
+  "contacts": {
+    "eyebrow": "Contacts",
+    "title": "Write to us",
+    "subtitle": "For information, reports or requests about the project's weather stations."
+  },
+  "footer": {
+    "tagline": "Amateur weather-monitoring portal for the Piné Plateau (Trento, Italy). Real-time data from the local station network.",
+    "contactUs": "Contact us",
+    "partner": "Partners",
+    "usefulLinks": "Useful Links",
+    "weatherNetworks": "Weather Networks",
+    "privacyPolicy": "Privacy Policy",
+    "customizeTracking": "Customize ad tracking",
+    "rights": "© {year} Meteo Altopiano di Piné · All rights reserved",
+    "madeWith": "Made with",
+    "by": "by",
+    "agencyTagline": "— the Dolomites web agency",
+    "madeByAria": "Website built by Rhaeticon"
+  },
+  "station": {
+    "backToAll": "All stations",
+    "title": "{name} station",
+    "subtitle": "{comune} (TN) · {alt} m a.s.l.",
+    "notFound": "Station not found.",
+    "live": "Live",
+    "offline": "Offline",
+    "updatedAt": "Updated at {time}",
+    "currentMeasurements": "Current measurements",
+    "last24h": "Last 24h",
+    "dailyExtremes": "Daily extremes",
+    "tabs": {
+      "temp": "Temperature",
+      "hum": "Humidity",
+      "wind": "Wind",
+      "rain": "Rain",
+      "press": "Pressure"
+    },
+    "tiles": {
+      "temp": "Temp",
+      "hum": "Humidity",
+      "wind": "Wind",
+      "rain": "Rain",
+      "press": "Pressure"
+    },
+    "extremes": {
+      "minTemp": "Min temperature",
+      "maxTemp": "Max temperature",
+      "avgTemp": "Avg temperature",
+      "minHum": "Min humidity",
+      "maxHum": "Max humidity",
+      "avgHum": "Avg humidity",
+      "maxWspeed": "Max speed",
+      "avgWspeed": "Avg speed",
+      "maxWgust": "Max gust",
+      "dominantDir": "Dominant direction",
+      "maxRrate": "Max intensity",
+      "minPress": "Min pressure",
+      "maxPress": "Max pressure",
+      "avgPress": "Avg pressure"
+    },
+    "info": {
+      "eyebrow": "Information",
+      "registry": "Station details",
+      "tabs": {
+        "location": "Location",
+        "details": "Technical details",
+        "info": "Info"
+      },
+      "locality": "Locality",
+      "municipality": "Municipality",
+      "hamlet": "Hamlet",
+      "altitude": "Altitude",
+      "coordinates": "Coordinates",
+      "installDate": "Installation date",
+      "model": "Make and model",
+      "issHeight": "ISS height above ground",
+      "anemometerHeight": "Anemometer height",
+      "placement": "Placement",
+      "terrainType": "Terrain type",
+      "landOwnership": "Land ownership",
+      "operators": "Operators",
+      "solarShield": "Solar shield",
+      "noInfo": "No additional information available.",
+      "altitudeValue": "{alt} m a.s.l.",
+      "municipalityValue": "{comune} (TN)"
+    }
+  },
+  "charts": {
+    "temperature": "Temperature (°C)",
+    "dewPoint": "Dew point (°C)",
+    "humidity": "Humidity (%)",
+    "wind": "Wind (km/h)",
+    "gust": "Gust (km/h)",
+    "rain": "Rain (mm)",
+    "rainRate": "Rain rate (mm/h)",
+    "pressure": "Pressure (hPa)"
+  },
+  "metadata": {
+    "home": {
+      "title": "Meteo Altopiano di Piné — Piné Plateau Weather",
+      "description": "Real-time weather readings from the Piné Plateau (Trento, Italy). Amateur weather stations in Miola, Bedollo, Faida, Montesover, Serraia and other villages of the Trentino plateau.",
+      "ogDescription": "Real-time weather readings from the Piné Plateau (Trento, Italy), since 2014.",
+      "twitterDescription": "Real-time weather readings from the Piné Plateau (Trento, Italy)."
+    },
+    "contacts": {
+      "title": "Contacts",
+      "description": "Contact Meteo Altopiano di Piné for information, reports or requests about the weather stations of the Trentino plateau.",
+      "ogTitle": "Contacts | Meteo Altopiano di Piné",
+      "ogDescription": "Contact Meteo Altopiano di Piné for information or requests."
+    },
+    "station": {
+      "title": "{name} station",
+      "description": "Real-time weather data from the {name} station, {comune} ({alt}m) — Piné Plateau (Trento, Italy). Temperature, humidity, wind, rain and pressure updated every minute.",
+      "ogTitle": "{name} station | Meteo Altopiano di Piné",
+      "ogDescription": "Real-time temperature, humidity, wind, rain and pressure from {name} ({alt}m).",
+      "twitterDescription": "Live weather data from {name} ({alt}m) — Piné Plateau.",
+      "fallback": "Weather Station"
+    }
+  }
+}
