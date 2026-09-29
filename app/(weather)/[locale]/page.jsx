@@ -1,7 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { fetchOpenMeteoCurrent } from '@/src/utils/openMeteo';
 import HeroLive from '@/src/components/home/HeroLive';
-import IntroSection from '@/src/components/home/IntroSection';
 import WeatherMapLoader from '@/src/components/home/WeatherMapLoader';
 
 export default async function HomePage({ params }) {
@@ -19,7 +18,6 @@ export default async function HomePage({ params }) {
     <>
       <HeroLive initialMeteo={initialMeteo} />
       <WeatherMapLoader />
-      <IntroSection />
     </>
   );
 }
