@@ -5,6 +5,7 @@ import { fetchStationInfo, fetchStations, fetchLastData } from '@/src/services/a
 import { isStationLive } from '@/src/utils/weather';
 import StationLiveData from '@/src/components/station/StationLiveData';
 import StationInfo from '@/src/components/station/StationInfo';
+import StationAlmanac from '@/src/components/station/StationAlmanac';
 
 const OG_LOCALE = { it: 'it_IT', en: 'en_US', de: 'de_DE' };
 
@@ -141,6 +142,8 @@ export default async function StationPage({ params }) {
 
       {/* Dati live (card iniziale da SSR, grafici dal client) */}
       <StationLiveData stationId={id} initialData={initialData} initialOnline={initialOnline} />
+
+      <StationAlmanac latitude={lat} longitude={lng} />
 
       {/* Info stazione SSR — indicizzabile */}
       <StationInfo anagrafica={anagrafica} />
