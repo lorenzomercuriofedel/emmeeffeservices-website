@@ -255,8 +255,8 @@
   "customers": {
     "label": "Cliente",
     "title": "Progetto meteo: {name}",
-    "project": "Il progetto",
-    "noDescription": "La descrizione del progetto non è ancora disponibile.",
+    "project": "L’osservatorio del cliente",
+    "noDescription": "La descrizione dell’osservatorio del cliente non è ancora disponibile.",
     "stationsTitle": "Stazioni del cliente",
     "openStation": "Apri la stazione",
     "backToMap": "Torna alla mappa",

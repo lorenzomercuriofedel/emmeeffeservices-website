@@ -1,3 +1,4 @@
+import { customerRobots, weatherTitle, SITE_TITLE } from '../src/utils/seo.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getCustomer, groupCustomers, customerPath, customerDescription, findCustomerByRouteId } from '../src/utils/customers.js';
@@ -58,4 +59,25 @@ test('resolves customer routes with spaces, accents and punctuation', () => {
   assert.equal(findCustomerByRouteId(groups, encodeURIComponent(id)), groups[0]);
   assert.equal(findCustomerByRouteId(groups, id), groups[0]);
   assert.equal(findCustomerByRouteId(groups, 'missing'), undefined);
+});
+
+test('customer indexing requires explicit consent on every station', () => {
+  for (const value of [undefined, null, false, 0, '0', 'false', '', 'yes']) {
+    const customer = getCustomer({ customer: 'Example', customer_web_public: value });
+    assert.equal(customer.webPublic, false);
+    assert.equal(customerRobots(customer, true).index, false);
+  }
+  for (const value of [true, 1, '1', 'true']) {
+    const customer = getCustomer({ customer: 'Example', customer_web_public: value });
+    assert.equal(customerRobots(customer, true).index, true);
+    assert.equal(customerRobots(customer, false).index, false);
+  }
+  const stations = [{ customer: 'Example', customer_web_public: 1 }, { customer: 'Example', customer_web_public: 0 }];
+  assert.equal(groupCustomers(stations)[0].webPublic, false);
+  assert.equal(groupCustomers([...stations].reverse())[0].webPublic, false);
+  assert.equal(groupCustomers(stations.map(s => ({ ...s, customer_web_public: 1 })))[0].webPublic, true);
+});
+test('weather titles share the root branding', () => {
+  assert.equal(weatherTitle(), `emme-effe meteo | ${SITE_TITLE}`);
+  assert.equal(weatherTitle('Miola'), `Miola | emme-effe meteo | ${SITE_TITLE}`);
 });

@@ -1,14 +1,15 @@
+import { SITE_TITLE } from '@/src/utils/seo';
 import './company.css';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 
 const companyMetadata = {
   metadataBase: new URL('https://emmeeffeservices.it'),
-  title: 'Emme-Effe Services di Lorenzo Mercurio Fedel',
+  title: SITE_TITLE,
   description: 'Analisi di dati meteo-climatici, ambientali, catastali e storici. Analisi fondiarie, mappe e report. Emme-Effe Services di Lorenzo Mercurio Fedel, a Miola, Baselga di Piné, Trentino.',
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Emme-Effe Services di Lorenzo Mercurio Fedel — Dati e territorio',
+    title: SITE_TITLE,
     description: 'Competenze informatiche e conoscenza del territorio. Analisi dati e analisi fondiarie dal cuore del Trentino.',
     siteName: 'Emme-Effe Services di Lorenzo Mercurio Fedel',
     type: 'website', locale: 'it_IT', url: '/',

@@ -1,3 +1,4 @@
+import { WEATHER_TITLE } from '@/src/utils/seo';
 import '../../globals.css';
 import { Manrope, Fraunces } from 'next/font/google';
 import { notFound } from 'next/navigation';
@@ -58,8 +59,8 @@ export async function generateMetadata({ params }) {
   return {
     metadataBase: new URL(baseUrl),
     title: {
-      default: t('title'),
-      template: '%s | emme-effe meteo',
+      default: WEATHER_TITLE,
+      template: `%s | ${WEATHER_TITLE}`,
     },
     description: t('description'),
     keywords: KEYWORDS,
@@ -75,12 +76,12 @@ export async function generateMetadata({ params }) {
       locale: OG_LOCALE[locale],
       url: new URL(HOME_PATH[locale], baseUrl).toString(),
       siteName: 'emme-effe meteo',
-      title: t('title'),
+      title: WEATHER_TITLE,
       description: t('ogDescription'),
     },
     twitter: {
       card: 'summary_large_image',
-      title: t('title'),
+      title: WEATHER_TITLE,
       description: t('twitterDescription'),
     },
     robots: isProd

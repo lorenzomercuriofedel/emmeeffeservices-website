@@ -81,3 +81,21 @@ Le lingue della sezione meteo conservano gli URL attuali. La pagina aziendale e
 le future sezioni senza routing specifico usano `?lang=en` o `?lang=de`.
 La navbar è comune; le future sezioni devono usare NextIntlClientProvider e il
 locale risolto dal middleware per integrare il selettore.
+
+## Consenso all'indicizzazione
+
+Aggiungere `customer_web_public` (BOOLEAN/TINYINT, NOT NULL, DEFAULT 0) alla
+anagrafica clienti; finché `customer` è testuale, restituire lo stesso valore
+per tutte le stazioni del cliente sia nell'elenco sia nel dettaglio API.
+Sono accettati come consenso `true`, `1`, `"1"`, `"true"`; ogni altro valore,
+compreso un campo assente, nega l'indicizzazione.
+
+In produzione, solo i clienti con consenso esplicito su tutte le loro stazioni
+hanno `index, follow` e sono inclusi nella sitemap nelle tre lingue. Valori
+incoerenti non abilitano l'indicizzazione. Preview e sviluppo restano noindex.
+Pagina e sitemap leggono i dati aggiornati senza cache persistente; il motore
+di ricerca applicherà le modifiche quando visiterà nuovamente la pagina.
+
+Il campo controlla l'indicizzazione: le pagine senza consenso restano visitabili
+tramite URL con `noindex, nofollow`. Non sono aree private e non viene aggiunta
+alcuna autenticazione o gestione delle stazioni in questa modifica.

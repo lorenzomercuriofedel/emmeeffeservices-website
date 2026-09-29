@@ -1,3 +1,4 @@
+import { weatherTitle } from '@/src/utils/seo';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 
 const EMAIL = 'mp@emmeeffeservices.it';
@@ -21,8 +22,9 @@ export async function generateMetadata({ params }) {
         'x-default': '/meteo/contatti',
       },
     },
+    twitter: { title: weatherTitle(t('title')) },
     openGraph: {
-      title: t('ogTitle'),
+      title: weatherTitle(t('title')),
       description: t('ogDescription'),
       url: PATH[locale],
       locale: OG_LOCALE[locale],

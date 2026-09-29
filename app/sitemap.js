@@ -1,6 +1,8 @@
-import { fetchStations } from '@/src/services/api';
+import { fetchCustomerStations } from '@/src/services/api';
 import { groupCustomers, customerPath } from '@/src/utils/customers';
 import { routing } from '@/src/i18n/routing';
+
+export const dynamic = 'force-dynamic';
 
 const PROD_URL = 'https://emmeeffeservices.it';
 
@@ -49,7 +51,7 @@ export default async function sitemap() {
 
   let stations = [];
   try {
-    stations = await fetchStations();
+    stations = await fetchCustomerStations();
   } catch {
     stations = [];
   }
@@ -60,7 +62,7 @@ export default async function sitemap() {
     priority: 0.8,
   }));
 
-  const customerPaths = groupCustomers(stations).map((customer) => ({
+  const customerPaths = groupCustomers(stations).filter((customer) => customer.webPublic && process.env.VERCEL_ENV === 'production').map((customer) => ({
     path: customerPath(customer), changeFrequency: 'weekly', priority: 0.6,
   }));
   const companyLanguages = { it: `${baseUrl}/`, en: `${baseUrl}/?lang=en`, de: `${baseUrl}/?lang=de` };

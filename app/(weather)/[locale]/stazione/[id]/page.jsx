@@ -1,3 +1,4 @@
+import { weatherTitle } from '@/src/utils/seo';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/src/i18n/navigation';
 import { routing } from '@/src/i18n/routing';
@@ -33,13 +34,13 @@ export async function generateMetadata({ params }) {
         },
       },
       openGraph: {
-        title: t('ogTitle', vars),
+        title: weatherTitle(t('title', vars)),
         description: t('ogDescription', vars),
         url: stationPath(locale, id),
         locale: OG_LOCALE[locale],
       },
       twitter: {
-        title: t('title', vars),
+        title: weatherTitle(t('title', vars)),
         description: t('twitterDescription', vars),
       },
     };

@@ -1,35 +1,30 @@
+import { customerRobots, weatherTitle } from '@/src/utils/seo';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { fetchStations, fetchStationInfo } from '@/src/services/api';
+import { fetchCustomerStations } from '@/src/services/api';
 import { groupCustomers, customerDescription, customerPath, findCustomerByRouteId } from '@/src/utils/customers';
 import { Link } from '@/src/i18n/navigation';
 
 const loadCustomer = cache(async (id) => {
-  // Customer assignments may change independently of weather readings.
-  // React cache deduplicates metadata/page requests without persisting old groups.
-  const stations = await fetchStations({ cache: 'no-store' });
-  // The list endpoint may omit customer data; use the full station registry in that case.
-  const fullStations = await Promise.all(stations.map(async (station) => {
-    if (Object.hasOwn(station, 'customer')) return station;
-    const details = await fetchStationInfo(station.id, { cache: 'no-store' });
-    return { ...station, ...details };
-  }));
+  const fullStations = await fetchCustomerStations();
   return findCustomerByRouteId(groupCustomers(fullStations), id);
 });
 
 export async function generateMetadata({ params }) {
   const { locale, id } = await params;
   const customer = await loadCustomer(id);
-  if (!customer) return {};
+  if (!customer) notFound();
   const t = await getTranslations({ locale, namespace: 'customers' });
   const path = customerPath(customer);
   const languages = { it: `/meteo${path}`, en: `/meteo/en${path}`, de: `/meteo/de${path}`, 'x-default': `/meteo${path}` };
   return {
     title: t('title', { name: customer.name }),
+    robots: customerRobots(customer),
     description: customerDescription(customer, locale) || t('stationsTitle'),
     alternates: { canonical: languages[locale], languages },
-    openGraph: { title: t('title', { name: customer.name }), url: languages[locale] },
+    openGraph: { title: weatherTitle(t('title', { name: customer.name })), url: languages[locale] },
+    twitter: { title: weatherTitle(t('title', { name: customer.name })) },
   };
 }
 

@@ -31,3 +31,13 @@ export async function fetchDailyExtremes(id) {
   const res = await fetch(`${API_BASE}/dati_stazioni.php?daily=true&id=${id}`, { cache: 'no-store' });
   return res.json();
 }
+
+// Shared fresh registry for customer metadata and sitemap eligibility.
+export async function fetchCustomerStations() {
+  const stations = await fetchStations({ cache: 'no-store' });
+  return Promise.all(stations.map(async (station) => {
+    if (Object.hasOwn(station, 'customer') && Object.hasOwn(station, 'customer_web_public')) return station;
+    const details = await fetchStationInfo(station.id, { cache: 'no-store' });
+    return { ...station, ...details };
+  }));
+}
