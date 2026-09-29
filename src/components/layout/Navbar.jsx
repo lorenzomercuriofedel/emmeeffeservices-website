@@ -13,7 +13,6 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === '/';
 
   useEffect(() => {
     fetchStations().then(setStations).catch(() => {});
@@ -53,7 +52,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-0.5">
-          <NavLink href="/" active={isHome} transparent={transparent}>{t('home')}</NavLink>
+          <a href="/" className="px-3.5 py-2 text-sm font-medium rounded-lg text-ink-soft hover:text-ink hover:bg-sky-50 transition-colors">{t('home')}</a>
 
           <div className="relative">
             <button
@@ -85,8 +84,6 @@ export default function Navbar() {
             )}
           </div>
 
-          <NavLink href="/contatti" active={pathname === '/contatti'} transparent={transparent}>{t('contacts')}</NavLink>
-
           <span className="mx-1 h-5 w-px bg-sky-100" />
           <LanguageSwitcher variant="desktop" />
         </nav>
@@ -115,7 +112,7 @@ export default function Navbar() {
       {mobileOpen && (
         <nav className="lg:hidden bg-white border-t border-sky-100">
           <div className="px-3 py-3 space-y-0.5 max-h-[80vh] overflow-y-auto">
-            <MobileLink href="/">{t('home')}</MobileLink>
+            <a href="/" className="block px-3 py-2.5 text-sm font-medium text-ink-soft rounded-lg hover:bg-sky-50 hover:text-ink transition-colors">{t('home')}</a>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-semibold text-ink rounded-lg hover:bg-sky-50"
@@ -134,7 +131,6 @@ export default function Navbar() {
                 ))}
               </div>
             )}
-            <MobileLink href="/contatti">{t('contacts')}</MobileLink>
 
             <div className="pt-2 mt-2 border-t border-sky-100">
               <LanguageSwitcher variant="mobile" />
@@ -147,31 +143,6 @@ export default function Navbar() {
         <div className="fixed inset-0 z-[-1]" onClick={() => setDropdownOpen(false)} />
       )}
     </header>
-  );
-}
-
-function NavLink({ href, active, transparent, children }) {
-  if (transparent) {
-    return (
-      <Link
-        href={href}
-        className={`px-3.5 py-2 text-sm font-medium rounded-lg transition-colors ${
-          active ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
-        }`}
-      >
-        {children}
-      </Link>
-    );
-  }
-  return (
-    <Link
-      href={href}
-      className={`px-3.5 py-2 text-sm font-medium rounded-lg transition-colors ${
-        active ? 'text-sky-900 bg-sky-100' : 'text-ink-soft hover:text-ink hover:bg-sky-50'
-      }`}
-    >
-      {children}
-    </Link>
   );
 }
 
