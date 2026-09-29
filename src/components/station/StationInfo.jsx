@@ -78,9 +78,7 @@ export default function StationInfo({ anagrafica }) {
                   <InfoRow label={t('anemometerHeight')} value={anagrafica.altezza_anemometro_dal_suolo ? `${Number(anagrafica.altezza_anemometro_dal_suolo).toFixed(2)} m` : null} />
                   <InfoRow label={t('placement')} value={anagrafica.ubicazione} />
                   <InfoRow label={t('terrainType')} value={anagrafica.tipo_terreno} />
-                  <InfoRow label={t('landOwnership')} value={anagrafica.propr_terreno} />
                   <InfoRow label={t('customer')} value={customer ? <Link href={customerPath(customer)} className="text-sky-700 underline underline-offset-4">{customer.name}</Link> : null} />
-                  <InfoRow label={t('operators')} value={anagrafica.desc_gestori} />
                   <InfoRow label={t('solarShield')} value={anagrafica.schermo_solare} />
                 </div>
               )}
