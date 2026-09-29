@@ -7,7 +7,6 @@ import StationLiveData from '@/src/components/station/StationLiveData';
 import StationInfo from '@/src/components/station/StationInfo';
 import StationAlmanac from '@/src/components/station/StationAlmanac';
 import StationConditions from '@/src/components/station/StationConditions';
-import LanguageSwitcher from '@/src/components/layout/LanguageSwitcher';
 
 const OG_LOCALE = { it: 'it_IT', en: 'en_US', de: 'de_DE' };
 
@@ -141,8 +140,6 @@ export default async function StationPage({ params }) {
           </p>
         </div>
       </section>
-
-      <div className="max-w-5xl mx-auto px-4 py-8 flex justify-end"><LanguageSwitcher /></div>
 
       {/* Dati live (card iniziale da SSR, grafici dal client) */}
       <StationLiveData stationId={id} initialData={initialData} initialOnline={initialOnline} />

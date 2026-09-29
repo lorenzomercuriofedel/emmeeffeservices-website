@@ -1,4 +1,5 @@
 import { fetchStations } from '@/src/services/api';
+import { groupCustomers, customerPath } from '@/src/utils/customers';
 import { routing } from '@/src/i18n/routing';
 
 const PROD_URL = 'https://emmeeffeservices.it';
@@ -59,7 +60,15 @@ export default async function sitemap() {
     priority: 0.8,
   }));
 
-  return [{ url: `${baseUrl}/`, lastModified, changeFrequency: 'monthly', priority: 1 }, ...[...staticPaths, ...stationPaths].flatMap(({ path, changeFrequency, priority }) =>
+  const customerPaths = groupCustomers(stations).map((customer) => ({
+    path: customerPath(customer), changeFrequency: 'weekly', priority: 0.6,
+  }));
+  const companyLanguages = { it: `${baseUrl}/`, en: `${baseUrl}/?lang=en`, de: `${baseUrl}/?lang=de` };
+  const companyEntries = Object.values(companyLanguages).map((url) => ({
+    url, lastModified, changeFrequency: 'monthly', priority: 1,
+    alternates: { languages: { ...companyLanguages, 'x-default': `${baseUrl}/` } },
+  }));
+  return [...companyEntries, ...[...staticPaths, ...stationPaths, ...customerPaths].flatMap(({ path, changeFrequency, priority }) =>
     localizedEntries(path, { lastModified, changeFrequency, priority })
   )];
 }

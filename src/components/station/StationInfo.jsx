@@ -3,10 +3,14 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/src/i18n/navigation';
+import { getCustomer, customerPath } from '@/src/utils/customers';
 
 export default function StationInfo({ anagrafica }) {
   const t = useTranslations('station.info');
   const [activeTab, setActiveTab] = useState('posizione');
+
+  const customer = getCustomer(anagrafica);
 
   const tabs = [
     { id: 'posizione', label: t('tabs.location') },
@@ -75,6 +79,7 @@ export default function StationInfo({ anagrafica }) {
                   <InfoRow label={t('placement')} value={anagrafica.ubicazione} />
                   <InfoRow label={t('terrainType')} value={anagrafica.tipo_terreno} />
                   <InfoRow label={t('landOwnership')} value={anagrafica.propr_terreno} />
+                  <InfoRow label={t('customer')} value={customer ? <Link href={customerPath(customer)} className="text-sky-700 underline underline-offset-4">{customer.name}</Link> : null} />
                   <InfoRow label={t('operators')} value={anagrafica.desc_gestori} />
                   <InfoRow label={t('solarShield')} value={anagrafica.schermo_solare} />
                 </div>

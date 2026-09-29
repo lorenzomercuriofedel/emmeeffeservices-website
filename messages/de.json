@@ -102,7 +102,10 @@
       "temperature": "Temperatur",
       "rain": "Regen",
       "wind": "Wind"
-    }
+    },
+    "customer": "Kunde",
+    "allCustomers": "Alle Kunden",
+    "customerProject": "Kundenprojekt ansehen"
   },
   "intro": {
     "eyebrow": "Das Projekt",
@@ -195,7 +198,8 @@
       "solarShield": "Strahlungsschutz",
       "noInfo": "Keine weiteren Informationen verfügbar.",
       "altitudeValue": "{alt} m ü. NN",
-      "municipalityValue": "{comune} (TN)"
+      "municipalityValue": "{comune} (TN)",
+      "customer": "Kunde"
     }
   },
   "charts": {
@@ -240,5 +244,64 @@
     "title": "Wetterbedingungen in {name}",
     "unavailable": "Wetterbedingungen nicht verfügbar",
     "source": "Von Open-Meteo geschätzte Bedingungen für die Stationskoordinaten."
+  },
+  "siteNav": {
+    "services": "Leistungen",
+    "weather": "Wetter",
+    "contacts": "Kontakt",
+    "menu": "Menü",
+    "navigation": "Hauptnavigation"
+  },
+  "customers": {
+    "label": "Kunde",
+    "title": "Wetterprojekt: {name}",
+    "project": "Das Projekt",
+    "noDescription": "Die Projektbeschreibung ist noch nicht verfügbar.",
+    "stationsTitle": "Stationen des Kunden",
+    "openStation": "Station ansehen",
+    "backToMap": "Zurück zur Karte",
+    "types": {
+      "professional": "Professionell",
+      "hobby": "Hobby",
+      "other": "Sonstiges"
+    }
+  },
+  "company": {
+    "skip": "Zum Inhalt",
+    "headline": "Daten, Landschaft.",
+    "new": "Neue",
+    "perspectives": "Perspektiven.",
+    "intro": "IT-Kompetenz und Ortskenntnis, um komplexe Informationen in nützliche Werkzeuge und fundierte Entscheidungen umzusetzen.",
+    "explore": "Leistungen entdecken",
+    "terrainAlt": "Abstrakte Darstellung von Höhenlinien, Grundstücken und Wegen: verschiedene Perspektiven auf eine Landschaft.",
+    "starting": "Ein Ausgangspunkt.",
+    "plateau": "Die Hochebene von Piné.",
+    "areas": "Tätigkeitsbereiche",
+    "services": "und Leistungen",
+    "dataTitle": "Datenanalyse",
+    "dataTitleEnd": " und Datenverarbeitung",
+    "dataText": "Informationen ordnen, Zusammenhänge erkennen und verständlich visualisieren.",
+    "dataTextEnd": "Verarbeitung von Kataster-, Immobilien-, Wetter-, Klima- und genealogischen Daten. Transkription, Digitalisierung, Datenerfassung und Massenverarbeitung.",
+    "atecoCodes": "Unter der Umsatzsteuer-ID registrierte Tätigkeit mit ATECO-Codes",
+    "dataActivity": " — „Sonstige Datenverarbeitung“ und ",
+    "itActivity": " — „IT-Beratung“. ",
+    "landTitle": "Immobilien- und Grundstücks-",
+    "landTitleEnd": "beratung und -analyse",
+    "landText": "Ein Grundstück verstehen, seine Eigenschaften erfassen und seine Möglichkeiten beurteilen. Unterstützung bei Verwaltungsverfahren in Zusammenarbeit mit Fachleuten.",
+    "noBrokerage": "Die Leistungen umfassen keine Vermittlungstätigkeit.",
+    "atecoCode": "Unter der Umsatzsteuer-ID registrierte Tätigkeit mit ATECO-Code",
+    "landActivity": " — „Sonstige Immobilienaktivitäten im Auftrag Dritter, anderweitig nicht genannt“. ",
+    "conversation": " BEGINNEN WIR MIT EINEM GESPRÄCH",
+    "contactTitle1": "Daten verstehen.",
+    "contactTitle2": "Ein Grundstück kennenlernen.",
+    "contactTitle3": "Eine Idee teilen.",
+    "contactText": "Für Informationen zu unseren Leistungen oder eine Projektanfrage",
+    "contactTextEnd": " kontaktieren Sie Lorenzo direkt.",
+    "emails": "E-Mail-Kontakte",
+    "general": "Allgemeine Anfragen",
+    "dataEmail": "Datenverarbeitung",
+    "landEmail": "Grundstücksanalyse",
+    "whatsapp": "Schreiben Sie mir auf WhatsApp",
+    "appointment": "Analysen und Beratung vor Ort oder online nach Vereinbarung."
   }
 }

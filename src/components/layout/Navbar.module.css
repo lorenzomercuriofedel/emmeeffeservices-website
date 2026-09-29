@@ -39,3 +39,7 @@
 
 .contact { border: 1px solid #224f8b; padding: 13px 19px; display: flex; }
 @media (max-width: 760px) { .navigation > .contact { padding: 10px 15px; } }
+
+.languageList { display: flex; align-items: center; gap: 4px; font-size: 12px; }
+.languageList a { display: block; padding: 8px; border: 1px solid transparent; line-height: 1.2; }
+.languageList a[aria-current="true"] { border-color: #224f8b; font-weight: 700; }

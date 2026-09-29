@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from '@/src/i18n/navigation';
+import { getCustomer, groupCustomers, customerPath } from '@/src/utils/customers';
+import { Link, useRouter } from '@/src/i18n/navigation';
 import { MapContainer, TileLayer, Marker, Tooltip, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -112,11 +113,18 @@ export default function WeatherMap() {
     };
   }, []);
 
-  const positions = markers
+  const [customerFilter, setCustomerFilter] = useState('');
+  const customers = groupCustomers(markers.map(({ station }) => station));
+  const selectedCustomer = customers.find((customer) => customer.id === customerFilter);
+  const visibleMarkers = customerFilter
+    ? markers.filter(({ station }) => getCustomer(station)?.id === customerFilter)
+    : markers;
+
+  const positions = visibleMarkers
     .filter((m) => m.station.latitudine && m.station.longitudine)
     .map((m) => [parseFloat(m.station.latitudine), parseFloat(m.station.longitudine)]);
 
-  const onlineCount = markers.filter((m) => m.online).length;
+  const onlineCount = visibleMarkers.filter((m) => m.online).length;
   const timeStr = updatedAt
     ? `${String(updatedAt.getHours()).padStart(2, '0')}:${String(updatedAt.getMinutes()).padStart(2, '0')}`
     : '—';
@@ -131,7 +139,7 @@ export default function WeatherMap() {
             <div>
               <h2 className="text-lg md:text-xl font-bold text-ink leading-tight">{t('title')}</h2>
               <p className="text-xs text-ink-mute mt-0.5">
-                {t('subtitle', { online: onlineCount, total: markers.length, time: timeStr })}
+                {t('subtitle', { online: onlineCount, total: visibleMarkers.length, time: timeStr })}
               </p>
             </div>
 
@@ -170,7 +178,15 @@ export default function WeatherMap() {
             </div>
           </div>
 
-          <div className="relative flex-1">
+          <div className="flex flex-wrap items-center gap-3 px-5 py-3 border-b border-sky-100">
+            <label htmlFor="customer-filter" className="text-sm font-semibold text-ink">{t('customer')}</label>
+            <select id="customer-filter" value={customerFilter} onChange={(event) => setCustomerFilter(event.target.value)} className="max-w-full rounded-lg border border-sky-200 bg-white px-3 py-2 text-sm">
+              <option value="">{t('allCustomers')}</option>
+              {customers.map((customer) => <option key={customer.id} value={customer.id}>{customer.name}</option>)}
+            </select>
+            {selectedCustomer && <Link href={customerPath(selectedCustomer)} className="text-sm text-sky-700 underline">{t('customerProject')}</Link>}
+          </div>
+          <div className="relative flex-1 min-h-0">
             {loading && (
               <div className="absolute inset-0 z-[1000] bg-white/85 backdrop-blur-sm flex items-center justify-center">
                 <div className="spinner-alpine" />
@@ -190,7 +206,7 @@ export default function WeatherMap() {
               />
               <FitBounds positions={positions} />
 
-              {markers.map(({ station, data, online }) => {
+              {visibleMarkers.map(({ station, data, online }) => {
                 if (!station.latitudine || !station.longitudine) return null;
 
                 const tempVal = online && data ? parseFloat(data.Temperature) : null;

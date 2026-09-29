@@ -1,6 +1,8 @@
 import './company.css';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 
-export const metadata = {
+const companyMetadata = {
   metadataBase: new URL('https://emmeeffeservices.it'),
   title: 'Emme-Effe Services di Lorenzo Mercurio Fedel',
   description: 'Analisi di dati meteo-climatici, ambientali, catastali e storici. Analisi fondiarie, mappe e report. Emme-Effe Services di Lorenzo Mercurio Fedel, a Miola, Baselga di Piné, Trentino.',
@@ -15,6 +17,16 @@ export const metadata = {
 
 export const viewport = { themeColor: '#224f8b' };
 
-export default function CompanyLayout({ children }) {
-  return <html lang="it"><body>{children}</body></html>;
+export async function generateMetadata() {
+  const locale = await getLocale();
+  const t = await getTranslations('company');
+  const languages = { it: '/', en: '/?lang=en', de: '/?lang=de', 'x-default': '/' };
+  return { ...companyMetadata, description: t('intro'), alternates: { canonical: languages[locale], languages },
+    openGraph: { ...companyMetadata.openGraph, description: t('intro'), locale: { it: 'it_IT', en: 'en_US', de: 'de_DE' }[locale], url: languages[locale] } };
+}
+
+export default async function CompanyLayout({ children }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+  return <html lang={locale}><body><NextIntlClientProvider locale={locale} messages={messages}>{children}</NextIntlClientProvider></body></html>;
 }

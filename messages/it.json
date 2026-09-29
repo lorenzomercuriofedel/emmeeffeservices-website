@@ -102,7 +102,10 @@
       "temperature": "Temperatura",
       "rain": "Pioggia",
       "wind": "Vento"
-    }
+    },
+    "customer": "Cliente",
+    "allCustomers": "Tutti i clienti",
+    "customerProject": "Vedi il progetto del cliente"
   },
   "intro": {
     "eyebrow": "Il progetto",
@@ -195,7 +198,8 @@
       "solarShield": "Schermo solare",
       "noInfo": "Nessuna informazione aggiuntiva disponibile.",
       "altitudeValue": "{alt} m s.l.m.",
-      "municipalityValue": "{comune} (TN)"
+      "municipalityValue": "{comune} (TN)",
+      "customer": "Cliente"
     }
   },
   "charts": {
@@ -240,5 +244,64 @@
     "title": "Condizioni meteo a {name}",
     "unavailable": "Condizioni meteo non disponibili",
     "source": "Condizioni stimate da Open-Meteo per le coordinate della stazione."
+  },
+  "siteNav": {
+    "services": "Servizi",
+    "weather": "Meteo",
+    "contacts": "Contatti",
+    "menu": "Menu",
+    "navigation": "Navigazione principale"
+  },
+  "customers": {
+    "label": "Cliente",
+    "title": "Progetto meteo: {name}",
+    "project": "Il progetto",
+    "noDescription": "La descrizione del progetto non è ancora disponibile.",
+    "stationsTitle": "Stazioni del cliente",
+    "openStation": "Apri la stazione",
+    "backToMap": "Torna alla mappa",
+    "types": {
+      "professional": "Professionale",
+      "hobby": "Amatoriale",
+      "other": "Altro"
+    }
+  },
+  "company": {
+    "skip": "Vai al contenuto",
+    "headline": "Dati, territorio.",
+    "new": "Nuove",
+    "perspectives": "prospettive.",
+    "intro": "Competenze informatiche e conoscenza del territorio, per trasformare informazioni complesse in strumenti utili e scelte consapevoli.",
+    "explore": "Esplora i servizi",
+    "terrainAlt": "Illustrazione astratta di curve di livello, particelle e percorsi: diversi modi di leggere un territorio.",
+    "starting": "Un punto di partenza.",
+    "plateau": "L’Altopiano di Piné.",
+    "areas": "Ambiti di attività",
+    "services": "e servizi offerti",
+    "dataTitle": "Analisi ed elaborazione",
+    "dataTitleEnd": " informatica dei dati",
+    "dataText": "Mettere ordine nelle informazioni, individuare relazioni, renderle leggibili e rappresentarle visivamente.",
+    "dataTextEnd": "Si elaborano dati catastali-immobiliari, meteo-climatologici, genealogici. Trascrizione, digitalizzazione, data entry e lavorazioni massive.",
+    "atecoCodes": "Attività regolarmente collegata alla P. IVA con codici ATECO",
+    "dataActivity": " — «Elaborazione altri dati» e ",
+    "itActivity": " — «Attività di consulenza informatica».",
+    "landTitle": "Consulenza ed analisi",
+    "landTitleEnd": " immobiliari e fondiarie",
+    "landText": "Conoscere un fondo, comprenderne le caratteristiche e valutarne le possibilità. Supporto al disbrigo di pratiche. Attività in sinergia con tecnici",
+    "noBrokerage": "Prestazioni senza attività di intermediazione.",
+    "atecoCode": "Attività regolarmente collegata alla P. IVA con codice ATECO",
+    "landActivity": " — «Altre attività immobiliari per conto terzi n.c.a.».",
+    "conversation": " PARTIAMO DA UNA CONVERSAZIONE",
+    "contactTitle1": "Un dato da capire.",
+    "contactTitle2": "Un terreno da conoscere.",
+    "contactTitle3": "Un’idea da condividere.",
+    "contactText": "Per informazioni sui servizi o per proporre un progetto,",
+    "contactTextEnd": " contatta direttamente Lorenzo.",
+    "emails": "Contatti email",
+    "general": "Informazioni generali",
+    "dataEmail": "Elaborazione dati",
+    "landEmail": "Analisi fondiaria",
+    "whatsapp": "Scrivimi su WhatsApp",
+    "appointment": "Analisi e consulenze sul posto o online, previo appuntamento."
   }
 }

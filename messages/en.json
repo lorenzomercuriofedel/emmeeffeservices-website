@@ -102,7 +102,10 @@
       "temperature": "Temperature",
       "rain": "Rain",
       "wind": "Wind"
-    }
+    },
+    "customer": "Customer",
+    "allCustomers": "All customers",
+    "customerProject": "View customer project"
   },
   "intro": {
     "eyebrow": "The project",
@@ -195,7 +198,8 @@
       "solarShield": "Solar shield",
       "noInfo": "No additional information available.",
       "altitudeValue": "{alt} m a.s.l.",
-      "municipalityValue": "{comune} (TN)"
+      "municipalityValue": "{comune} (TN)",
+      "customer": "Customer"
     }
   },
   "charts": {
@@ -240,5 +244,64 @@
     "title": "Weather conditions in {name}",
     "unavailable": "Weather conditions unavailable",
     "source": "Conditions estimated by Open-Meteo for the station coordinates."
+  },
+  "siteNav": {
+    "services": "Services",
+    "weather": "Weather",
+    "contacts": "Contact",
+    "menu": "Menu",
+    "navigation": "Main navigation"
+  },
+  "customers": {
+    "label": "Customer",
+    "title": "Weather project: {name}",
+    "project": "The project",
+    "noDescription": "The project description is not available yet.",
+    "stationsTitle": "Customer stations",
+    "openStation": "View station",
+    "backToMap": "Back to the map",
+    "types": {
+      "professional": "Professional",
+      "hobby": "Hobby",
+      "other": "Other"
+    }
+  },
+  "company": {
+    "skip": "Skip to content",
+    "headline": "Data, territory.",
+    "new": "New",
+    "perspectives": "perspectives.",
+    "intro": "IT expertise and local knowledge to turn complex information into useful tools and informed decisions.",
+    "explore": "Explore our services",
+    "terrainAlt": "Abstract illustration of contours, land parcels and paths: different ways of understanding a territory.",
+    "starting": "A starting point.",
+    "plateau": "The Piné plateau.",
+    "areas": "Areas of activity",
+    "services": "and services",
+    "dataTitle": "Data analysis",
+    "dataTitleEnd": " and processing",
+    "dataText": "Organising information, identifying connections and presenting it clearly and visually.",
+    "dataTextEnd": "Processing of cadastral, property, weather, climate and genealogical data. Transcription, digitisation, data entry and bulk processing.",
+    "atecoCodes": "Activity registered under the VAT number with ATECO codes",
+    "dataActivity": " — “Other data processing” and ",
+    "itActivity": " — “IT consulting activities”.",
+    "landTitle": "Property and land",
+    "landTitleEnd": " consulting and analysis",
+    "landText": "Understanding a property, its characteristics and its potential. Assistance with administrative procedures, working alongside technical professionals.",
+    "noBrokerage": "Services do not include brokerage.",
+    "atecoCode": "Activity registered under the VAT number with ATECO code",
+    "landActivity": " — “Other real estate activities on behalf of third parties, not elsewhere classified”.",
+    "conversation": " LET’S START WITH A CONVERSATION",
+    "contactTitle1": "Data to understand.",
+    "contactTitle2": "Land to explore.",
+    "contactTitle3": "An idea to share.",
+    "contactText": "For information about our services or to discuss a project,",
+    "contactTextEnd": " contact Lorenzo directly.",
+    "emails": "Email contacts",
+    "general": "General enquiries",
+    "dataEmail": "Data processing",
+    "landEmail": "Land analysis",
+    "whatsapp": "Message me on WhatsApp",
+    "appointment": "Analysis and consulting on site or online, by appointment."
   }
 }
