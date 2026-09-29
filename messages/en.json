@@ -229,5 +229,16 @@
       "twitterDescription": "Live weather data from {name} ({alt}m) — Piné Plateau.",
       "fallback": "Weather Station"
     }
+  },
+  "meteoServices": {
+    "title": "Weather systems, from sensors to data",
+    "description": "Emme-Effe Services offers consulting and development of weather monitoring systems, including processing and analysis of collected data. Interested in a new installation or a tailored service? Contact us for information and a quote.",
+    "cta": "Learn more",
+    "mapHint": "Select a station on the map to view readings, charts and weather conditions."
+  },
+  "stationConditions": {
+    "title": "Weather conditions in {name}",
+    "unavailable": "Weather conditions unavailable",
+    "source": "Conditions estimated by Open-Meteo for the station coordinates."
   }
 }

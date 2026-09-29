@@ -6,6 +6,8 @@ import { isStationLive } from '@/src/utils/weather';
 import StationLiveData from '@/src/components/station/StationLiveData';
 import StationInfo from '@/src/components/station/StationInfo';
 import StationAlmanac from '@/src/components/station/StationAlmanac';
+import StationConditions from '@/src/components/station/StationConditions';
+import LanguageSwitcher from '@/src/components/layout/LanguageSwitcher';
 
 const OG_LOCALE = { it: 'it_IT', en: 'en_US', de: 'de_DE' };
 
@@ -120,7 +122,7 @@ export default async function StationPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(stationJsonLd) }}
       />
       {/* Header SSR — indicizzabile */}
-      <section className="bg-alpine pt-28 md:pt-32 pb-10 px-4 relative overflow-hidden">
+      <section className="bg-alpine pt-10 md:pt-12 pb-10 px-4 relative overflow-hidden">
         <div className="max-w-5xl mx-auto relative z-10">
           <Link
             href="/#mappa"
@@ -140,9 +142,12 @@ export default async function StationPage({ params }) {
         </div>
       </section>
 
+      <div className="max-w-5xl mx-auto px-4 py-8 flex justify-end"><LanguageSwitcher /></div>
+
       {/* Dati live (card iniziale da SSR, grafici dal client) */}
       <StationLiveData stationId={id} initialData={initialData} initialOnline={initialOnline} />
 
+      <StationConditions latitude={lat} longitude={lng} name={anagrafica.nome} />
       <StationAlmanac latitude={lat} longitude={lng} />
 
       {/* Info stazione SSR — indicizzabile */}

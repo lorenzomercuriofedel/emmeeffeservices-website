@@ -14,8 +14,11 @@ function dayOfYear(date) {
 }
 
 /** Ritorna { sunrise, sunset, dayLengthHours } in ore decimali (locali). */
-export function getSunTimes(date = new Date(), lat = PINE_LAT, lng = PINE_LNG) {
-  const N = dayOfYear(date);
+export function getSunTimes(date = new Date(), lat = PINE_LAT, lng = PINE_LNG, timeZone) {
+  const parts = timeZone ? zonedParts(date, timeZone) : null;
+  const N = parts
+    ? Math.floor((Date.UTC(parts.year, parts.month - 1, parts.day) - Date.UTC(parts.year, 0, 0)) / 86400000)
+    : dayOfYear(date);
   // Declination
   const decl = -23.44 * Math.cos((2 * Math.PI / 365) * (N + 10)) * Math.PI / 180;
   const latRad = lat * Math.PI / 180;
@@ -30,7 +33,9 @@ export function getSunTimes(date = new Date(), lat = PINE_LAT, lng = PINE_LNG) {
   const sunsetUTC = solarNoonUTC + H;
 
   // Conversione UTC → locale (usa offset corrente del Date passato)
-  const tzOffset = -date.getTimezoneOffset() / 60;
+  const tzOffset = parts
+    ? (Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second) - Math.floor(date.getTime() / 1000) * 1000) / 3600000
+    : -date.getTimezoneOffset() / 60;
   const sunrise = (sunriseUTC + tzOffset + 24) % 24;
   const sunset = (sunsetUTC + tzOffset + 24) % 24;
 
@@ -73,8 +78,9 @@ export function getMoonInfo(date = new Date()) {
 }
 
 /** Ritorna chiave per il gradiente cielo in base all'ora locale rispetto ad alba/tramonto. */
-export function getSkyKey(date = new Date(), sunrise, sunset) {
-  const h = date.getHours() + date.getMinutes() / 60;
+export function getSkyKey(date = new Date(), sunrise, sunset, timeZone) {
+  const parts = timeZone ? zonedParts(date, timeZone) : null;
+  const h = parts ? parts.hour + parts.minute / 60 : date.getHours() + date.getMinutes() / 60;
   if (sunrise == null || sunset == null) return 'sky-noon';
 
   if (h < sunrise - 1) return 'sky-night';
@@ -90,4 +96,11 @@ export function getSkyKey(date = new Date(), sunrise, sunset) {
 
 export function isNightSky(skyKey) {
   return skyKey === 'sky-night' || skyKey === 'sky-predawn' || skyKey === 'sky-dusk';
+}
+
+function zonedParts(date, timeZone) {
+  return Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+    timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+  }).formatToParts(date).filter(({ type }) => type !== 'literal').map(({ type, value }) => [type, Number(value)]));
 }

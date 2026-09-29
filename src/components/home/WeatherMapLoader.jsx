@@ -42,7 +42,7 @@ export default function WeatherMapLoader() {
   }, [show]);
 
   return (
-    <section id="mappa" ref={ref} className="px-4 -mt-8 md:-mt-12 relative z-10">
+    <section id="mappa" ref={ref} className="px-4 pb-12 relative z-10 scroll-mt-6">
       <div className="max-w-7xl mx-auto">
         {show ? <WeatherMap /> : <MapSkeleton />}
       </div>

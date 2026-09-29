@@ -229,5 +229,16 @@
       "twitterDescription": "Live-Wetterdaten von {name} ({alt}m) — Hochebene von Piné.",
       "fallback": "Wetterstation"
     }
+  },
+  "meteoServices": {
+    "title": "Wettersysteme, von Sensoren zu Daten",
+    "description": "Emme-Effe Services bietet Beratung und Entwicklung meteorologischer Messsysteme sowie die Verarbeitung und Analyse der erfassten Daten. Sie möchten eine neue Anlage oder eine individuelle Dienstleistung beauftragen? Kontaktieren Sie uns für Informationen und ein Angebot.",
+    "cta": "Mehr erfahren",
+    "mapHint": "Wählen Sie eine Station auf der Karte, um Messwerte, Diagramme und Wetterbedingungen anzuzeigen."
+  },
+  "stationConditions": {
+    "title": "Wetterbedingungen in {name}",
+    "unavailable": "Wetterbedingungen nicht verfügbar",
+    "source": "Von Open-Meteo geschätzte Bedingungen für die Stationskoordinaten."
   }
 }

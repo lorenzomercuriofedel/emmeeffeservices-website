@@ -1,14 +1,11 @@
 import Footer from '@/src/components/layout/Footer';
-import CompanyNavigation from './CompanyNavigation';
+import Navbar from '@/src/components/layout/Navbar';
 
 export default function CompanyPage() {
   return <>
 
 <a className="skip" href="#contenuto">Vai al contenuto</a>
-<header className="header">
-  <a className="brand" href="#inizio" aria-label="Emme-Effe Services, inizio"><img className="official-logo" src="/company/emme_effe__logouff.png" width="2172" height="724" alt="Emme-Effe Services di Lorenzo Mercurio Fedel" /></a>
-  <CompanyNavigation />
-</header>
+<Navbar />
 <main id="contenuto">
 <section className="hero wrap" id="inizio">
   <div className="hero-copy"><h1>Dati, territorio.<br />Nuove <em>prospettive.</em></h1><p className="intro">Competenze informatiche e conoscenza del territorio, per trasformare informazioni complesse in strumenti utili e scelte consapevoli.</p><div className="hero-actions"><a className="button" href="#ambiti">Esplora i servizi </a></div></div>

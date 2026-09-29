@@ -229,5 +229,16 @@
       "twitterDescription": "Dati meteo live da {name} ({alt}m) — Altopiano di Piné.",
       "fallback": "Stazione Meteo"
     }
+  },
+  "meteoServices": {
+    "title": "Sistemi meteo, dai sensori ai dati",
+    "description": "Emme-Effe Services offre consulenza e sviluppo di sistemi di rilevazione meteorologica, con elaborazione e analisi dei dati raccolti. Vuoi richiedere una nuova installazione o acquistare una prestazione su misura? Contattaci per informazioni e un preventivo.",
+    "cta": "Scopri di più",
+    "mapHint": "Seleziona una stazione sulla mappa per consultare rilevazioni, grafici e condizioni meteo."
+  },
+  "stationConditions": {
+    "title": "Condizioni meteo a {name}",
+    "unavailable": "Condizioni meteo non disponibili",
+    "source": "Condizioni stimate da Open-Meteo per le coordinate della stazione."
   }
 }

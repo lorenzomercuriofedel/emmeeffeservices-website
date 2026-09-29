@@ -15,7 +15,7 @@ export default function StationAlmanac({ latitude, longitude }) {
   }, []);
 
   const sun = now
-    ? getSunTimes(now, Number.isFinite(latitude) ? latitude : undefined, Number.isFinite(longitude) ? longitude : undefined)
+    ? getSunTimes(now, Number.isFinite(latitude) ? latitude : undefined, Number.isFinite(longitude) ? longitude : undefined, 'Europe/Rome')
     : { sunrise: null, sunset: null, dayLengthHours: null };
   const moon = now ? getMoonInfo(now) : { phase: null, index: null };
   const moonName = moon.index == null ? t('unknown') : t(String(moon.index));
