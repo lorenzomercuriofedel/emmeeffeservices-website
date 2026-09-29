@@ -1,0 +1,233 @@
+{
+  "nav": {
+    "home": "Home",
+    "stations": "Stazioni",
+    "contacts": "Contatti",
+    "menu": "Menu"
+  },
+  "lang": {
+    "label": "Lingua",
+    "it": "Italiano",
+    "en": "Inglese",
+    "de": "Tedesco"
+  },
+  "hero": {
+    "stationOf": "Stazione di {name}",
+    "liveCount": "{count, plural, one {# stazione live} other {# stazioni live}}",
+    "noStations": "Nessuna stazione live al momento.",
+    "loading": "Caricamento dati…",
+    "humidity": "Umidità {value}%",
+    "windFrom": "vento {strength} da {dir}",
+    "strength": {
+      "calm": "calmo",
+      "light": "debole",
+      "moderate": "moderato",
+      "strong": "forte",
+      "intense": "intenso"
+    }
+  },
+  "almanac": {
+    "title": "Almanacco",
+    "sunrise": "Alba",
+    "sunset": "Tramonto",
+    "dayLength": "Durata giorno",
+    "moon": "Luna"
+  },
+  "moon": {
+    "0": "Luna nuova",
+    "1": "Falce crescente",
+    "2": "Primo quarto",
+    "3": "Gibbosa crescente",
+    "4": "Luna piena",
+    "5": "Gibbosa calante",
+    "6": "Ultimo quarto",
+    "7": "Falce calante",
+    "unknown": "—"
+  },
+  "wmo": {
+    "0": "Sereno",
+    "1": "Prevalentemente sereno",
+    "2": "Parzialmente nuvoloso",
+    "3": "Coperto",
+    "45": "Nebbia",
+    "48": "Nebbia con brina",
+    "51": "Pioggerella leggera",
+    "53": "Pioggerella",
+    "55": "Pioggerella forte",
+    "56": "Pioggerella gelata",
+    "57": "Pioggerella gelata forte",
+    "61": "Pioggia leggera",
+    "63": "Pioggia",
+    "65": "Pioggia forte",
+    "66": "Pioggia gelata",
+    "67": "Pioggia gelata forte",
+    "71": "Neve leggera",
+    "73": "Neve",
+    "75": "Neve forte",
+    "77": "Granuli di neve",
+    "80": "Rovesci leggeri",
+    "81": "Rovesci",
+    "82": "Rovesci violenti",
+    "85": "Rovesci di neve leggeri",
+    "86": "Rovesci di neve forti",
+    "95": "Temporale",
+    "96": "Temporale con grandine",
+    "99": "Temporale forte con grandine"
+  },
+  "windName": {
+    "N": "Nord",
+    "NNE": "Nord-Nord-Est",
+    "NE": "Nord-Est",
+    "ENE": "Est-Nord-Est",
+    "E": "Est",
+    "ESE": "Est-Sud-Est",
+    "SE": "Sud-Est",
+    "SSE": "Sud-Sud-Est",
+    "S": "Sud",
+    "SSW": "Sud-Sud-Ovest",
+    "SW": "Sud-Ovest",
+    "WSW": "Ovest-Sud-Ovest",
+    "W": "Ovest",
+    "WNW": "Ovest-Nord-Ovest",
+    "NW": "Nord-Ovest",
+    "NNW": "Nord-Nord-Ovest"
+  },
+  "map": {
+    "title": "Mappa stazioni in tempo reale",
+    "subtitle": "{online} di {total} stazioni online · clicca un marker per il dettaglio · aggiornata alle {time}",
+    "openStation": "Apri stazione →",
+    "offline": "offline",
+    "scale": "Scala {metric}",
+    "metric": {
+      "temperature": "Temperatura",
+      "rain": "Pioggia",
+      "wind": "Vento"
+    }
+  },
+  "intro": {
+    "eyebrow": "Il progetto",
+    "title": "Un portale meteo amatoriale, dal 2014",
+    "p1": "Meteo Altopiano di Piné raccoglie le rilevazioni dalle stazioni meteo sull'Altopiano di Piné (TN), gestite dal meteoappassionato locale Lorenzo Mercurio Fedel.",
+    "p2": "Tutte le stazioni del progetto fanno parte della rete associativa dell'A.P.S. <b>Meteo Trentino Alto Adige</b>.",
+    "cta": "Contattaci per info o richieste"
+  },
+  "contacts": {
+    "eyebrow": "Contatti",
+    "title": "Scrivici",
+    "subtitle": "Per informazioni, segnalazioni o richieste relative alle stazioni meteo del progetto."
+  },
+  "footer": {
+    "tagline": "Portale amatoriale di rilevazioni meteorologiche dall'Altopiano di Piné (TN). Dati in tempo reale dalle stazioni della rete locale.",
+    "contactUs": "Contattaci",
+    "partner": "Partner",
+    "usefulLinks": "Link Utili",
+    "weatherNetworks": "Reti Meteo",
+    "privacyPolicy": "Privacy Policy",
+    "customizeTracking": "Personalizza tracciamento pubblicitario",
+    "rights": "© {year} Meteo Altopiano di Piné · Tutti i diritti riservati",
+    "madeWith": "Fatto con",
+    "by": "da",
+    "agencyTagline": "— la web agency delle Dolomiti",
+    "madeByAria": "Sito realizzato da Rhaeticon"
+  },
+  "station": {
+    "backToAll": "Tutte le stazioni",
+    "title": "Stazione di {name}",
+    "subtitle": "{comune} (TN) · {alt} m s.l.m.",
+    "notFound": "Stazione non trovata.",
+    "live": "Live",
+    "offline": "Offline",
+    "updatedAt": "Aggiornato alle {time}",
+    "currentMeasurements": "Misurazioni correnti",
+    "last24h": "Ultime 24h",
+    "dailyExtremes": "Estremi giornalieri",
+    "tabs": {
+      "temp": "Temperatura",
+      "hum": "Umidità",
+      "wind": "Vento",
+      "rain": "Pioggia",
+      "press": "Pressione"
+    },
+    "tiles": {
+      "temp": "Temp",
+      "hum": "Umidità",
+      "wind": "Vento",
+      "rain": "Pioggia",
+      "press": "Pressione"
+    },
+    "extremes": {
+      "minTemp": "Temperatura Min",
+      "maxTemp": "Temperatura Max",
+      "avgTemp": "Temperatura Media",
+      "minHum": "Umidità Min",
+      "maxHum": "Umidità Max",
+      "avgHum": "Umidità Media",
+      "maxWspeed": "Velocità Max",
+      "avgWspeed": "Velocità Media",
+      "maxWgust": "Raffica Max",
+      "dominantDir": "Direzione dominante",
+      "maxRrate": "Intensità Max",
+      "minPress": "Pressione Min",
+      "maxPress": "Pressione Max",
+      "avgPress": "Pressione Media"
+    },
+    "info": {
+      "eyebrow": "Informazioni",
+      "registry": "Anagrafica",
+      "tabs": {
+        "location": "Posizione",
+        "details": "Dettagli tecnici",
+        "info": "Info"
+      },
+      "locality": "Località",
+      "municipality": "Comune",
+      "hamlet": "Frazione",
+      "altitude": "Altitudine",
+      "coordinates": "Coordinate",
+      "installDate": "Data installazione",
+      "model": "Marca e modello",
+      "issHeight": "Altezza ISS dal suolo",
+      "anemometerHeight": "Altezza anemometro",
+      "placement": "Ubicazione",
+      "terrainType": "Tipo terreno",
+      "landOwnership": "Proprietà del terreno",
+      "operators": "Gestori",
+      "solarShield": "Schermo solare",
+      "noInfo": "Nessuna informazione aggiuntiva disponibile.",
+      "altitudeValue": "{alt} m s.l.m.",
+      "municipalityValue": "{comune} (TN)"
+    }
+  },
+  "charts": {
+    "temperature": "Temperatura (°C)",
+    "dewPoint": "Punto di rugiada (°C)",
+    "humidity": "Umidità (%)",
+    "wind": "Vento (km/h)",
+    "gust": "Raffica (km/h)",
+    "rain": "Pioggia (mm)",
+    "rainRate": "Intensità pioggia (mm/h)",
+    "pressure": "Pressione (hPa)"
+  },
+  "metadata": {
+    "home": {
+      "title": "Meteo Altopiano di Piné",
+      "description": "Rilevazioni meteorologiche in tempo reale dall'Altopiano di Piné (TN). Stazioni meteo amatoriali a Miola, Bedollo, Faida, Montesover, Serraia e altre località dell'altopiano trentino.",
+      "ogDescription": "Rilevazioni meteorologiche in tempo reale dall'Altopiano di Piné (TN), dal 2014.",
+      "twitterDescription": "Rilevazioni meteo in tempo reale dall'Altopiano di Piné (TN)."
+    },
+    "contacts": {
+      "title": "Contatti",
+      "description": "Contatta Meteo Altopiano di Piné per informazioni, segnalazioni o richieste sulle stazioni meteorologiche dell'altopiano trentino.",
+      "ogTitle": "Contatti | Meteo Altopiano di Piné",
+      "ogDescription": "Contatta Meteo Altopiano di Piné per informazioni o richieste."
+    },
+    "station": {
+      "title": "Stazione {name}",
+      "description": "Dati meteo in tempo reale dalla stazione di {name}, {comune} ({alt}m) — Altopiano di Piné (TN). Temperatura, umidità, vento, pioggia e pressione aggiornati al minuto.",
+      "ogTitle": "Stazione {name} | Meteo Altopiano di Piné",
+      "ogDescription": "Temperatura, umidità, vento, pioggia e pressione in tempo reale da {name} ({alt}m).",
+      "twitterDescription": "Dati meteo live da {name} ({alt}m) — Altopiano di Piné.",
+      "fallback": "Stazione Meteo"
+    }
+  }
+}

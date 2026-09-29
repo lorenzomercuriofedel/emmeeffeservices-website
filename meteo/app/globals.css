@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+@theme {
+  /* Alpine palette — neve, cielo, bosco, alba */
+  --color-ink: #0b1e33;
+  --color-ink-soft: #2c3e57;
+  --color-ink-mute: #5b6a80;
+  --color-ink-faint: #aab4c4;
+
+  --color-sky-50: #f1f7fc;
+  --color-sky-100: #dceaf6;
+  --color-sky-200: #b9d4ea;
+  --color-sky-500: #2f7fb8;
+  --color-sky-600: #1f6498;
+  --color-sky-700: #144e7a;
+  --color-sky-900: #0a2942;
+
+  --color-sun: #f5a524;
+  --color-sun-soft: #fbe2a3;
+
+  --color-rain: #3b82f6;
+  --color-snow: #cbd5e1;
+  --color-leaf: #10b981;
+
+  /* Legacy (alcuni componenti) */
+  --color-primary: var(--color-sky-700);
+  --color-primary-dark: var(--color-sky-900);
+  --color-secondary: var(--color-ink-soft);
+  --color-accent: var(--color-sky-500);
+
+  --font-sans: var(--font-manrope), 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font-manrope), 'Inter', system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), 'Iowan Old Style', 'Charter', Georgia, serif;
+
+  --shadow-card: 0 1px 2px rgba(11, 30, 51, 0.04), 0 8px 24px -12px rgba(11, 30, 51, 0.10);
+  --shadow-elev: 0 2px 4px rgba(11, 30, 51, 0.04), 0 16px 48px -16px rgba(11, 30, 51, 0.18);
+  --shadow-pop: 0 4px 6px rgba(11, 30, 51, 0.05), 0 24px 64px -20px rgba(11, 30, 51, 0.25);
+}
+
+html {
+  background-color: var(--page-bg, var(--color-sky-50));
+  transition: background-color 800ms ease;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background-color: var(--page-bg, var(--color-sky-50));
+  transition: background-color 800ms ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-feature-settings: 'cv11', 'ss01', 'ss03';
+  letter-spacing: -0.005em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.022em;
+}
+
+/* Hero section background — sky → mountain con grain incorporato */
+.bg-alpine {
+  background-color: #0a2942;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    radial-gradient(1200px 600px at 10% -10%, rgba(245, 165, 36, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(31, 100, 152, 0.22), transparent 55%),
+    linear-gradient(180deg, #0a2942 0%, #144e7a 55%, #1f6498 100%);
+  background-size: 3px 3px, auto, auto, auto;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+}
+
+/* Mesh gradient sezione live strip */
+.bg-mesh-light {
+  background:
+    radial-gradient(800px 400px at 0% 0%, rgba(47, 127, 184, 0.10), transparent 60%),
+    radial-gradient(600px 400px at 100% 100%, rgba(245, 165, 36, 0.08), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, #f1f7fc 100%);
+}
+
+/* Leaflet z-index fix */
+.leaflet-container {
+  z-index: 0;
+  font-family: var(--font-sans) !important;
+  background: #e6eef6 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 16px !important;
+  box-shadow: var(--shadow-pop) !important;
+  padding: 0 !important;
+  border: 1px solid rgba(11, 30, 51, 0.06);
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: auto !important;
+}
+
+.leaflet-popup-tip {
+  box-shadow: 0 4px 12px rgba(11, 30, 51, 0.15) !important;
+}
+
+.leaflet-control-zoom a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  height: 34px !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  font-size: 20px !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: var(--color-ink) !important;
+  border: 1px solid rgba(11, 30, 51, 0.08) !important;
+  box-shadow: var(--shadow-card);
+  font-weight: 600 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--color-sky-50) !important;
+}
+
+.leaflet-bar {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Weather marker tooltip */
+.leaflet-tooltip.weather-tooltip {
+  background: #fff !important;
+  border: 1px solid rgba(11, 30, 51, 0.08) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(11, 30, 51, 0.12), 0 1px 3px rgba(11, 30, 51, 0.06) !important;
+  padding: 8px 11px !important;
+  color: var(--color-ink) !important;
+  font-size: 12px !important;
+}
+
+.leaflet-tooltip.weather-tooltip::before {
+  border-top-color: #fff !important;
+}
+
+/* Marker pulse */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.marker-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.35;
+  animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  z-index: -1;
+}
+
+/* Subtle reveal */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out both;
+}
+
+/* === SKY GRADIENTS — variano con l'ora del giorno === */
+.sky-night {
+  background: linear-gradient(180deg, #0a1530 0%, #1c2a4d 60%, #2c3e6f 100%);
+}
+
+.sky-predawn {
+  background: linear-gradient(180deg, #2a2a4d 0%, #4a3a5c 50%, #7a5a6b 90%, #a87a72 100%);
+}
+
+.sky-dawn {
+  background: linear-gradient(180deg, #5a6a9a 0%, #c89878 50%, #f0b888 80%, #f8d4a0 100%);
+}
+
+.sky-morning {
+  background: linear-gradient(180deg, #7eb8e4 0%, #a8d0ec 60%, #d4e4f4 100%);
+}
+
+.sky-noon {
+  background: linear-gradient(180deg, #5fa3d8 0%, #8bbfe4 60%, #b8d8ee 100%);
+}
+
+.sky-afternoon {
+  background: linear-gradient(180deg, #6ba8d4 0%, #a4c8e0 60%, #e0d4b8 100%);
+}
+
+.sky-sunset {
+  background: linear-gradient(180deg, #4a5a8c 0%, #9a6a7c 40%, #e08864 75%, #f4a878 100%);
+}
+
+.sky-dusk {
+  background: linear-gradient(180deg, #1a2548 0%, #4a3a6a 50%, #8a5a6e 90%, #b07868 100%);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Stelle: piccoli puntini bianchi statici, con shimmer */
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.star {
+  animation: twinkle 3.5s ease-in-out infinite;
+}
+
+/* Spinner alpine */
+.spinner-alpine {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  border: 3px solid var(--color-sky-100);
+  border-top-color: var(--color-sky-700);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
