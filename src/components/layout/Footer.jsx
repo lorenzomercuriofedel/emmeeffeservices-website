@@ -12,9 +12,10 @@ export default async function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
               <img
-                src="/images/logo.svg"
-                alt="Meteo Piné"
-                className="h-9 md:h-10 w-auto brightness-0 invert opacity-95"
+                src="/company/emme_effe__logouff.png"
+                width="2172" height="724"
+                alt="Emme-Effe Services di Lorenzo Mercurio Fedel"
+                className="w-[210px] max-w-full h-auto bg-[#f5f7f9] p-2"
               />
             </div>
             <p className="text-sm leading-relaxed">

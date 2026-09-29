@@ -103,7 +103,7 @@ const jsonLdOrganization = {
   '@id': `${baseUrl}/meteo/#organization`,
   name: 'Meteo Altopiano di Piné',
   url: `${baseUrl}/meteo`,
-  logo: `${baseUrl}/images/logo.png`,
+  logo: `${baseUrl}/company/emme_effe__logouff.png`,
   description:
     "Portale meteorologico amatoriale che raccoglie rilevazioni in tempo reale dall'Altopiano di Piné (TN) dal 2014.",
   founder: { '@type': 'Person', name: 'Lorenzo Mercurio Fedel' },
