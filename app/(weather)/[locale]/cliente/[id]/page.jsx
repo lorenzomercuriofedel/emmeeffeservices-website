@@ -2,7 +2,7 @@ import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { fetchStations, fetchStationInfo } from '@/src/services/api';
-import { groupCustomers, customerDescription, customerPath } from '@/src/utils/customers';
+import { groupCustomers, customerDescription, customerPath, findCustomerByRouteId } from '@/src/utils/customers';
 import { Link } from '@/src/i18n/navigation';
 
 const loadCustomer = cache(async (id) => {
@@ -13,7 +13,7 @@ const loadCustomer = cache(async (id) => {
     const details = await fetchStationInfo(station.id);
     return { ...station, ...details };
   }));
-  return groupCustomers(fullStations).find((customer) => customer.id === id);
+  return findCustomerByRouteId(groupCustomers(fullStations), id);
 });
 
 export async function generateMetadata({ params }) {

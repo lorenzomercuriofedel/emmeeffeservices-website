@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getCustomer, groupCustomers, customerPath, customerDescription } from '../src/utils/customers.js';
+import { getCustomer, groupCustomers, customerPath, customerDescription, findCustomerByRouteId } from '../src/utils/customers.js';
 import { languageHref } from '../src/i18n/site-language.js';
 
 test('missing customer never falls back to the land owner or operator', () => {
@@ -37,4 +37,25 @@ test('root and future sections use the same language convention', () => {
   assert.equal(languageHref('/', '?lang=it', 'en', '#contatti'), '/?lang=en#contatti');
   assert.equal(languageHref('/servizio-futuro', '?lang=en&view=map', 'de'), '/servizio-futuro?view=map&lang=de');
   assert.equal(languageHref('/', '?lang=de', 'it'), '/');
+});
+
+test('textual API customers group stations and remain the displayed source of truth', () => {
+  const stations = [
+    { id: 1, customer: 'Progetto locale', customer_name: 'Stale name' },
+    { id: 2, customer: 'Progetto locale' },
+    { id: 3, customer: ' Progetto locale ' },
+    { id: 4, customer: 'Altro progetto' },
+  ];
+  const group = groupCustomers(stations).find((customer) => customer.name === 'Progetto locale');
+  assert.deepEqual(group.stations.map((station) => station.id), [1, 2, 3]);
+  assert.equal(group.id, 'name-Progetto locale');
+  assert.equal(group.projectType, null);
+});
+
+test('resolves customer routes with spaces, accents and punctuation', () => {
+  const groups = groupCustomers([{ id: 1, customer: 'Progetto Piné (TN)' }]);
+  const id = groups[0].id;
+  assert.equal(findCustomerByRouteId(groups, encodeURIComponent(id)), groups[0]);
+  assert.equal(findCustomerByRouteId(groups, id), groups[0]);
+  assert.equal(findCustomerByRouteId(groups, 'missing'), undefined);
 });

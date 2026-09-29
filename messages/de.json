@@ -110,7 +110,7 @@
   "intro": {
     "eyebrow": "Das Projekt",
     "title": "Ein Amateur-Wetterportal, seit 2014",
-    "p1": "Meteo Altopiano di Piné sammelt die Messwerte der Wetterstationen auf der Hochebene von Piné (Trient, Italien), betreut vom örtlichen Wetterbegeisterten Lorenzo Mercurio Fedel.",
+    "p1": "emme-effe meteo sammelt die Messwerte der Wetterstationen auf der Hochebene von Piné (Trient, Italien), betreut vom örtlichen Wetterbegeisterten Lorenzo Mercurio Fedel.",
     "p2": "Alle Stationen des Projekts gehören zum Vereinsnetzwerk der A.P.S. <b>Meteo Trentino Alto Adige</b>.",
     "cta": "Kontaktieren Sie uns für Infos oder Anfragen"
   },
@@ -127,7 +127,7 @@
     "weatherNetworks": "Wetternetzwerke",
     "privacyPolicy": "Datenschutzerklärung",
     "customizeTracking": "Werbe-Tracking anpassen",
-    "rights": "© {year} Meteo Altopiano di Piné · Alle Rechte vorbehalten",
+    "rights": "© {year} emme-effe meteo · Alle Rechte vorbehalten",
     "madeWith": "Gemacht mit",
     "by": "von",
     "agencyTagline": "— die Web-Agentur der Dolomiten",
@@ -214,21 +214,21 @@
   },
   "metadata": {
     "home": {
-      "title": "Meteo Altopiano di Piné — Wetter Hochebene Piné",
+      "title": "emme-effe meteo — Wetter Hochebene Piné",
       "description": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien). Amateur-Wetterstationen in Miola, Bedollo, Faida, Montesover, Serraia und weiteren Orten der Trentiner Hochebene.",
       "ogDescription": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien), seit 2014.",
       "twitterDescription": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien)."
     },
     "contacts": {
       "title": "Kontakt",
-      "description": "Kontaktieren Sie Meteo Altopiano di Piné für Informationen, Meldungen oder Anfragen zu den Wetterstationen der Trentiner Hochebene.",
-      "ogTitle": "Kontakt | Meteo Altopiano di Piné",
-      "ogDescription": "Kontaktieren Sie Meteo Altopiano di Piné für Informationen oder Anfragen."
+      "description": "Kontaktieren Sie emme-effe meteo für Informationen, Meldungen oder Anfragen zu den Wetterstationen der Trentiner Hochebene.",
+      "ogTitle": "Kontakt | emme-effe meteo",
+      "ogDescription": "Kontaktieren Sie emme-effe meteo für Informationen oder Anfragen."
     },
     "station": {
       "title": "Station {name}",
       "description": "Echtzeit-Wetterdaten der Station {name}, {comune} ({alt}m) — Hochebene von Piné (Trient, Italien). Temperatur, Luftfeuchtigkeit, Wind, Regen und Luftdruck minütlich aktualisiert.",
-      "ogTitle": "Station {name} | Meteo Altopiano di Piné",
+      "ogTitle": "Station {name} | emme-effe meteo",
       "ogDescription": "Temperatur, Luftfeuchtigkeit, Wind, Regen und Luftdruck in Echtzeit von {name} ({alt}m).",
       "twitterDescription": "Live-Wetterdaten von {name} ({alt}m) — Hochebene von Piné.",
       "fallback": "Wetterstation"

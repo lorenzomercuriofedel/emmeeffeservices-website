@@ -4,7 +4,8 @@ export function getCustomer(station) {
   if (value == null || value === '') return null;
   const object = typeof value === 'object' && !Array.isArray(value) ? value : {};
   const scalar = typeof value === 'string' || typeof value === 'number' ? String(value).trim() : '';
-  const name = String(object.name ?? station.customer_name ?? scalar).trim();
+  // The current API sends the public display name directly in customer.
+  const name = typeof value === 'string' ? scalar : String(object.name ?? station.customer_name ?? scalar).trim();
   const identity = String(object.id ?? station.customer_id ?? name).trim();
   if (!name || !identity) return null;
   // Keep the full identity, including accents and punctuation, to avoid slug collisions.
@@ -40,4 +41,10 @@ export function groupCustomers(stations) {
 export function customerDescription(customer, locale) {
   if (typeof customer.description === 'string') return customer.description;
   return customer.description?.[locale] ?? customer.description?.it ?? '';
+}
+
+export function findCustomerByRouteId(customers, id) {
+  // Next route params can retain percent encoding after the locale rewrite.
+  return customers.find((customer) => encodeURIComponent(customer.id) === id)
+    ?? customers.find((customer) => customer.id === id);
 }

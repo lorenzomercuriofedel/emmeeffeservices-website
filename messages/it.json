@@ -110,7 +110,7 @@
   "intro": {
     "eyebrow": "Il progetto",
     "title": "Un portale meteo amatoriale, dal 2014",
-    "p1": "Meteo Altopiano di Piné raccoglie le rilevazioni dalle stazioni meteo sull'Altopiano di Piné (TN), gestite dal meteoappassionato locale Lorenzo Mercurio Fedel.",
+    "p1": "emme-effe meteo raccoglie le rilevazioni dalle stazioni meteo sull'Altopiano di Piné (TN), gestite dal meteoappassionato locale Lorenzo Mercurio Fedel.",
     "p2": "Tutte le stazioni del progetto fanno parte della rete associativa dell'A.P.S. <b>Meteo Trentino Alto Adige</b>.",
     "cta": "Contattaci per info o richieste"
   },
@@ -127,7 +127,7 @@
     "weatherNetworks": "Reti Meteo",
     "privacyPolicy": "Privacy Policy",
     "customizeTracking": "Personalizza tracciamento pubblicitario",
-    "rights": "© {year} Meteo Altopiano di Piné · Tutti i diritti riservati",
+    "rights": "© {year} emme-effe meteo · Tutti i diritti riservati",
     "madeWith": "Fatto con",
     "by": "da",
     "agencyTagline": "— la web agency delle Dolomiti",
@@ -214,21 +214,21 @@
   },
   "metadata": {
     "home": {
-      "title": "Meteo Altopiano di Piné",
+      "title": "emme-effe meteo",
       "description": "Rilevazioni meteorologiche in tempo reale dall'Altopiano di Piné (TN). Stazioni meteo amatoriali a Miola, Bedollo, Faida, Montesover, Serraia e altre località dell'altopiano trentino.",
       "ogDescription": "Rilevazioni meteorologiche in tempo reale dall'Altopiano di Piné (TN), dal 2014.",
       "twitterDescription": "Rilevazioni meteo in tempo reale dall'Altopiano di Piné (TN)."
     },
     "contacts": {
       "title": "Contatti",
-      "description": "Contatta Meteo Altopiano di Piné per informazioni, segnalazioni o richieste sulle stazioni meteorologiche dell'altopiano trentino.",
-      "ogTitle": "Contatti | Meteo Altopiano di Piné",
-      "ogDescription": "Contatta Meteo Altopiano di Piné per informazioni o richieste."
+      "description": "Contatta emme-effe meteo per informazioni, segnalazioni o richieste sulle stazioni meteorologiche dell'altopiano trentino.",
+      "ogTitle": "Contatti | emme-effe meteo",
+      "ogDescription": "Contatta emme-effe meteo per informazioni o richieste."
     },
     "station": {
       "title": "Stazione {name}",
       "description": "Dati meteo in tempo reale dalla stazione di {name}, {comune} ({alt}m) — Altopiano di Piné (TN). Temperatura, umidità, vento, pioggia e pressione aggiornati al minuto.",
-      "ogTitle": "Stazione {name} | Meteo Altopiano di Piné",
+      "ogTitle": "Stazione {name} | emme-effe meteo",
       "ogDescription": "Temperatura, umidità, vento, pioggia e pressione in tempo reale da {name} ({alt}m).",
       "twitterDescription": "Dati meteo live da {name} ({alt}m) — Altopiano di Piné.",
       "fallback": "Stazione Meteo"

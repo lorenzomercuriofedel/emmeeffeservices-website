@@ -37,9 +37,7 @@ const baseUrl =
   PROD_URL;
 
 const KEYWORDS = [
-  'meteo piné',
-  'meteo altopiano di piné',
-  'meteopine',
+  'emme-effe meteo',
   'meteo trentino',
   'stazione meteo miola',
   'meteo baselga di piné',
@@ -61,13 +59,13 @@ export async function generateMetadata({ params }) {
     metadataBase: new URL(baseUrl),
     title: {
       default: t('title'),
-      template: '%s | Meteo Altopiano di Piné',
+      template: '%s | emme-effe meteo',
     },
     description: t('description'),
     keywords: KEYWORDS,
     authors: [{ name: 'Lorenzo Mercurio Fedel' }],
     creator: 'Rhaeticon',
-    publisher: 'Meteo Altopiano di Piné',
+    publisher: 'emme-effe meteo',
     alternates: {
       canonical: HOME_PATH[locale],
       languages: { it: '/meteo', en: '/meteo/en', de: '/meteo/de', 'x-default': '/meteo' },
@@ -76,7 +74,7 @@ export async function generateMetadata({ params }) {
       type: 'website',
       locale: OG_LOCALE[locale],
       url: new URL(HOME_PATH[locale], baseUrl).toString(),
-      siteName: 'Meteo Altopiano di Piné',
+      siteName: 'emme-effe meteo',
       title: t('title'),
       description: t('ogDescription'),
     },
@@ -101,7 +99,7 @@ const jsonLdOrganization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': `${baseUrl}/meteo/#organization`,
-  name: 'Meteo Altopiano di Piné',
+  name: 'emme-effe meteo',
   url: `${baseUrl}/meteo`,
   logo: `${baseUrl}/company/emme_effe__logouff.png`,
   description:
@@ -123,7 +121,7 @@ const jsonLdWebSite = {
   '@type': 'WebSite',
   '@id': `${baseUrl}/meteo/#website`,
   url: `${baseUrl}/meteo`,
-  name: 'Meteo Altopiano di Piné',
+  name: 'emme-effe meteo',
   inLanguage: 'it-IT',
   publisher: { '@id': `${baseUrl}/meteo/#organization` },
   creator: {

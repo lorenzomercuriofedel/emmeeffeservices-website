@@ -1,4 +1,4 @@
-# Emme-Effe Services e Meteo Piné
+# Emme-Effe Services e emme-effe meteo
 
 Applicazione Next.js con due sezioni:
 

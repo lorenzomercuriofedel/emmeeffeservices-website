@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Meteo Altopiano di Piné';
+export const alt = 'emme-effe meteo';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -85,7 +85,7 @@ export default async function Image() {
               color: 'white',
             }}
           >
-            Meteo dall&apos;
+            emme-effe
           </div>
           <div
             style={{
@@ -98,7 +98,7 @@ export default async function Image() {
               marginTop: 6,
             }}
           >
-            Altopiano di Piné
+            meteo
           </div>
           <div
             style={{

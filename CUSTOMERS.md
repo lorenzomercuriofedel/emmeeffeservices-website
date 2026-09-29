@@ -1,5 +1,41 @@
 # API: clienti e progetti meteo
 
+## Formato attuale: customer testuale
+
+L'API attuale espone `customer` come stringa. Il frontend usa quel testo come
+nome pubblico, lo mostra sotto la proprietà del terreno e raggruppa le stazioni
+con lo stesso valore (ignorando gli spazi iniziali e finali). Il nome non viene
+sostituito con il marchio del portale. Descrizione e categoria restano assenti
+finché non vengono fornite dall'API.
+
+## Tabella consigliata
+
+Per un progetto per cliente, è sufficiente una tabella `customers`:
+
+| Campo | Tipo indicativo | Uso |
+| --- | --- | --- |
+| `id` | BIGINT, chiave primaria | Identificatore stabile |
+| `name` | VARCHAR(255), obbligatorio | Nome pubblico del cliente |
+| `description` | TEXT, nullable | Descrizione del progetto |
+| `project_type` | VARCHAR(20), nullable | `professional`, `hobby`, `other` |
+
+Nella tabella delle stazioni aggiungere `customer_id`, nullable, indicizzato e
+collegato a `customers.id` con una chiave esterna. Un cliente può avere più
+stazioni; ciascuna stazione è associata a un cliente. In caso di cancellazione
+cliente preferire il blocco o SET NULL, senza eliminare le stazioni.
+
+Durante la migrazione mantenere nell'API `customer` come testo tramite una JOIN
+sul nome cliente e aggiungere `customer_id`, `customer_description` e
+`customer_project_type`. Il frontend supporta già questo formato. Non cambiare
+subito `customer` in numero: il testo è usato anche da collegamenti esistenti.
+Gli URL basati sul nome richiederanno redirect quando si adotteranno gli ID.
+
+Se uno stesso cliente può avere progetti distinti, usare da subito anche
+`projects(id, customer_id, name, description, project_type)` e collegare ogni
+stazione con `project_id`: descrizione e categoria appartengono al progetto,
+non necessariamente al cliente. Questa variante richiede di estendere l'API e
+la pagina cliente per mostrare più progetti.
+
 Il backend PHP/database non è in questo repository. Il frontend legge il nuovo
 campo `customer` da `stazioni_meteo.php`, sia nell'elenco sia nell'anagrafica.
 Il filtro della mappa richiede il campo nell'elenco; le pagine cliente recuperano
