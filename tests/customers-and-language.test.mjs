@@ -78,6 +78,6 @@ test('customer indexing requires explicit consent on every station', () => {
   assert.equal(groupCustomers(stations.map(s => ({ ...s, customer_web_public: 1 })))[0].webPublic, true);
 });
 test('weather titles share the root branding', () => {
-  assert.equal(weatherTitle(), `emme-effe meteo | ${SITE_TITLE}`);
-  assert.equal(weatherTitle('Miola'), `Miola | emme-effe meteo | ${SITE_TITLE}`);
+  assert.equal(weatherTitle(), `Meteo | ${SITE_TITLE}`);
+  assert.equal(weatherTitle('Miola'), `Miola | Meteo | ${SITE_TITLE}`);
 });

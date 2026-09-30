@@ -1,5 +1,5 @@
 export const SITE_TITLE = 'EMME-EFFE Services - Lorenzo Mercurio Fedel';
-export const WEATHER_TITLE = `emme-effe meteo | ${SITE_TITLE}`;
+export const WEATHER_TITLE = `Meteo | ${SITE_TITLE}`;
 export function weatherTitle(pageTitle) {
   return pageTitle ? `${pageTitle} | ${WEATHER_TITLE}` : WEATHER_TITLE;
 }
