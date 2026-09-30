@@ -145,7 +145,7 @@ export default async function LocaleLayout({ children, params }) {
   return (
     <html lang={locale} className={`${manrope.variable} ${fraunces.variable}`}>
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="data:," />
         <meta name="theme-color" content="#0a2942" />
       </head>
       <body className="flex flex-col min-h-screen">
