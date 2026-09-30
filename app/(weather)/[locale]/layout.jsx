@@ -150,7 +150,7 @@ export default async function LocaleLayout({ children, params }) {
       </head>
       <body className="flex flex-col min-h-screen">
         <NextIntlClientProvider>
-          <Navbar />
+          <Navbar section="meteo" />
           <main className="flex-1">{children}</main>
           <Footer />
         </NextIntlClientProvider>

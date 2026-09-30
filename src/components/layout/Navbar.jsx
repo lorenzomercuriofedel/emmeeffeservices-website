@@ -6,7 +6,7 @@ import { siteHome, weatherHome } from '@/src/i18n/site-language';
 import LanguageSwitcher from './LanguageSwitcher';
 import styles from './Navbar.module.css';
 
-export default function Navbar() {
+export default function Navbar({ section }) {
   const locale = useLocale();
   const t = useTranslations('siteNav');
   const home = siteHome(locale);
@@ -34,9 +34,10 @@ export default function Navbar() {
 
   return (
     <header ref={header} className={styles.header} onKeyDown={closeOnEscape}>
-      <a href={home} className={styles.brand}>
+      <a href={home} className={`${styles.brand} ${section === 'meteo' ? styles.weatherBrand : ''}`}>
         <img src="/company/emme_effe__logouff.png" width="2172" height="724"
           alt="Emme-Effe Services di Lorenzo Mercurio Fedel" />
+        {section === 'meteo' && <span className={styles.sectionLabel}>meteo</span>}
       </a>
       <button ref={menuButton} className={styles.menuToggle}
         aria-expanded={mobileOpen} aria-controls="site-navigation"
