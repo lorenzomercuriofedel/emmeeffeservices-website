@@ -302,6 +302,9 @@
     "dataEmail": "Meteo ed Elaborazione dati",
     "landEmail": "Analisi fondiaria",
     "whatsapp": "Scrivimi su WhatsApp",
-    "appointment": "Analisi e consulenze sul posto o online, previo appuntamento."
+    "appointment": "Analisi e consulenze sul posto o online, previo appuntamento.",
+    "weatherTitle": "Progettazione, installazione e configurazione di sistemi di rilevamento meteorologico",
+    "weatherText": "Dalla scelta dei sensori alla messa in funzione: sistemi di rilevamento meteorologico, raccolta dei dati e configurazione degli strumenti per consultarli. Contattaci per valutare una nuova installazione.",
+    "weatherLink": "Scopri emme-effe meteo"
   }
 }

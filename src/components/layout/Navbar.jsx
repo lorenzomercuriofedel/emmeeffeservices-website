@@ -34,11 +34,13 @@ export default function Navbar({ section }) {
 
   return (
     <header ref={header} className={styles.header} onKeyDown={closeOnEscape}>
-      <a href={home} className={`${styles.brand} ${section === 'meteo' ? styles.weatherBrand : ''}`}>
+      <div className={`${styles.brand} ${section === 'meteo' ? styles.weatherBrand : ''}`}>
+        <a href={home} className={styles.logoLink}>
         <img src="/company/emme_effe__logouff.png" width="2172" height="724"
           alt="Emme-Effe Services di Lorenzo Mercurio Fedel" />
+        </a>
         {section === 'meteo' && <span className={styles.sectionLabel}>meteo</span>}
-      </a>
+      </div>
       <button ref={menuButton} className={styles.menuToggle}
         aria-expanded={mobileOpen} aria-controls="site-navigation"
         onClick={() => setMobileOpen(!mobileOpen)}>

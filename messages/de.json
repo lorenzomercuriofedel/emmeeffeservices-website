@@ -302,6 +302,9 @@
     "dataEmail": "Datenverarbeitung",
     "landEmail": "Grundstücksanalyse",
     "whatsapp": "Schreiben Sie mir auf WhatsApp",
-    "appointment": "Analysen und Beratung vor Ort oder online nach Vereinbarung."
+    "appointment": "Analysen und Beratung vor Ort oder online nach Vereinbarung.",
+    "weatherTitle": "Planung, Installation und Konfiguration meteorologischer Messsysteme",
+    "weatherText": "Von der Sensorauswahl bis zur Inbetriebnahme: meteorologische Messsysteme, Datenerfassung und Einrichtung der Werkzeuge zur Anzeige der Messwerte. Kontaktieren Sie uns für eine neue Installation.",
+    "weatherLink": "emme-effe meteo entdecken"
   }
 }

@@ -45,7 +45,8 @@
 .languageList a[aria-current="true"] { border-color: #224f8b; font-weight: 700; }
 
 .weatherBrand { align-items: center; gap: 14px; }
-.weatherBrand img { min-width: 0; flex-shrink: 1; }
+.logoLink { display: block; min-width: 0; flex-shrink: 1; }
+.weatherBrand .logoLink { width: 210px; }
 .sectionLabel {
   flex-shrink: 0;
   padding-left: 14px;
@@ -58,6 +59,6 @@
 }
 @media (max-width: 760px) {
   .weatherBrand { gap: 8px; }
-  .weatherBrand img { width: min(210px, calc(100% - 64px)); }
+  .weatherBrand .logoLink { width: min(210px, calc(100% - 64px)); }
   .sectionLabel { padding-left: 8px; font-size: 18px; }
 }

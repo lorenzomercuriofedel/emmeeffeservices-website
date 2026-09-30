@@ -302,6 +302,9 @@
     "dataEmail": "Data processing",
     "landEmail": "Land analysis",
     "whatsapp": "Message me on WhatsApp",
-    "appointment": "Analysis and consulting on site or online, by appointment."
+    "appointment": "Analysis and consulting on site or online, by appointment.",
+    "weatherTitle": "Design, installation and configuration of weather monitoring systems",
+    "weatherText": "From sensor selection to commissioning: weather monitoring systems, data collection and configuration of tools to view the readings. Contact us to discuss a new installation.",
+    "weatherLink": "Discover emme-effe meteo"
   }
 }
