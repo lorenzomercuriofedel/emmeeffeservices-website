@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { siteHome, weatherHome } from '@/src/i18n/site-language';
+import { siteHome } from '@/src/i18n/site-language';
 import LanguageSwitcher from './LanguageSwitcher';
 import styles from './Navbar.module.css';
 
@@ -49,7 +49,6 @@ export default function Navbar({ section }) {
       <nav id="site-navigation" aria-label={t('navigation')} onClick={(event) => { if (event.target.closest('a')) setMobileOpen(false); }}
         className={`${styles.navigation} ${mobileOpen ? styles.open : ''}`}>
         <a href={`${home}#ambiti`}>{t('services')}</a>
-        <a href={weatherHome(locale)}>{t('weather')}</a>
         <a href={`${home}#contatti`} className={styles.contact}>{t('contacts')}</a>
         <LanguageSwitcher />
       </nav>
