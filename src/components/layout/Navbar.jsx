@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { siteHome } from '@/src/i18n/site-language';
+import { siteHome, weatherHome } from '@/src/i18n/site-language';
 import LanguageSwitcher from './LanguageSwitcher';
 import styles from './Navbar.module.css';
 
@@ -48,6 +48,7 @@ export default function Navbar({ section }) {
       </button>
       <nav id="site-navigation" aria-label={t('navigation')} onClick={(event) => { if (event.target.closest('a')) setMobileOpen(false); }}
         className={`${styles.navigation} ${mobileOpen ? styles.open : ''}`}>
+        {section === 'meteo' && <a href={weatherHome(locale)}>{t('map')}</a>}
         <a href={`${home}#ambiti`}>{t('services')}</a>
         <a href={`${home}#contatti`} className={styles.contact}>{t('contacts')}</a>
         {section === 'meteo' && <a href={locale === 'it' ? '/meteo/customer-area' : `/meteo/${locale}/customer-area`}>{t('customerArea')}</a>}

@@ -7,7 +7,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { routing } from '@/src/i18n/routing';
 import Navbar from '@/src/components/layout/Navbar';
 import Footer from '@/src/components/layout/Footer';
-import IubendaConsent from '@/src/components/IubendaConsent';
+import CookieNotice from '@/src/components/legal/CookieNotice';
 
 const PROD_URL = 'https://emmeeffeservices.it';
 const isProd = process.env.VERCEL_ENV === 'production';
@@ -25,7 +25,7 @@ const fraunces = Fraunces({
   display: 'swap',
 });
 
-// Mappa locale → tag OpenGraph / iubenda
+// Mappa locale → tag OpenGraph
 const OG_LOCALE = { it: 'it_IT', en: 'en_US', de: 'de_DE' };
 
 // Home path per ciascuna lingua (per canonical + hreflang)
@@ -165,7 +165,7 @@ export default async function LocaleLayout({ children, params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteLd) }}
         />
 
-        <IubendaConsent locale={locale} />
+        <CookieNotice locale={locale} />
       </body>
     </html>
   );

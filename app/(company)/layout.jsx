@@ -1,6 +1,6 @@
 import { SITE_TITLE } from '@/src/utils/seo';
 import './company.css';
-import IubendaConsent from '@/src/components/IubendaConsent';
+import CookieNotice from '@/src/components/legal/CookieNotice';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 
@@ -30,5 +30,5 @@ export async function generateMetadata() {
 export default async function CompanyLayout({ children }) {
   const locale = await getLocale();
   const messages = await getMessages();
-  return <html lang={locale}><head><link rel="icon" href="data:," /></head><body><NextIntlClientProvider locale={locale} messages={messages}>{children}</NextIntlClientProvider><IubendaConsent locale={locale} /></body></html>;
+  return <html lang={locale}><head><link rel="icon" href="data:," /></head><body><NextIntlClientProvider locale={locale} messages={messages}>{children}</NextIntlClientProvider><CookieNotice locale={locale} /></body></html>;
 }
