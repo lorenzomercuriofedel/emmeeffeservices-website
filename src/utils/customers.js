@@ -14,6 +14,7 @@ export function getCustomer(station) {
   return {
     id,
     name,
+    projectName: typeof object.project_name === 'string' ? object.project_name.trim() : '',
     logoUrl: safeLogoUrl(object.logo_url ?? station.customer_logo_url),
     webPublic: hasWebConsent(station.customer_web_public ?? object.web_public),
     description: object.description ?? station.customer_description ?? null,
@@ -34,6 +35,7 @@ export function groupCustomers(stations) {
     if (group) {
       group.stations.push(station);
       group.webPublic = group.webPublic && customer.webPublic;
+      group.projectName ||= customer.projectName;
       group.description ||= customer.description;
       group.projectType ||= customer.projectType;
     } else groups.set(customer.id, { ...customer, stations: [station] });

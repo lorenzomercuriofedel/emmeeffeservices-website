@@ -50,3 +50,32 @@ test('logout, deletion and expired sessions clear the browser cookie', async () 
   const { routes } = setup({ token: 'a'.repeat(64), upstream: { ok: false, status: 401, json: async () => ({ error: 'Expired' }) } });
   assert.equal((await routes.GET(request('GET'))).cookies.entries[0][2].maxAge, 0);
 });
+
+test('registration creates a browser session without forwarding an existing account token', async () => {
+  const token = 'b'.repeat(64);
+  const { routes, calls } = setup({ token: 'old-session', upstream: { ok: true, status: 200, json: async () => ({ token, customer: { id: 43, project_name: 'New project' }, stations: [] }) } });
+  const response = await routes.POST(request('POST', { action: 'register', name: 'New user', email: 'new@example.com', password: 'Long-password-123', project_name: 'New project' }));
+  assert.equal(response.status, 200);
+  assert.equal(response.body.customer.project_name, 'New project');
+  assert.deepEqual(response.body.stations, []);
+  assert.equal(response.body.token, undefined);
+  assert.equal(response.cookies.entries[0][1], token);
+  assert.equal(calls[0][1].headers.Authorization, undefined);
+  assert.equal(JSON.parse(calls[0][1].body).action, 'register');
+});
+test('consultation requires authentication and returns the saved request reference', async () => {
+  const anonymous = setup();
+  assert.equal((await anonymous.routes.POST(request('POST', { action: 'consultation', message: 'Advice' }))).status, 401);
+  assert.equal(anonymous.calls.length, 0);
+  const { routes, calls } = setup({ token: 'a'.repeat(64), upstream: { ok: true, status: 200, json: async () => ({ customer: { id: 42 }, stations: [], consultation: { id: 10, status: 'new' } }) } });
+  const response = await routes.POST(request('POST', { action: 'consultation', message: 'Advice' }));
+  assert.deepEqual(response.body.consultation, { id: 10, status: 'new' });
+  assert.equal(calls[0][1].headers.Authorization, `Bearer ${'a'.repeat(64)}`);
+  assert.equal(response.cookies.entries.length, 0);
+});
+test('registration rejects cross-origin requests and malformed backend sessions', async () => {
+  const { routes, calls } = setup();
+  assert.equal((await routes.POST(request('POST', { action: 'register' }, 'https://attacker.com'))).status, 403);
+  assert.equal(calls.length, 0);
+  assert.equal((await routes.POST(request('POST', { action: 'register' }))).status, 502);
+});

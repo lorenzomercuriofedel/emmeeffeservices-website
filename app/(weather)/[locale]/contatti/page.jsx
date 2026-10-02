@@ -1,7 +1,7 @@
 import { weatherTitle } from '@/src/utils/seo';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 
-const EMAIL = 'mp@emmeeffeservices.it';
+const EMAIL = 'elaborazione@emmeeffeservices.it';
 
 const PATH = { it: '/meteo/contatti', en: '/meteo/en/contatti', de: '/meteo/de/contatti' };
 const OG_LOCALE = { it: 'it_IT', en: 'en_US', de: 'de_DE' };
@@ -53,12 +53,9 @@ export default async function ContactsPage({ params }) {
 
       <section className="px-4 -mt-8 pb-20 relative z-10">
         <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-elev border border-sky-100 px-6 py-10 md:px-12 md:py-14 text-center">
-          <a
-            href={`mailto:${EMAIL}`}
-            className="block text-xl md:text-3xl font-bold text-sky-700 hover:text-sky-900 transition-colors break-all"
-          >
+          <p className="block text-xl md:text-3xl font-bold text-sky-700 break-all">
             {EMAIL}
-          </a>
+          </p>
         </div>
       </section>
     </>

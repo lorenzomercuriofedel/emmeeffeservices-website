@@ -2,7 +2,7 @@
 
 ## Cosa implementa questo repository
 
-- `/meteo/customer-area`, `/meteo/en/customer-area`, `/meteo/de/customer-area`: login, modifica del proprio profilo, elenco delle stazioni assegnate, anteprima logo, logout e cancellazione account con password.
+- `/meteo/customer-area`, `/meteo/en/customer-area`, `/meteo/de/customer-area`: registrazione autonoma, login, richiesta di consulenza, modifica del proprio profilo, elenco delle stazioni assegnate, anteprima logo, logout e cancellazione account con password.
 - Il browser chiama `/api/customers` sul sito Next.js. Questa route inoltra le richieste a **https://meteopine.altervista.org/api/customer.php**, senza cache.
 - Il token PHP viene custodito in un cookie HttpOnly (Secure in produzione, SameSite=Lax, durata 8 ore). Non viene restituito al JavaScript o salvato in localStorage. Le mutazioni richiedono Origin uguale all'origine Next.js e Content-Type JSON.
 - Il logo HTTPS compare a destra del titolo nella pagina stazione, nella posizione indicata nello screenshot; su mobile va sotto il titolo. Senza logo o con immagine non caricabile il riquadro non appare. Il rosso dello screenshot è solo un'indicazione della posizione.
@@ -20,6 +20,7 @@ Un cliente ha più stazioni; una stazione ha al massimo un cliente. Aggiungere `
 CREATE TABLE customers (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
+  project_name VARCHAR(255) NULL,
   email VARCHAR(254) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
   description TEXT NULL,
@@ -51,7 +52,7 @@ CREATE TABLE customer_sessions (
 
 Verificare InnoDB su entrambe le tabelle. Se AlterVista non consente FK sul database attuale, applicare gli stessi vincoli esplicitamente nelle transazioni PHP e verificare gli orfani. Non usare `ON DELETE CASCADE` tra clienti e stazioni o misurazioni.
 
-Per migrare il campo testuale `customer`: creare un cliente per ogni identità verificata, assegnare `customer_id` alle stazioni, restituire solo `customer_id` nelle API stazioni e risolvere il profilo tramite `customer.php`. Non associare automaticamente clienti con stesso nome senza verificarli. Email e credenziali si raccolgono fuori dal sito; niente registrazione aperta. Generare password con `password_hash($password, PASSWORD_DEFAULT)` e consegnare le credenziali mediante un canale concordato. Gli assegnamenti delle stazioni si effettuano lato amministratore; il cliente non può cambiare `customer_id` né reclamare stazioni.
+Per migrare il campo testuale `customer`: creare un cliente per ogni identità verificata, assegnare `customer_id` alle stazioni, restituire solo `customer_id` nelle API stazioni e risolvere il profilo tramite `customer.php`. Non associare automaticamente clienti con stesso nome senza verificarli. La registrazione autonoma crea un account senza stazioni, con password generata tramite `password_hash($password, PASSWORD_DEFAULT)`. Gli assegnamenti delle stazioni si effettuano lato amministratore; il cliente non può cambiare `customer_id` né reclamare stazioni.
 
 ## Contratto di customer.php
 
@@ -64,6 +65,7 @@ Il campo `customer` nelle risposte private è un oggetto:
   "customer": {
     "id": 42,
     "name": "Cliente esempio",
+    "project_name": "Osservatorio esempio",
     "email": "cliente@example.com",
     "description": "Il nostro osservatorio",
     "project_type": "hobby",
@@ -78,13 +80,15 @@ Il campo `customer` nelle risposte private è un oggetto:
 
 | Metodo | Body JSON | Comportamento |
 | --- | --- | --- |
+| POST | `{"action":"register","name":"…","email":"…","password":"…","project_name":"…","description":"…"}` | Crea account senza stazioni e sessione; restituisce profilo, stazioni vuote e `token` |
+| POST | `{"action":"consultation","message":"…"}` | Richiede sessione e salva richiesta consulenza; restituisce riferimento richiesta |
 | POST | `{"action":"login","email":"…","password":"…"}` | Verifica credenziali, crea sessione, restituisce profilo, stazioni e `token` |
 | GET | nessuno | Profilo e stazioni del cliente autenticato |
-| PATCH | `{"name":"…","email":"…","description":"…","project_type":"hobby","logo_url":"https://…","web_public":false}` | Modifica solo questi campi del cliente autenticato; restituisce profilo e stazioni |
+| PATCH | `{"name":"…","email":"…","description":"…","project_type":"hobby","logo_url":"https://…","web_public":false}` | Modifica questi campi e `project_name` del cliente autenticato; restituisce profilo e stazioni |
 | POST | `{"action":"logout"}` | Revoca la sessione corrente; `200 {}` o `204` |
 | DELETE | `{"password":"…"}` | Verifica di nuovo password, scollega stazioni, elimina cliente e tutte le sue sessioni; `200 {}` o `204` |
 
-Tutte le richieste tranne login richiedono `Authorization: Bearer <token>`. Non leggere un ID dal body/query per decidere quale profilo modificare: usare esclusivamente il cliente risolto dalla sessione. `401` per credenziali/sessione/password errate, `422` per campi invalidi, `409` per email già registrata, `429` per rate limit, `405` per metodo non consentito.
+Tutte le richieste private tranne login e registrazione richiedono `Authorization: Bearer <token>`. Non leggere un ID dal body/query per decidere quale profilo modificare: usare esclusivamente il cliente risolto dalla sessione. `401` per credenziali/sessione/password errate, `422` per campi invalidi, `409` per email già registrata, `429` per rate limit, `405` per metodo non consentito.
 
 ## Struttura PHP consigliata
 
@@ -125,7 +129,7 @@ $customerId = $customer['id'];
 
 `respond($status, $body)` deve impostare status/header, serializzare JSON e chiamare `exit`. Le funzioni nei commenti sono da implementare. Verificare che AlterVista inoltri Authorization in PHP; se il server lo rimuove, configurarne il passaggio lato hosting prima di usare l'area.
 
-PATCH: accettare una whitelist fissa; rifiutare `id`, `customer_id`, `stations`, `password_hash`, `role` e campi non previsti. Limiti: nome 1–255 caratteri dopo trim, email valida max 254, descrizione max 5000, URL max 2048 con schema HTTPS, host presente e senza credenziali; tipo in enum o null; consenso strettamente booleano. Nessun fetch server del logo: si tratta di un URL pubblico renderizzato dal browser, non di upload. Preferire immagini raster pubbliche stabili. Email univoca con `409` in caso di conflitto. Non consentire PATCH della password in questo contratto. Verificare email nuova prima di usarla per eventuali futuri recuperi password.
+PATCH: accettare una whitelist fissa, incluso `project_name` (opzionale, max 255 caratteri); rifiutare `id`, `customer_id`, `stations`, `password_hash`, `role` e campi non previsti. Limiti: nome 1–255 caratteri dopo trim, email valida max 254, descrizione max 5000, URL max 2048 con schema HTTPS, host presente e senza credenziali; tipo in enum o null; consenso strettamente booleano. Nessun fetch server del logo: si tratta di un URL pubblico renderizzato dal browser, non di upload. Preferire immagini raster pubbliche stabili. Email univoca con `409` in caso di conflitto. Non consentire PATCH della password in questo contratto. Verificare email nuova prima di usarla per eventuali futuri recuperi password.
 
 ```sql
 UPDATE customers
@@ -190,3 +194,15 @@ Se un profilo non esiste o il servizio clienti non risponde, i dati meteo restan
 7. Verificare in browser desktop/mobile le tre lingue, URL privati noindex e assenza di dati privati nelle risposte pubbliche.
 
 Per chiamate manuali usare credenziali di test e un client HTTP; conservare il token solo per la durata della prova. Il file PHP è pronto da caricare ma non è stato distribuito da questa modifica.
+
+## Aggiornamento: registrazione, consulenza e nome progetto
+
+Prima di pubblicare il PHP aggiornato, eseguire una sola volta [php_tmp/customer-registration.sql](php_tmp/customer-registration.sql) sul database esistente: aggiunge `customers.project_name` e la tabella `customer_consultations`. Non ripetere la creazione delle tabelle clienti/sessioni già esistenti.
+
+- `POST {"action":"register","name":"Mario Rossi","email":"…","password":"…","project_name":"Osservatorio","description":"…"}`: crea cliente e sessione in transazione, restituisce token/profilo e `stations: []`. Non accetta ruoli, ID stazioni, logo o consenso pubblico. Password minima 12 caratteri, massima 72 byte; email univoca, limite di 20 registrazioni/IP e 5/email ogni 15 minuti. Non è previsto l'invio automatico di una email di verifica o recupero password.
+- I nuovi account vedono nel menu solo la consulenza per acquisto e configurazione di una stazione. Possono modificare dati account, nome/descrizione progetto e cancellare il proprio account; logo, tipo progetto, consenso e stazioni compaiono dopo l'associazione amministrativa di una stazione. Il PHP rifiuta le modifiche a logo/tipo/consenso per account senza stazioni.
+- `POST {"action":"consultation","message":"Vorrei una stazione…"}` richiede Bearer token: salva una richiesta e restituisce profilo/stazioni e `consultation: {id, status:"new"}`. Massimo 5000 caratteri; 3 richieste/cliente e 100/IP ogni 15 minuti. Nessuna email automatica. Le richieste si consultano in phpMyAdmin con la SELECT inclusa nel file SQL; `status` può essere gestito amministrativamente. La cancellazione account rimuove anche le sue richieste.
+- `project_name` è distinto da `name` (nome della persona/azienda), opzionale, max 255 caratteri. Compare nelle risposte private e pubbliche; la pagina progetto usa il nome progetto come titolo quando configurato. PATCH accetta `project_name` oltre a `description`.
+- L'aiuto nell'area clienti mostra solo `elaborazione@emmeeffeservices.it` come testo, senza link alla pagina contatti né mailto. Il precedente indirizzo `mp@...` proveniva dalla pagina contatti meteo già presente nel repository.
+
+Verificare su AlterVista: registrazione ed email duplicata, accesso automatico e successivo login, nessuna assegnazione stazione alla registrazione, PATCH dei soli campi account/progetto, rifiuto di modifiche logo senza stazioni, salvataggio consulenza ed eliminazione account. Gli endpoint delle misurazioni e l'API anagrafica stazioni non cambiano con questo aggiornamento.

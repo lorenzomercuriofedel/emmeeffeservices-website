@@ -54,3 +54,13 @@ test('unassigned stations do not make a profile request', async t => {
   await fetchStations();
   assert.equal(requests.length, 1);
 });
+
+test('project names remain distinct from customer names and survive public profile filtering', async t => {
+  t.mock.method(globalThis, 'fetch', async () => ({ ok: true, json: async () => ({ customers: [{ id: 42, name: 'Customer', project_name: 'Observatory', description: 'Project description', email: 'private@example.com' }] }) }));
+  const profiles = await fetchPublicCustomerProfiles([42]);
+  const customer = getCustomer(attachCustomerProfiles([{ id: 1, customer_id: 42 }], profiles)[0]);
+  assert.equal(customer.name, 'Customer');
+  assert.equal(customer.projectName, 'Observatory');
+  assert.equal(customer.description, 'Project description');
+  assert.equal(profiles[0].email, undefined);
+});

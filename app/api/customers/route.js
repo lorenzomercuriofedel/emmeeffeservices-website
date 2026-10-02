@@ -23,14 +23,17 @@ async function handle(request) {
     } catch { return reply({ error: 'Invalid JSON' }, 400); }
   }
   const login = request.method === 'POST' && body?.action === 'login';
+  const register = request.method === 'POST' && body?.action === 'register';
+  const consultation = request.method === 'POST' && body?.action === 'consultation';
+  const anonymous = login || register;
   const logout = request.method === 'POST' && body?.action === 'logout';
-  if (request.method === 'POST' && !login && !logout) return reply({ error: 'Invalid action' }, 400);
+  if (request.method === 'POST' && !anonymous && !logout && !consultation) return reply({ error: 'Invalid action' }, 400);
   const token = jar.get(COOKIE)?.value;
-  if (!login && !token) return reply({ error: 'Unauthorized' }, 401);
+  if (!anonymous && !token) return reply({ error: 'Unauthorized' }, 401);
   try {
     const upstream = await fetch(ENDPOINT, {
       method: request.method, cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(15000),
-      headers: { Accept: 'application/json', ...(mutation ? { 'Content-Type': 'application/json' } : {}), ...(token && !login ? { Authorization: `Bearer ${token}` } : {}) },
+      headers: { Accept: 'application/json', ...(mutation ? { 'Content-Type': 'application/json' } : {}), ...(token && !anonymous ? { Authorization: `Bearer ${token}` } : {}) },
       ...(mutation ? { body: JSON.stringify(body) } : {}),
     });
     const data = upstream.status === 204 ? {} : await upstream.json();
@@ -39,10 +42,10 @@ async function handle(request) {
       if (upstream.status === 401) response.cookies.set(COOKIE, '', { ...cookieOptions, maxAge: 0 });
       return response;
     }
-    if (login && (typeof data.token !== 'string' || !/^[A-Za-z0-9._~-]{32,4096}$/.test(data.token))) return reply({ error: 'Invalid session response' }, 502);
-    if ((login || request.method === 'GET' || request.method === 'PATCH') && !data.customer?.id) return reply({ error: 'Invalid profile response' }, 502);
-    const response = reply({ customer: data.customer ?? null, stations: Array.isArray(data.stations) ? data.stations : [] });
-    if (login) response.cookies.set(COOKIE, data.token, { ...cookieOptions, maxAge: 28800 });
+    if (anonymous && (typeof data.token !== 'string' || !/^[A-Za-z0-9._~-]{32,4096}$/.test(data.token))) return reply({ error: 'Invalid session response' }, 502);
+    if ((anonymous || request.method === 'GET' || request.method === 'PATCH') && !data.customer?.id) return reply({ error: 'Invalid profile response' }, 502);
+    const response = reply({ customer: data.customer ?? null, stations: Array.isArray(data.stations) ? data.stations : [], ...(data.consultation ? { consultation: data.consultation } : {}) });
+    if (anonymous) response.cookies.set(COOKIE, data.token, { ...cookieOptions, maxAge: 28800 });
     if (logout || request.method === 'DELETE') response.cookies.set(COOKIE, '', { ...cookieOptions, maxAge: 0 });
     return response;
   } catch { return reply({ error: 'Customer API unavailable' }, 502); }

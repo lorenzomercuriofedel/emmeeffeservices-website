@@ -19,12 +19,12 @@ export async function generateMetadata({ params }) {
   const path = customerPath(customer);
   const languages = { it: `/meteo${path}`, en: `/meteo/en${path}`, de: `/meteo/de${path}`, 'x-default': `/meteo${path}` };
   return {
-    title: t('title', { name: customer.name }),
+    title: t('title', { name: customer.projectName || customer.name }),
     robots: customerRobots(customer),
     description: customerDescription(customer, locale) || t('stationsTitle'),
     alternates: { canonical: languages[locale], languages },
-    openGraph: { title: weatherTitle(t('title', { name: customer.name })), url: languages[locale] },
-    twitter: { title: weatherTitle(t('title', { name: customer.name })) },
+    openGraph: { title: weatherTitle(t('title', { name: customer.projectName || customer.name })), url: languages[locale] },
+    twitter: { title: weatherTitle(t('title', { name: customer.projectName || customer.name })) },
   };
 }
 
@@ -39,7 +39,8 @@ export default async function CustomerPage({ params }) {
     <section className="max-w-5xl mx-auto px-4 py-12">
       <Link href="/#mappa" className="text-sm text-sky-700 underline">{t('backToMap')}</Link>
       <p className="mt-8 text-xs uppercase tracking-widest text-ink-mute">{t('label')}</p>
-      <h1 className="text-3xl md:text-4xl font-bold text-ink mt-2">{customer.name}</h1>
+      <h1 className="text-3xl md:text-4xl font-bold text-ink mt-2">{customer.projectName || customer.name}</h1>
+      {customer.projectName && <p className="mt-2 text-ink-mute">{customer.name}</p>}
       {customer.projectType && <p className="inline-block mt-4 rounded-full bg-sky-100 px-4 py-2 text-sm">{t(`types.${customer.projectType}`)}</p>}
       <h2 className="mt-8 text-xl font-semibold text-ink">{t('project')}</h2>
       <p className="mt-3 whitespace-pre-line text-ink-soft leading-relaxed">{description || t('noDescription')}</p>

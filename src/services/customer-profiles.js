@@ -1,5 +1,5 @@
 const ENDPOINT = 'https://meteopine.altervista.org/api/customer.php';
-const PUBLIC_FIELDS = ['id', 'name', 'description', 'project_type', 'logo_url', 'web_public'];
+const PUBLIC_FIELDS = ['id', 'name', 'project_name', 'description', 'project_type', 'logo_url', 'web_public'];
 
 export function normalizeCustomerIds(ids) {
   return [...new Set(ids.map(String).filter(id => /^[1-9]\d{0,9}$/.test(id) && Number(id) <= 4294967295))];
