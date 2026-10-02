@@ -220,8 +220,8 @@ La struttura attuale di `stazioni_meteo` non contiene `propr_terreno` né `desc_
 ### Migrazione e pubblicazione
 
 1. Dopo la precedente migrazione `customer-registration.sql`, eseguire una sola volta [php_tmp/customer-security.sql](php_tmp/customer-security.sql).
-2. Caricare il nuovo `customer.php`. Richiede PHP 7.4+, mysqli/mysqlnd, **GD** per PNG/JPEG/WebP, e la funzione **mail()** abilitata su AlterVista. Impostare `CUSTOMER_MAIL_FROM` a un mittente autorizzato dall'hosting (default `meteopine@altervista.org`); Reply-To è `elaborazione@emmeeffeservices.it`. Verificare invio e recapito, incluso spam, su un indirizzo di prova dopo la pubblicazione. L'accettazione di `mail()` non prova il recapito.
-3. Consentire al PHP di creare e scrivere `api/customer-logos/`; directory pubblica con file PNG. Configurare `upload_max_filesize` almeno `2M`, `post_max_size` almeno `3M` e memoria sufficiente per GD. Il frontend riceve le immagini da quel percorso. Non caricare file originali manualmente nella directory.
+2. Caricare il nuovo `customer.php`. Richiede PHP 7.4+, mysqli/mysqlnd, la funzione **mail()** abilitata su AlterVista. Impostare `CUSTOMER_MAIL_FROM` a un mittente autorizzato dall'hosting (default `meteopine@altervista.org`); Reply-To è `elaborazione@emmeeffeservices.it`. Verificare invio e recapito, incluso spam, su un indirizzo di prova dopo la pubblicazione. L'accettazione di `mail()` non prova il recapito.
+3. Collegare un Blob store pubblico al progetto Vercel (istruzioni in fondo). Il PHP non riceve file.
 4. Pubblicare il frontend aggiornato. I cookie di sessione con path `/api/customers` vengono inviati anche a `/api/customers/logo`.
 
 La migrazione esenta gli account già esistenti dal nuovo obbligo di conferma, senza inventare una data di verifica o di accettazione. I nuovi account hanno `email_verification_required=1` e non possono autenticarsi prima della conferma.
@@ -240,9 +240,7 @@ Cambiare email nel profilo invia una verifica al nuovo indirizzo: l'indirizzo pr
 
 ### Logo da file
 
-`POST multipart/form-data` a `customer.php`, con `action=upload_logo`, file `logo` e Bearer token. Il browser passa dal proxy `/api/customers/logo`. Solo utenti con stazioni associate possono caricare. Limiti: 2 MB, 2048 × 2048 pixel, PNG/JPEG/WebP; SVG e altri formati sono rifiutati. PHP controlla il contenuto, decodifica con GD e ricodifica in PNG con nome casuale, senza conservare l'originale o il suo nome. Il logo è pubblico.
-
-La risposta include profilo/stazioni aggiornati. L'upload salva subito il logo senza sovrascrivere i campi ancora da salvare nel form. Rimuovere l'URL e salvare elimina il logo; sostituzione/cancellazione account eliminano il vecchio file quando appartiene alla directory gestita. Il PHP elimina il nuovo file se la transazione fallisce. Nessun download di URL esterni viene eseguito dal server.
+Il browser invia il file a `/api/customers/logo`. Next.js valida autenticazione, stazione assegnata, formato e dimensioni e ricodifica in PNG con Sharp prima del salvataggio su Vercel Blob. AlterVista riceve esclusivamente il relativo URL via PATCH. Il logo è pubblico. La sostituzione elimina il precedente file Blob dello stesso cliente; gli altri campi del form non vengono sovrascritti.
 
 ### Nome visualizzato
 
@@ -255,3 +253,11 @@ L'interfaccia mostra titolare, contatto, finalità account/consulenza, dati pubb
 Il link Iubenda esistente `62711798` è mantenuto; non ho potuto leggere integralmente quella policy. **Integrarla con il trattamento account/consulenze, caricamento logo e verifica email e confermare destinatari, trasferimenti, durata di backup/log e conservazione effettiva.** Le caselle e il codice non costituiscono una verifica di conformità giuridica dell'intero servizio. I testi presenti descrivono il flusso implementato; il titolare deve allineare la policy alle pratiche reali.
 
 Verifica su AlterVista: mail accettata e recapitata, link valido/scaduto/già usato, login prima e dopo conferma, reinvio, modifica email e revoca sessioni, caselle mancanti, logo reale vs file camuffato/SVG, upload troppo grande, utente senza stazioni, sostituzione/rimozione logo e rollback. Non sono state inviate email di prova né eseguite migrazioni su produzione durante lo sviluppo.
+
+## Loghi su Vercel Blob e privacy aziendale
+
+Il form accetta esclusivamente file PNG/JPEG/WebP (2 MB, 2048×2048). Il server Next.js verifica la sessione e la stazione assegnata, ricodifica il file in PNG e lo salva su Vercel Blob; AlterVista riceve solo `PATCH {logo_url}`. Non viene inviato alcun file al PHP.
+
+In Vercel → Storage crea un **Blob store pubblico** e collegalo a questo progetto, con variabile server `BLOB_READ_WRITE_TOKEN` disponibile negli ambienti necessari; quindi ridistribuisci il sito. Non usare il prefisso `NEXT_PUBLIC_` per il token. Senza storage configurato il caricamento restituisce 503. Carica anche il nuovo `php_tmp/customer.php` per disattivare il vecchio upload multipart. Non serve SQL aggiuntivo. I vecchi loghi vengono sostituiti al successivo caricamento; quelli già su AlterVista non sono migrati automaticamente.
+
+La Cookie Solution viene caricata sia nella home aziendale sia in `/meteo`, con policy aziendale `62711798` e sito Iubenda `4465329`, ricavati dalla policy pubblica di emmeeffeservices.it. Verifica che la Cookie Solution sia attiva nel pannello Iubenda e integra nella policy i trattamenti dell’area clienti e Vercel Blob.

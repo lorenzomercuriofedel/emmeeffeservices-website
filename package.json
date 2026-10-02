@@ -10,6 +10,7 @@
     "lighthouse:fast": "node scripts/lighthouse.mjs --no-build"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "chart.js": "^4.5.1",
     "leaflet": "^1.9.4",
     "next": "^16.1.6",
@@ -17,7 +18,8 @@
     "react": "^19.2.0",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.0",
-    "react-leaflet": "^5.0.0"
+    "react-leaflet": "^5.0.0",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.1",

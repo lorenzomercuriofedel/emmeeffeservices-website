@@ -8,8 +8,8 @@ export default function IubendaConsent({ locale }) {
   useEffect(() => {
     window._iub = window._iub || [];
     window._iub.csConfiguration = {
-      cookiePolicyId: 17001218,
-      siteId: 3824235,
+      cookiePolicyId: 62711798,
+      siteId: 4465329,
       timeoutLoadConfiguration: 30000,
       lang: locale,
       enableTcf: true,
