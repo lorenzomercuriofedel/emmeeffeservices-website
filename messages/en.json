@@ -202,6 +202,7 @@
       "altitudeValue": "{alt} m a.s.l.",
       "municipalityValue": "{comune} (TN)",
       "customer": "Customer",
+      "customerOwner": "by {owner}",
       "projectOwner": "{project} by {owner}"
     }
   },
