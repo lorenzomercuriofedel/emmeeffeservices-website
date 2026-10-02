@@ -105,7 +105,9 @@
     },
     "customer": "Cliente",
     "allCustomers": "Tutti i clienti",
-    "customerProject": "Vedi il progetto del cliente"
+    "customerProject": "Vedi il progetto del cliente",
+    "loadError": "Non riesco a caricare le stazioni. Riprova tra poco.",
+    "retry": "Riprova"
   },
   "intro": {
     "eyebrow": "Il progetto",

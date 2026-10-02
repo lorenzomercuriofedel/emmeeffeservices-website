@@ -105,7 +105,9 @@
     },
     "customer": "Customer",
     "allCustomers": "All customers",
-    "customerProject": "View customer project"
+    "customerProject": "View customer project",
+    "loadError": "Unable to load stations. Please try again shortly.",
+    "retry": "Retry"
   },
   "intro": {
     "eyebrow": "The project",

@@ -105,7 +105,9 @@
     },
     "customer": "Kunde",
     "allCustomers": "Alle Kunden",
-    "customerProject": "Kundenprojekt ansehen"
+    "customerProject": "Kundenprojekt ansehen",
+    "loadError": "Stationen können nicht geladen werden. Bitte versuchen Sie es erneut.",
+    "retry": "Erneut versuchen"
   },
   "intro": {
     "eyebrow": "Das Projekt",

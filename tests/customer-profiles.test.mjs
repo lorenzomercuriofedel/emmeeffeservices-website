@@ -78,3 +78,12 @@ test('station detail resolves its customer ID and builds the canonical public li
   assert.equal(customerPath(customer), '/customer/42');
   assert.ok(calls.some(url => url.includes('customer.php?public=true&ids=42')));
 });
+
+test('station registry HTTP failures are reported rather than treated as an empty map', async t => {
+  t.mock.method(globalThis, 'fetch', async () => ({ ok: false, status: 500, json: async () => { throw new Error('Empty body'); } }));
+  await assert.rejects(fetchStations(), /HTTP 500/);
+});
+test('malformed station registries are reported rather than hiding every station', async t => {
+  t.mock.method(globalThis, 'fetch', async () => ({ ok: true, json: async () => ({ error: 'Unavailable' }) }));
+  await assert.rejects(fetchStations(), /Invalid station registry/);
+});

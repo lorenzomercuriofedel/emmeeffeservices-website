@@ -10,7 +10,7 @@
 
 Il backend da caricare su AlterVista è [php_tmp/customer.php](php_tmp/customer.php). Usa la connessione già presente nelle API, con override tramite `CUSTOMER_DB_HOST`, `CUSTOMER_DB_USER`, `CUSTOMER_DB_PASSWORD`, `CUSTOMER_DB_NAME`. Richiede PHP 7.4 o successivo, mysqli/mysqlnd e directory temporanea PHP scrivibile per il rate limit persistente (5 tentativi/account e 100/IP ogni 15 minuti, compresi i login riusciti). Le sessioni durano 8 ore.
 
-La tabella anagrafica reale è **`stazioni_meteo`**: qui si trova `customer_id` con FK verso `customers.id`. **`dati_stazioni` contiene le misurazioni e non viene modificata.** Le due API esistenti mantengono il loro comportamento; `stazioni_meteo.php` aggiunge `customer_id` alle risposte esistenti; l’app ignora il vecchio nome testuale quando l’ID è presente. L'app recupera nome, descrizione, tipo, consenso e logo da `customer.php` tramite quell'ID.
+La tabella anagrafica reale è **`stazioni_meteo`**: qui si trova `customer_id` con FK verso `customers.id`. **`dati_stazioni` contiene le misurazioni e non viene modificata.** Le due API esistenti mantengono il loro comportamento; `stazioni_meteo.php` restituisce `customer_id` senza dipendere dalla vecchia colonna testuale `customer`. L'app recupera nome, descrizione, tipo, consenso e logo da `customer.php` tramite quell'ID.
 
 ## Relazioni SQL
 
@@ -156,7 +156,7 @@ try {
 }
 ```
 
-La vecchia colonna testuale `stazioni_meteo.customer` rimane nella risposta per compatibilità, ma l’app non la usa più per risolvere i clienti quando `customer_id` è presente. PATCH modifica la tabella `customers`; DELETE scollega le stazioni tramite `customer_id`, revoca le sessioni e rimuove il cliente in una transazione. Nessuna query elimina misurazioni.
+La vecchia colonna testuale `stazioni_meteo.customer` non viene selezionata dall’API aggiornata: i clienti si risolvono esclusivamente tramite `customer_id`. PATCH modifica la tabella `customers`; DELETE scollega le stazioni tramite `customer_id`, revoca le sessioni e rimuove il cliente in una transazione. Nessuna query elimina misurazioni.
 
 ## Profili pubblici per le stazioni
 
@@ -208,3 +208,7 @@ Prima di pubblicare il PHP aggiornato, eseguire una sola volta [php_tmp/customer
 Verificare su AlterVista: registrazione ed email duplicata, accesso automatico e successivo login, nessuna assegnazione stazione alla registrazione, PATCH dei soli campi account/progetto, rifiuto di modifiche logo senza stazioni, salvataggio consulenza ed eliminazione account. Gli endpoint delle misurazioni e l'API anagrafica stazioni non cambiano con questo aggiornamento.
 
 Le pagine pubbliche usano `/meteo/customer/<id>` (ID del database, senza prefisso `id-`), con varianti `/meteo/en/customer/<id>` e `/meteo/de/customer/<id>`. Link in stazione/mappa, canonical e sitemap usano questi URL; i vecchi `/meteo/cliente/...` reindirizzano permanentemente quando il cliente è identificabile. Nome e logo nei dettagli stazione provengono dal profilo di `customer.php`, risolto tramite `customer_id`.
+
+## Mappa vuota e anagrafica HTTP 500
+
+Caricare anche la versione corretta di `php_tmp/stazioni_meteo.php`: non seleziona il vecchio campo `customer`, passa una variabile a `bind_param` nel dettaglio e restituisce JSON anche in caso di errore. Gli errori SQL dettagliati vengono registrati nel log PHP del server. Se l’API risponde ancora 500, verificare il log AlterVista e le colonne effettive di `stazioni_meteo`; `customer.php` non può compensare il mancato caricamento delle stazioni. Il frontend segnala gli errori della mappa e permette di riprovare.

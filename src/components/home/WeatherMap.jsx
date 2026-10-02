@@ -76,6 +76,8 @@ export default function WeatherMap() {
   const router = useRouter();
   const [markers, setMarkers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [reload, setReload] = useState(0);
   const [updatedAt, setUpdatedAt] = useState(null);
   const [activeMetric, setActiveMetric] = useState('temperature');
 
@@ -97,10 +99,12 @@ export default function WeatherMap() {
         );
         if (!cancelled) {
           setMarkers(results);
+          setLoadError(false);
           setUpdatedAt(new Date());
         }
       } catch (err) {
         console.error('Errore caricamento mappa:', err);
+        if (!cancelled) setLoadError(true);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -111,12 +115,13 @@ export default function WeatherMap() {
       cancelled = true;
       clearInterval(interval);
     };
-  }, []);
+  }, [reload]);
 
   const [customerFilter, setCustomerFilter] = useState('');
   const customers = groupCustomers(markers.map(({ station }) => station));
   const selectedCustomer = customers.find((customer) => customer.id === customerFilter);
-  const visibleMarkers = customerFilter
+  const effectiveFilter = selectedCustomer ? customerFilter : '';
+  const visibleMarkers = effectiveFilter
     ? markers.filter(({ station }) => getCustomer(station)?.id === customerFilter)
     : markers;
 
@@ -180,12 +185,13 @@ export default function WeatherMap() {
 
           <div className="flex flex-wrap items-center gap-3 px-5 py-3 border-b border-sky-100">
             <label htmlFor="customer-filter" className="text-sm font-semibold text-ink">{t('customer')}</label>
-            <select id="customer-filter" value={customerFilter} onChange={(event) => setCustomerFilter(event.target.value)} className="max-w-full rounded-lg border border-sky-200 bg-white px-3 py-2 text-sm">
+            <select id="customer-filter" value={effectiveFilter} onChange={(event) => setCustomerFilter(event.target.value)} className="max-w-full rounded-lg border border-sky-200 bg-white px-3 py-2 text-sm">
               <option value="">{t('allCustomers')}</option>
               {customers.map((customer) => <option key={customer.id} value={customer.id}>{customer.name}</option>)}
             </select>
             {selectedCustomer && <Link href={customerPath(selectedCustomer)} className="text-sm text-sky-700 underline">{t('customerProject')}</Link>}
           </div>
+          {loadError && <div role="alert" className="px-5 py-3 bg-red-50 text-red-800 text-sm flex items-center justify-between gap-3"><p>{t('loadError')}</p><button type="button" className="underline font-semibold shrink-0" onClick={() => { setLoading(true); setReload(value => value + 1); }}>{t('retry')}</button></div>}
           <div className="relative flex-1 min-h-0">
             {loading && (
               <div className="absolute inset-0 z-[1000] bg-white/85 backdrop-blur-sm flex items-center justify-center">
