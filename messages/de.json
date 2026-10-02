@@ -349,7 +349,7 @@
     "cancel": "Abbrechen",
     "deleted": "Konto gelöscht.",
     "invalidLogo": "Geben Sie eine gültige HTTPS-URL ein.",
-    "unavailable": "Dienst nicht verfügbar oder Anfrage abgelehnt. Versuchen Sie es erneut. Unterstützung: elaborazione@emmeeffeservices.it",
+    "unavailable": "Dienst nicht verfügbar oder Anfrage abgelehnt. Versuchen Sie es in einigen Minuten erneut.",
     "invalidLogin": "Ungültige Zugangsdaten.",
     "expired": "Sitzung abgelaufen. Melden Sie sich erneut an.",
     "register": "Registrieren",
@@ -368,7 +368,7 @@
     "consultationMessage": "Beschreiben Sie Ihre Anforderungen",
     "consultationHelp": "Ihre Anfrage wird gespeichert und zur Vereinbarung einer Beratung geprüft.",
     "requestConsultation": "Beratung anfragen",
-    "consultationSent": "Anfrage Nr. {id} gespeichert. Bei Fragen: elaborazione@emmeeffeservices.it",
+    "consultationSent": "Anfrage Nr. {id} gespeichert. Wir kontaktieren Sie, um die Beratung zu vereinbaren.",
     "verifyEmail": "E-Mail-Adresse bestätigen",
     "verificationHelp": "Bestätigen Sie Ihre E-Mail mit der Schaltfläche. Der Link ist 24 Stunden gültig.",
     "verified": "E-Mail bestätigt. Willkommen im Kundenbereich für Wetterstationen.",
@@ -389,6 +389,7 @@
     "termsSummary": "Der Kundenbereich für Wetterstationen dient der Verwaltung Ihres Wetterprofils und Beratungsanfragen zum Kauf und zur Einrichtung von Wetterstationen. Andere Leistungen von Emme-Effe Services sind nicht Teil dieses Bereichs. Die Registrierung führt nicht zu Käufen oder einer automatischen Stationszuordnung. Leistungen und Käufe werden separat vereinbart. Schützen Sie Ihre Zugangsdaten, machen Sie korrekte Angaben und laden Sie nur Bilder hoch, die Sie veröffentlichen dürfen.",
     "stationVisible": "Auf der Karte sichtbar",
     "stationVisibilitySaved": "Stationssichtbarkeit aktualisiert.",
+    "stationTechnicalHelp": "Um die bei der Beratung und Einrichtung angegebenen technischen Stationsdaten zu aktualisieren, schreiben Sie uns unter Angabe von Stationsname und ID an:",
     "stationVisibilityHelp": "Deaktivieren, um die Station auf der Karte und in öffentlichen Listen auszublenden. Messungen bleiben erhalten."
   }
 }

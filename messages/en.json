@@ -349,7 +349,7 @@
     "cancel": "Cancel",
     "deleted": "Account deleted.",
     "invalidLogo": "Enter a valid HTTPS logo URL.",
-    "unavailable": "Service unavailable or request rejected. Retry. For support: elaborazione@emmeeffeservices.it",
+    "unavailable": "Service unavailable or request rejected. Try again in a few minutes.",
     "invalidLogin": "Invalid credentials.",
     "expired": "Session expired. Sign in again.",
     "register": "Register",
@@ -368,7 +368,7 @@
     "consultationMessage": "Describe your requirements",
     "consultationHelp": "Your request will be saved and reviewed to arrange a consultation.",
     "requestConsultation": "Request a consultation",
-    "consultationSent": "Request no. {id} saved. For questions: elaborazione@emmeeffeservices.it",
+    "consultationSent": "Request no. {id} saved. We will contact you to arrange the consultation.",
     "verifyEmail": "Confirm email address",
     "verificationHelp": "Press the button to confirm your email and sign in. The link is valid for 24 hours.",
     "verified": "Email confirmed. Welcome to your weather customer area.",
@@ -389,6 +389,7 @@
     "termsSummary": "The weather customer area lets you manage your weather profile and request advice on purchasing and setting up weather stations. It does not cover other Emme-Effe Services activities. Registration does not entail purchases or automatic station assignments. Purchases and services are agreed separately. Keep your credentials secure, provide accurate information and upload only images you are entitled to publish.",
     "stationVisible": "Visible on the map",
     "stationVisibilitySaved": "Station visibility updated.",
+    "stationTechnicalHelp": "To update the station’s technical details provided during the consultation and station setup, email us with the station name and ID at:",
     "stationVisibilityHelp": "Uncheck to hide the station from the map and public lists. Measurements are retained."
   }
 }

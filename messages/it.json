@@ -349,7 +349,7 @@
     "cancel": "Annulla",
     "deleted": "Account cancellato.",
     "invalidLogo": "Inserisci un URL HTTPS valido per il logo.",
-    "unavailable": "Servizio non disponibile o richiesta rifiutata. Riprova. Per assistenza: elaborazione@emmeeffeservices.it",
+    "unavailable": "Servizio non disponibile o richiesta rifiutata. Riprova tra qualche minuto.",
     "invalidLogin": "Credenziali non valide.",
     "expired": "Sessione scaduta. Accedi nuovamente.",
     "register": "Registrati",
@@ -368,7 +368,7 @@
     "consultationMessage": "Descrivi le tue esigenze",
     "consultationHelp": "La richiesta viene salvata e sarà valutata per concordare una consulenza.",
     "requestConsultation": "Richiedi consulenza",
-    "consultationSent": "Richiesta n. {id} salvata. Per chiarimenti: elaborazione@emmeeffeservices.it",
+    "consultationSent": "Richiesta n. {id} salvata. Ti contatteremo per concordare la consulenza.",
     "verifyEmail": "Conferma indirizzo email",
     "verificationHelp": "Premi il pulsante per confermare la tua email e accedere. Il link è valido per 24 ore.",
     "verified": "Email confermata. Benvenuto nella tua area clienti meteo.",
@@ -389,6 +389,7 @@
     "termsSummary": "L’area clienti meteo permette di gestire il profilo meteo e richiedere consulenze per acquisto e configurazione di stazioni meteorologiche. Non comprende gli altri servizi di Emme-Effe Services. La registrazione non comporta acquisti né assegnazione automatica di stazioni. Acquisti e prestazioni sono concordati separatamente. Custodisci le credenziali, inserisci dati corretti e carica solo immagini che hai diritto di pubblicare.",
     "stationVisible": "Visibile in mappa",
     "stationVisibilitySaved": "Visibilità della stazione aggiornata.",
+    "stationTechnicalHelp": "Per aggiornare i dati tecnici della stazione comunicati durante la consulenza e l’inserimento, scrivi indicando nome e ID della stazione a:",
     "stationVisibilityHelp": "Disattiva per nascondere la stazione dalla mappa e dagli elenchi pubblici. Le misurazioni restano conservate."
   }
 }
