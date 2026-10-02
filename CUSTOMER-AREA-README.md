@@ -1,4 +1,4 @@
-# Area clienti — backend AlterVista PHP + MySQL
+# Area clienti meteo — backend AlterVista PHP + MySQL
 
 ## Cosa implementa questo repository
 
@@ -203,7 +203,7 @@ Prima di pubblicare il PHP aggiornato, eseguire una sola volta [php_tmp/customer
 - I nuovi account vedono nel menu solo la consulenza per acquisto e configurazione di una stazione. Possono modificare dati account, nome/descrizione progetto e cancellare il proprio account; logo, tipo progetto, consenso e stazioni compaiono dopo l'associazione amministrativa di una stazione. Il PHP rifiuta le modifiche a logo/tipo/consenso per account senza stazioni.
 - `POST {"action":"consultation","message":"Vorrei una stazione…"}` richiede Bearer token: salva una richiesta e restituisce profilo/stazioni e `consultation: {id, status:"new"}`. Massimo 5000 caratteri; 3 richieste/cliente e 100/IP ogni 15 minuti. Nessuna email automatica. Le richieste si consultano in phpMyAdmin con la SELECT inclusa nel file SQL; `status` può essere gestito amministrativamente. La cancellazione account rimuove anche le sue richieste.
 - `project_name` è distinto da `name` (nome della persona/azienda), opzionale, max 255 caratteri. Compare nelle risposte private e pubbliche; la pagina progetto usa il nome progetto come titolo quando configurato. PATCH accetta `project_name` oltre a `description`.
-- L'aiuto nell'area clienti mostra solo `elaborazione@emmeeffeservices.it` come testo, senza link alla pagina contatti né mailto. Il precedente indirizzo `mp@...` proveniva dalla pagina contatti meteo già presente nel repository.
+- L'aiuto nell'area clienti meteo mostra solo `elaborazione@emmeeffeservices.it` come testo, senza link alla pagina contatti né mailto. Il precedente indirizzo `mp@...` proveniva dalla pagina contatti meteo già presente nel repository.
 
 Verificare su AlterVista: registrazione ed email duplicata, conferma email e successivo login, nessuna assegnazione stazione alla registrazione, PATCH dei soli campi account/progetto, rifiuto di modifiche logo senza stazioni, salvataggio consulenza ed eliminazione account. Gli endpoint delle misurazioni e l'API anagrafica stazioni non cambiano con questo aggiornamento.
 
@@ -230,7 +230,7 @@ La migrazione esenta gli account già esistenti dal nuovo obbligo di conferma, s
 
 `register` richiede `privacy_acknowledged: true` e `terms_accepted: true`, oltre ai campi già documentati. Registra la data UTC delle due azioni e `legal_version = 2026-10-02-v1`. Conservare una copia delle condizioni e dell'informativa di ogni versione; aggiornare insieme versione backend e testi frontend quando cambiano. Le caselle non sono preselezionate; il consenso all'indicizzazione rimane separato e facoltativo. Nessun consenso marketing è raccolto e nessuna email promozionale è inviata.
 
-La risposta di registrazione è `{ "verification_required": true }`: niente token/sessione. `customer_email_verifications` conserva solo SHA-256 del token, indirizzo destinatario e scadenza (24 ore). La mail contiene un link HTTPS alla pagina area clienti con token nel frammento `#verify=...`, che non viene inviato ai server nei log degli URL; la conferma avviene solo premendo il pulsante, non tramite un GET che scanner di posta potrebbero aprire automaticamente.
+La risposta di registrazione è `{ "verification_required": true }`: niente token/sessione. `customer_email_verifications` conserva solo SHA-256 del token, indirizzo destinatario e scadenza (24 ore). La mail contiene un link HTTPS alla pagina area clienti meteo con token nel frammento `#verify=...`, che non viene inviato ai server nei log degli URL; la conferma avviene solo premendo il pulsante, non tramite un GET che scanner di posta potrebbero aprire automaticamente.
 
 `POST {"action":"verify_email","verification_token":"<64 caratteri hex>"}` consuma il link una sola volta, aggiorna email/data verifica, revoca le vecchie sessioni e restituisce un nuovo token privato. Il proxy lo mette nel cookie HttpOnly; il browser legge il frammento e lo rimuove subito dall’URL mantenendo il token solo nello stato della pagina. La pagina usa `Referrer-Policy: no-referrer`.
 
@@ -260,9 +260,9 @@ Il form accetta esclusivamente file PNG/JPEG/WebP (2 MB, 2048×2048). Il server 
 
 In Vercel → Storage crea un **Blob store pubblico** e collegalo a questo progetto, con variabile server `BLOB_READ_WRITE_TOKEN` disponibile negli ambienti necessari; quindi ridistribuisci il sito. Non usare il prefisso `NEXT_PUBLIC_` per il token. Senza storage configurato il caricamento restituisce 503. Carica anche il nuovo `php_tmp/customer.php` per disattivare il vecchio upload multipart. Non serve SQL aggiuntivo. I vecchi loghi vengono sostituiti al successivo caricamento; quelli già su AlterVista non sono migrati automaticamente.
 
-La Cookie Solution viene caricata sia nella home aziendale sia in `/meteo`, con policy aziendale `62711798` e sito Iubenda `4465329`, ricavati dalla policy pubblica di emmeeffeservices.it. Verifica che la Cookie Solution sia attiva nel pannello Iubenda e integra nella policy i trattamenti dell’area clienti e Vercel Blob.
+La Cookie Solution viene caricata sia nella home aziendale sia in `/meteo`, con policy aziendale `62711798` e sito Iubenda `4465329`, ricavati dalla policy pubblica di emmeeffeservices.it. Verifica che la Cookie Solution sia attiva nel pannello Iubenda e integra nella policy i trattamenti dell’area clienti meteo e Vercel Blob.
 
-## Visibilità delle stazioni nell’area clienti
+## Visibilità delle stazioni nell’area clienti meteo
 
 Ogni stazione assegnata ha la casella “Visibile in mappa”. L’azione autenticata `POST {action:"station_visibility",station_id:42,disabled:true}` su `customer.php` aggiorna esclusivamente una stazione del cliente della sessione. `disabled=false` la rende nuovamente visibile. Le risposte private includono `stations[].disabled` booleano e anche le stazioni disabilitate, così possono essere riattivate. L’API pubblica già filtra `disabled=0`: la scelta nasconde anche dagli elenchi pubblici, senza cancellare dati o misurazioni; non è un controllo di accesso ai dettagli tramite URL diretto.
 
