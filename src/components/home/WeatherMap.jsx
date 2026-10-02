@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { getCustomer, groupCustomers, customerPath } from '@/src/utils/customers';
+import { getCustomer, groupCustomers, customerPath, customerDisplayName } from '@/src/utils/customers';
 import { Link, useRouter } from '@/src/i18n/navigation';
 import { MapContainer, TileLayer, Marker, Tooltip, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -187,7 +187,7 @@ export default function WeatherMap() {
             <label htmlFor="customer-filter" className="text-sm font-semibold text-ink">{t('customer')}</label>
             <select id="customer-filter" value={effectiveFilter} onChange={(event) => setCustomerFilter(event.target.value)} className="max-w-full rounded-lg border border-sky-200 bg-white px-3 py-2 text-sm">
               <option value="">{t('allCustomers')}</option>
-              {customers.map((customer) => <option key={customer.id} value={customer.id}>{customer.name}</option>)}
+              {customers.map((customer) => <option key={customer.id} value={customer.id}>{customerDisplayName(customer)}</option>)}
             </select>
             {selectedCustomer && <Link href={customerPath(selectedCustomer)} className="text-sm text-sky-700 underline">{t('customerProject')}</Link>}
           </div>
@@ -236,6 +236,7 @@ export default function WeatherMap() {
                         <p className="text-[10px] text-ink-mute leading-tight">
                           {station.altitudine} m · {online ? metricTooltipValue : t('offline')}
                         </p>
+                        {getCustomer(station) && <p className="text-[10px] text-ink-mute">{customerDisplayName(getCustomer(station))}</p>}
                         <p className="text-[10px] text-sky-700 font-semibold mt-0.5">{t('openStation')}</p>
                       </div>
                     </Tooltip>

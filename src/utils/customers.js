@@ -41,7 +41,7 @@ export function groupCustomers(stations) {
       group.projectType ||= customer.projectType;
     } else groups.set(customer.id, { ...customer, stations: [station] });
   }
-  return [...groups.values()].sort((a, b) => a.name.localeCompare(b.name));
+  return [...groups.values()].sort((a, b) => customerDisplayName(a).localeCompare(customerDisplayName(b)));
 }
 
 export function customerDescription(customer, locale) {
@@ -69,4 +69,9 @@ export function safeLogoUrl(value) {
     const url = new URL(value.trim());
     return url.protocol === 'https:' && !url.username && !url.password ? url.href : null;
   } catch { return null; }
+}
+
+export function customerDisplayName(customer) {
+  return customer?.projectType === 'hobby' && customer.projectName?.trim()
+    ? customer.projectName.trim() : customer?.name ?? '';
 }

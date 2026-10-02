@@ -201,7 +201,8 @@
       "noInfo": "Nessuna informazione aggiuntiva disponibile.",
       "altitudeValue": "{alt} m s.l.m.",
       "municipalityValue": "{comune} (TN)",
-      "customer": "Cliente"
+      "customer": "Cliente",
+      "projectOwner": "{project} di {owner}"
     }
   },
   "charts": {
@@ -365,6 +366,24 @@
     "consultationMessage": "Descrivi le tue esigenze",
     "consultationHelp": "La richiesta viene salvata e sarà valutata per concordare una consulenza.",
     "requestConsultation": "Richiedi consulenza",
-    "consultationSent": "Richiesta n. {id} salvata. Per chiarimenti: elaborazione@emmeeffeservices.it"
+    "consultationSent": "Richiesta n. {id} salvata. Per chiarimenti: elaborazione@emmeeffeservices.it",
+    "verifyEmail": "Conferma indirizzo email",
+    "verificationHelp": "Premi il pulsante per confermare la tua email e accedere. Il link è valido per 24 ore.",
+    "verified": "Email confermata. Benvenuto nella tua area clienti.",
+    "verificationSent": "Registrazione ricevuta. Controlla la posta e conferma la tua email prima di accedere.",
+    "verificationNeeded": "Conferma la tua email prima di accedere. Se non hai ricevuto il messaggio, richiedi un nuovo link.",
+    "resendVerification": "Invia di nuovo la conferma email",
+    "resendHelp": "Inserisci la tua email per richiedere un nuovo link.",
+    "resendSent": "Se l’indirizzo corrisponde a un account da confermare, riceverai un nuovo link. Controlla anche lo spam.",
+    "emailChangePending": "Per cambiare indirizzo, conferma il link inviato alla nuova email. Nel frattempo resta attivo l’indirizzo precedente.",
+    "uploadLogo": "Carica logo da file",
+    "logoFileHelp": "PNG, JPEG o WebP: massimo 2 MB e 2048 × 2048 pixel. Il logo caricato è pubblico; usa un’immagine che hai diritto di pubblicare.",
+    "logoUploaded": "Logo caricato e salvato.",
+    "registrationNotice": "Informativa account e condizioni del servizio",
+    "privacyPolicy": "Informativa privacy completa",
+    "privacyAcknowledgement": "Dichiaro di aver letto l’informativa sul trattamento dei dati dell’account e la privacy policy.",
+    "termsAcceptance": "Accetto le condizioni dell’area clienti riportate sopra.",
+    "privacySummary": "Titolare: Emme-Effe Services di Lorenzo Mercurio Fedel, Via dello Stadio 7, Baselga di Piné (TN). Contatto privacy: elaborazione@emmeeffeservices.it.\nNome, email, credenziali protette, progetto e richieste di consulenza sono usati per gestire l’account e le attività richieste (art. 6, par. 1, lett. b GDPR). Per l’account questi dati sono necessari; non sono usati per marketing. I fornitori tecnici di hosting e posta trattano i dati per erogare il servizio secondo l’informativa completa.\nNome/progetto e logo diventano pubblici sulle stazioni associate. L’indicizzazione del progetto nei motori di ricerca resta una scelta separata e modificabile.\nI dati dell’account sono conservati durante il servizio; cancellando l’account vengono eliminati profilo, richieste e logo caricato. Le misurazioni delle stazioni restano. Link di verifica: 24 ore; sessioni: 8 ore. Per log tecnici, backup, destinatari e trasferimenti consulta l’informativa completa.\nPuoi chiedere accesso, rettifica, cancellazione, limitazione, portabilità e opposizione nei casi previsti dagli artt. 15–22 GDPR, e presentare reclamo al Garante per la protezione dei dati personali.",
+    "termsSummary": "L’area clienti consente di gestire il proprio profilo e richiedere consulenze. Registrarsi non comporta acquisti o assegnazioni automatiche di stazioni. Acquisti e prestazioni vengono concordati separatamente. Custodisci le credenziali e inserisci informazioni corrette; carica solo immagini che sei autorizzato a pubblicare."
   }
 }

@@ -90,6 +90,8 @@ export default async function StationPage({ params }) {
     );
   }
 
+  const stationCustomer = getCustomer(anagrafica);
+
   // JSON-LD structured data per Knowledge Graph / Maps
   const lat = parseFloat(anagrafica.latitudine);
   const lng = parseFloat(anagrafica.longitudine);
@@ -143,6 +145,7 @@ export default async function StationPage({ params }) {
           <p className="text-sky-100/80 mt-2 text-base md:text-lg">
             {t('subtitle', { comune: anagrafica.comune, alt: anagrafica.altitudine })}
           </p>
+          {stationCustomer?.projectType === 'hobby' && stationCustomer.projectName && <p className="text-sky-100/80 text-xs mt-3">{t('info.projectOwner', { project: stationCustomer.projectName, owner: stationCustomer.name })}</p>}
           </div>
           <CustomerLogo customer={getCustomer(anagrafica)} />
           </div>

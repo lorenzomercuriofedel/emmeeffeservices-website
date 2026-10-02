@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/src/i18n/navigation';
-import { getCustomer, customerPath } from '@/src/utils/customers';
+import { getCustomer, customerPath, customerDisplayName } from '@/src/utils/customers';
 
 export default function StationInfo({ anagrafica }) {
   const t = useTranslations('station.info');
@@ -78,7 +78,7 @@ export default function StationInfo({ anagrafica }) {
                   <InfoRow label={t('anemometerHeight')} value={anagrafica.altezza_anemometro_dal_suolo ? `${Number(anagrafica.altezza_anemometro_dal_suolo).toFixed(2)} m` : null} />
                   <InfoRow label={t('placement')} value={anagrafica.ubicazione} />
                   <InfoRow label={t('terrainType')} value={anagrafica.tipo_terreno} />
-                  <InfoRow label={t('customer')} value={customer ? <Link href={customerPath(customer)} className="text-sky-700 underline underline-offset-4">{customer.name}</Link> : null} />
+                  <InfoRow label={t('customer')} value={customer ? <span><Link href={customerPath(customer)} className="text-sky-700 underline underline-offset-4">{customerDisplayName(customer)}</Link>{customer.projectType === 'hobby' && customer.projectName && <span className="block mt-1 text-xs text-ink-mute">{t('projectOwner', { project: customer.projectName, owner: customer.name })}</span>}</span> : null} />
                   <InfoRow label={t('solarShield')} value={anagrafica.schermo_solare} />
                 </div>
               )}

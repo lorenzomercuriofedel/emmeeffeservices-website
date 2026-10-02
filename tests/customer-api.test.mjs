@@ -51,17 +51,13 @@ test('logout, deletion and expired sessions clear the browser cookie', async () 
   assert.equal((await routes.GET(request('GET'))).cookies.entries[0][2].maxAge, 0);
 });
 
-test('registration creates a browser session without forwarding an existing account token', async () => {
-  const token = 'b'.repeat(64);
-  const { routes, calls } = setup({ token: 'old-session', upstream: { ok: true, status: 200, json: async () => ({ token, customer: { id: 43, project_name: 'New project' }, stations: [] }) } });
-  const response = await routes.POST(request('POST', { action: 'register', name: 'New user', email: 'new@example.com', password: 'Long-password-123', project_name: 'New project' }));
+test('registration awaits email confirmation without creating a session or leaking a token', async () => {
+  const { routes, calls } = setup({ token: 'old-session', upstream: { ok: true, status: 200, json: async () => ({ verification_required: true, token: 'should-not-leak' }) } });
+  const response = await routes.POST(request('POST', { action: 'register', name: 'New user', email: 'new@example.com', password: 'Long-password-123', privacy_acknowledged: true, terms_accepted: true }));
   assert.equal(response.status, 200);
-  assert.equal(response.body.customer.project_name, 'New project');
-  assert.deepEqual(response.body.stations, []);
-  assert.equal(response.body.token, undefined);
-  assert.equal(response.cookies.entries[0][1], token);
+  assert.deepEqual(response.body, { verification_required: true });
+  assert.equal(response.cookies.entries.length, 0);
   assert.equal(calls[0][1].headers.Authorization, undefined);
-  assert.equal(JSON.parse(calls[0][1].body).action, 'register');
 });
 test('consultation requires authentication and returns the saved request reference', async () => {
   const anonymous = setup();
@@ -78,4 +74,20 @@ test('registration rejects cross-origin requests and malformed backend sessions'
   assert.equal((await routes.POST(request('POST', { action: 'register' }, 'https://attacker.com'))).status, 403);
   assert.equal(calls.length, 0);
   assert.equal((await routes.POST(request('POST', { action: 'register' }))).status, 502);
+});
+
+test('email verification establishes an HttpOnly session without exposing the token', async () => {
+  const token = 'a'.repeat(64);
+  const { routes } = setup({ upstream: { ok: true, status: 200, json: async () => ({ token, customer: { id: 42 }, stations: [] }) } });
+  const response = await routes.POST(request('POST', { action: 'verify_email', verification_token: 'b'.repeat(64) }));
+  assert.equal(response.status, 200);
+  assert.equal(response.body.token, undefined);
+  assert.equal(response.cookies.entries[0][1], token);
+  assert.equal(response.cookies.entries[0][2].httpOnly, true);
+});
+test('resending confirmation is anonymous and never creates a session', async () => {
+  const { routes } = setup({ upstream: { ok: true, status: 200, json: async () => ({ verification_required: true }) } });
+  const response = await routes.POST(request('POST', { action: 'resend_verification', email: 'test@example.com' }));
+  assert.equal(response.status, 200);
+  assert.equal(response.cookies.entries.length, 0);
 });

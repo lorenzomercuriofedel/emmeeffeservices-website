@@ -80,7 +80,7 @@ Il campo `customer` nelle risposte private è un oggetto:
 
 | Metodo | Body JSON | Comportamento |
 | --- | --- | --- |
-| POST | `{"action":"register","name":"…","email":"…","password":"…","project_name":"…","description":"…"}` | Crea account senza stazioni e sessione; restituisce profilo, stazioni vuote e `token` |
+| POST | `{"action":"register","name":"…","email":"…","password":"…","project_name":"…","description":"…"}` | Crea account senza stazioni, invia conferma e restituisce `verification_required: true`, senza sessione |
 | POST | `{"action":"consultation","message":"…"}` | Richiede sessione e salva richiesta consulenza; restituisce riferimento richiesta |
 | POST | `{"action":"login","email":"…","password":"…"}` | Verifica credenziali, crea sessione, restituisce profilo, stazioni e `token` |
 | GET | nessuno | Profilo e stazioni del cliente autenticato |
@@ -88,7 +88,7 @@ Il campo `customer` nelle risposte private è un oggetto:
 | POST | `{"action":"logout"}` | Revoca la sessione corrente; `200 {}` o `204` |
 | DELETE | `{"password":"…"}` | Verifica di nuovo password, scollega stazioni, elimina cliente e tutte le sue sessioni; `200 {}` o `204` |
 
-Tutte le richieste private tranne login e registrazione richiedono `Authorization: Bearer <token>`. Non leggere un ID dal body/query per decidere quale profilo modificare: usare esclusivamente il cliente risolto dalla sessione. `401` per credenziali/sessione/password errate, `422` per campi invalidi, `409` per email già registrata, `429` per rate limit, `405` per metodo non consentito.
+Tutte le richieste private tranne login, registrazione, conferma email e reinvio della conferma richiedono `Authorization: Bearer <token>`. Non leggere un ID dal body/query per decidere quale profilo modificare: usare esclusivamente il cliente risolto dalla sessione. `401` per credenziali/sessione/password errate, `422` per campi invalidi, `409` per email già registrata, `429` per rate limit, `405` per metodo non consentito.
 
 ## Struttura PHP consigliata
 
@@ -129,7 +129,7 @@ $customerId = $customer['id'];
 
 `respond($status, $body)` deve impostare status/header, serializzare JSON e chiamare `exit`. Le funzioni nei commenti sono da implementare. Verificare che AlterVista inoltri Authorization in PHP; se il server lo rimuove, configurarne il passaggio lato hosting prima di usare l'area.
 
-PATCH: accettare una whitelist fissa, incluso `project_name` (opzionale, max 255 caratteri); rifiutare `id`, `customer_id`, `stations`, `password_hash`, `role` e campi non previsti. Limiti: nome 1–255 caratteri dopo trim, email valida max 254, descrizione max 5000, URL max 2048 con schema HTTPS, host presente e senza credenziali; tipo in enum o null; consenso strettamente booleano. Nessun fetch server del logo: si tratta di un URL pubblico renderizzato dal browser, non di upload. Preferire immagini raster pubbliche stabili. Email univoca con `409` in caso di conflitto. Non consentire PATCH della password in questo contratto. Verificare email nuova prima di usarla per eventuali futuri recuperi password.
+PATCH: accettare una whitelist fissa, incluso `project_name` (opzionale, max 255 caratteri); rifiutare `id`, `customer_id`, `stations`, `password_hash`, `role` e campi non previsti. Limiti: nome 1–255 caratteri dopo trim, email valida max 254, descrizione max 5000, URL max 2048 con schema HTTPS, host presente e senza credenziali; tipo in enum o null; consenso strettamente booleano. PATCH gestisce l’URL pubblico del logo senza scaricarlo dal server; per i file usare l’upload dedicato descritto sotto. Preferire immagini raster pubbliche stabili. Email univoca con `409` in caso di conflitto. Non consentire PATCH della password in questo contratto. Il nuovo indirizzo email viene applicato solo dopo la conferma del link.
 
 ```sql
 UPDATE customers
@@ -199,16 +199,59 @@ Per chiamate manuali usare credenziali di test e un client HTTP; conservare il t
 
 Prima di pubblicare il PHP aggiornato, eseguire una sola volta [php_tmp/customer-registration.sql](php_tmp/customer-registration.sql) sul database esistente: aggiunge `customers.project_name` e la tabella `customer_consultations`. Non ripetere la creazione delle tabelle clienti/sessioni già esistenti.
 
-- `POST {"action":"register","name":"Mario Rossi","email":"…","password":"…","project_name":"Osservatorio","description":"…"}`: crea cliente e sessione in transazione, restituisce token/profilo e `stations: []`. Non accetta ruoli, ID stazioni, logo o consenso pubblico. Password minima 12 caratteri, massima 72 byte; email univoca, limite di 20 registrazioni/IP e 5/email ogni 15 minuti. Non è previsto l'invio automatico di una email di verifica o recupero password.
+- `POST {"action":"register","name":"Mario Rossi","email":"…","password":"…","project_name":"Osservatorio","description":"…"}`: crea un cliente inattivo e invia la conferma email; restituisce `verification_required: true`, senza sessione. Non accetta ruoli, ID stazioni, logo o consenso pubblico. Password minima 12 caratteri, massima 72 byte; email univoca, limite di 20 registrazioni/IP e 5/email ogni 15 minuti. La conferma email è obbligatoria per i nuovi account; non è ancora previsto il recupero automatico della password.
 - I nuovi account vedono nel menu solo la consulenza per acquisto e configurazione di una stazione. Possono modificare dati account, nome/descrizione progetto e cancellare il proprio account; logo, tipo progetto, consenso e stazioni compaiono dopo l'associazione amministrativa di una stazione. Il PHP rifiuta le modifiche a logo/tipo/consenso per account senza stazioni.
 - `POST {"action":"consultation","message":"Vorrei una stazione…"}` richiede Bearer token: salva una richiesta e restituisce profilo/stazioni e `consultation: {id, status:"new"}`. Massimo 5000 caratteri; 3 richieste/cliente e 100/IP ogni 15 minuti. Nessuna email automatica. Le richieste si consultano in phpMyAdmin con la SELECT inclusa nel file SQL; `status` può essere gestito amministrativamente. La cancellazione account rimuove anche le sue richieste.
 - `project_name` è distinto da `name` (nome della persona/azienda), opzionale, max 255 caratteri. Compare nelle risposte private e pubbliche; la pagina progetto usa il nome progetto come titolo quando configurato. PATCH accetta `project_name` oltre a `description`.
 - L'aiuto nell'area clienti mostra solo `elaborazione@emmeeffeservices.it` come testo, senza link alla pagina contatti né mailto. Il precedente indirizzo `mp@...` proveniva dalla pagina contatti meteo già presente nel repository.
 
-Verificare su AlterVista: registrazione ed email duplicata, accesso automatico e successivo login, nessuna assegnazione stazione alla registrazione, PATCH dei soli campi account/progetto, rifiuto di modifiche logo senza stazioni, salvataggio consulenza ed eliminazione account. Gli endpoint delle misurazioni e l'API anagrafica stazioni non cambiano con questo aggiornamento.
+Verificare su AlterVista: registrazione ed email duplicata, conferma email e successivo login, nessuna assegnazione stazione alla registrazione, PATCH dei soli campi account/progetto, rifiuto di modifiche logo senza stazioni, salvataggio consulenza ed eliminazione account. Gli endpoint delle misurazioni e l'API anagrafica stazioni non cambiano con questo aggiornamento.
 
 Le pagine pubbliche usano `/meteo/customer/<id>` (ID del database, senza prefisso `id-`), con varianti `/meteo/en/customer/<id>` e `/meteo/de/customer/<id>`. Link in stazione/mappa, canonical e sitemap usano questi URL; i vecchi `/meteo/cliente/...` reindirizzano permanentemente quando il cliente è identificabile. Nome e logo nei dettagli stazione provengono dal profilo di `customer.php`, risolto tramite `customer_id`.
 
 ## Mappa vuota e anagrafica HTTP 500
 
 Caricare anche la versione corretta di `php_tmp/stazioni_meteo.php`: non seleziona il vecchio campo `customer`, passa una variabile a `bind_param` nel dettaglio e restituisce JSON anche in caso di errore. Gli errori SQL dettagliati vengono registrati nel log PHP del server. Se l’API risponde ancora 500, verificare il log AlterVista e le colonne effettive di `stazioni_meteo`; `customer.php` non può compensare il mancato caricamento delle stazioni. Il frontend segnala gli errori della mappa e permette di riprovare.
+
+La struttura attuale di `stazioni_meteo` non contiene `propr_terreno` né `desc_gestori`: non devono comparire nelle SELECT dell’anagrafica. Il PHP aggiornato li omette sia nell’elenco sia nel dettaglio.
+
+## Nome pubblico, upload logo, conferma email e accettazioni
+
+### Migrazione e pubblicazione
+
+1. Dopo la precedente migrazione `customer-registration.sql`, eseguire una sola volta [php_tmp/customer-security.sql](php_tmp/customer-security.sql).
+2. Caricare il nuovo `customer.php`. Richiede PHP 7.4+, mysqli/mysqlnd, **GD** per PNG/JPEG/WebP, e la funzione **mail()** abilitata su AlterVista. Impostare `CUSTOMER_MAIL_FROM` a un mittente autorizzato dall'hosting (default `meteopine@altervista.org`); Reply-To è `elaborazione@emmeeffeservices.it`. Verificare invio e recapito, incluso spam, su un indirizzo di prova dopo la pubblicazione. L'accettazione di `mail()` non prova il recapito.
+3. Consentire al PHP di creare e scrivere `api/customer-logos/`; directory pubblica con file PNG. Configurare `upload_max_filesize` almeno `2M`, `post_max_size` almeno `3M` e memoria sufficiente per GD. Il frontend riceve le immagini da quel percorso. Non caricare file originali manualmente nella directory.
+4. Pubblicare il frontend aggiornato. I cookie di sessione con path `/api/customers` vengono inviati anche a `/api/customers/logo`.
+
+La migrazione esenta gli account già esistenti dal nuovo obbligo di conferma, senza inventare una data di verifica o di accettazione. I nuovi account hanno `email_verification_required=1` e non possono autenticarsi prima della conferma.
+
+### Registrazione e email
+
+`register` richiede `privacy_acknowledged: true` e `terms_accepted: true`, oltre ai campi già documentati. Registra la data UTC delle due azioni e `legal_version = 2026-10-02-v1`. Conservare una copia delle condizioni e dell'informativa di ogni versione; aggiornare insieme versione backend e testi frontend quando cambiano. Le caselle non sono preselezionate; il consenso all'indicizzazione rimane separato e facoltativo. Nessun consenso marketing è raccolto e nessuna email promozionale è inviata.
+
+La risposta di registrazione è `{ "verification_required": true }`: niente token/sessione. `customer_email_verifications` conserva solo SHA-256 del token, indirizzo destinatario e scadenza (24 ore). La mail contiene un link HTTPS alla pagina area clienti con token nel frammento `#verify=...`, che non viene inviato ai server nei log degli URL; la conferma avviene solo premendo il pulsante, non tramite un GET che scanner di posta potrebbero aprire automaticamente.
+
+`POST {"action":"verify_email","verification_token":"<64 caratteri hex>"}` consuma il link una sola volta, aggiorna email/data verifica, revoca le vecchie sessioni e restituisce un nuovo token privato. Il proxy lo mette nel cookie HttpOnly; il browser legge il frammento e lo rimuove subito dall’URL mantenendo il token solo nello stato della pagina. La pagina usa `Referrer-Policy: no-referrer`.
+
+`POST {"action":"resend_verification","email":"…"}` invia un nuovo link solo per un account in attesa di conferma; restituisce la stessa risposta anche per email sconosciute/verificate. Limite 3 richieste/email e 30/IP ogni 15 minuti. Impostare una manutenzione periodica per eliminare token/sessioni scaduti e account mai confermati secondo la conservazione prevista (query di esempio nel SQL).
+
+Cambiare email nel profilo invia una verifica al nuovo indirizzo: l'indirizzo precedente resta attivo fino alla conferma. Nessun reset password automatico è implementato in questo aggiornamento. Le email sono operative (verifica), non marketing.
+
+### Logo da file
+
+`POST multipart/form-data` a `customer.php`, con `action=upload_logo`, file `logo` e Bearer token. Il browser passa dal proxy `/api/customers/logo`. Solo utenti con stazioni associate possono caricare. Limiti: 2 MB, 2048 × 2048 pixel, PNG/JPEG/WebP; SVG e altri formati sono rifiutati. PHP controlla il contenuto, decodifica con GD e ricodifica in PNG con nome casuale, senza conservare l'originale o il suo nome. Il logo è pubblico.
+
+La risposta include profilo/stazioni aggiornati. L'upload salva subito il logo senza sovrascrivere i campi ancora da salvare nel form. Rimuovere l'URL e salvare elimina il logo; sostituzione/cancellazione account eliminano il vecchio file quando appartiene alla directory gestita. Il PHP elimina il nuovo file se la transazione fallisce. Nessun download di URL esterni viene eseguito dal server.
+
+### Nome visualizzato
+
+Il nome del progetto è preferito al nome della persona/azienda **solo** quando `project_type=hobby` e `project_name` è non vuoto. La regola vale per filtro mappa, tooltip, pagina cliente e nome/alt logo. Nei dettagli tecnici della stazione appare anche, in piccolo, “<progetto> di <proprietario>”. Nome fisico della stazione e identità/ID del cliente restano distinti.
+
+### Informativa e GDPR
+
+L'interfaccia mostra titolare, contatto, finalità account/consulenza, dati pubblicati, conservazione operativa e diritti, con riferimento agli artt. 6 e 15–22 GDPR. La presa visione della privacy è distinta dall'accettazione delle condizioni e dal consenso facoltativo all'indicizzazione; non si impone un generico consenso per i trattamenti necessari al servizio. Riferimenti: [EDPB — basi giuridiche e consenso](https://www.edpb.europa.eu/sme/be-compliant/process-personal-data-lawfully_en), [Garante — informativa prima della raccolta](https://garanteprivacy.it/web/guest/home/principi-fondamentali-del-trattamento).
+
+Il link Iubenda esistente `62711798` è mantenuto; non ho potuto leggere integralmente quella policy. **Integrarla con il trattamento account/consulenze, caricamento logo e verifica email e confermare destinatari, trasferimenti, durata di backup/log e conservazione effettiva.** Le caselle e il codice non costituiscono una verifica di conformità giuridica dell'intero servizio. I testi presenti descrivono il flusso implementato; il titolare deve allineare la policy alle pratiche reali.
+
+Verifica su AlterVista: mail accettata e recapitata, link valido/scaduto/già usato, login prima e dopo conferma, reinvio, modifica email e revoca sessioni, caselle mancanti, logo reale vs file camuffato/SVG, upload troppo grande, utente senza stazioni, sostituzione/rimozione logo e rollback. Non sono state inviate email di prova né eseguite migrazioni su produzione durante lo sviluppo.

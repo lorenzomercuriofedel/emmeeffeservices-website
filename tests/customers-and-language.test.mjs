@@ -1,7 +1,7 @@
 import { customerRobots, weatherTitle, SITE_TITLE } from '../src/utils/seo.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getCustomer, groupCustomers, customerPath, customerDescription, findCustomerByRouteId, safeLogoUrl } from '../src/utils/customers.js';
+import { getCustomer, groupCustomers, customerPath, customerDescription, findCustomerByRouteId, safeLogoUrl, customerDisplayName } from '../src/utils/customers.js';
 import { languageHref } from '../src/i18n/site-language.js';
 
 test('missing customer never falls back to the land owner or operator', () => {
@@ -94,4 +94,11 @@ test('public customer URLs use the database ID without internal grouping prefixe
   assert.equal(customerPath(customer), '/customer/42');
   assert.equal(findCustomerByRouteId([customer], '42'), customer);
   assert.equal(findCustomerByRouteId([customer], 'id-42'), customer);
+});
+
+test('only hobby customers with a project name display the project instead of the owner', () => {
+  assert.equal(customerDisplayName({ name: 'Owner', projectType: 'hobby', projectName: ' Observatory ' }), 'Observatory');
+  assert.equal(customerDisplayName({ name: 'Owner', projectType: 'professional', projectName: 'Observatory' }), 'Owner');
+  assert.equal(customerDisplayName({ name: 'Owner', projectType: 'hobby', projectName: ' ' }), 'Owner');
+  assert.equal(customerDisplayName({ name: 'Owner', projectType: 'other', projectName: 'Observatory' }), 'Owner');
 });

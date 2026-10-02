@@ -25,7 +25,9 @@ async function handle(request) {
   const login = request.method === 'POST' && body?.action === 'login';
   const register = request.method === 'POST' && body?.action === 'register';
   const consultation = request.method === 'POST' && body?.action === 'consultation';
-  const anonymous = login || register;
+  const verify = request.method === 'POST' && body?.action === 'verify_email';
+  const resend = request.method === 'POST' && body?.action === 'resend_verification';
+  const anonymous = login || register || verify || resend;
   const logout = request.method === 'POST' && body?.action === 'logout';
   if (request.method === 'POST' && !anonymous && !logout && !consultation) return reply({ error: 'Invalid action' }, 400);
   const token = jar.get(COOKIE)?.value;
@@ -42,10 +44,14 @@ async function handle(request) {
       if (upstream.status === 401) response.cookies.set(COOKIE, '', { ...cookieOptions, maxAge: 0 });
       return response;
     }
-    if (anonymous && (typeof data.token !== 'string' || !/^[A-Za-z0-9._~-]{32,4096}$/.test(data.token))) return reply({ error: 'Invalid session response' }, 502);
-    if ((anonymous || request.method === 'GET' || request.method === 'PATCH') && !data.customer?.id) return reply({ error: 'Invalid profile response' }, 502);
-    const response = reply({ customer: data.customer ?? null, stations: Array.isArray(data.stations) ? data.stations : [], ...(data.consultation ? { consultation: data.consultation } : {}) });
-    if (anonymous) response.cookies.set(COOKIE, data.token, { ...cookieOptions, maxAge: 28800 });
+    if (register || resend) {
+      if (data.verification_required !== true) return reply({ error: 'Invalid verification response' }, 502);
+      return reply({ verification_required: true });
+    }
+    if ((login || verify) && (typeof data.token !== 'string' || !/^[A-Za-z0-9._~-]{32,4096}$/.test(data.token))) return reply({ error: 'Invalid session response' }, 502);
+    if ((login || verify || request.method === 'GET' || request.method === 'PATCH') && !data.customer?.id) return reply({ error: 'Invalid profile response' }, 502);
+    const response = reply({ customer: data.customer ?? null, stations: Array.isArray(data.stations) ? data.stations : [], ...(data.email_change_pending ? { email_change_pending: true } : {}), ...(data.consultation ? { consultation: data.consultation } : {}) });
+    if (login || verify) response.cookies.set(COOKIE, data.token, { ...cookieOptions, maxAge: 28800 });
     if (logout || request.method === 'DELETE') response.cookies.set(COOKIE, '', { ...cookieOptions, maxAge: 0 });
     return response;
   } catch { return reply({ error: 'Customer API unavailable' }, 502); }
