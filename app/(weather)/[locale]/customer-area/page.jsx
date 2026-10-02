@@ -3,7 +3,7 @@ import CustomerArea from '@/src/components/customer/CustomerArea';
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'customerArea' });
+  const t = await getTranslations({ locale, namespace: 'weatherCustomerArea' });
   return { title: t('title'), referrer: 'no-referrer', robots: { index: false, follow: false, googleBot: { index: false, follow: false } }, alternates: { canonical: locale === 'it' ? '/meteo/customer-area' : `/meteo/${locale}/customer-area`, languages: {} } };
 }
 export default async function CustomerAreaPage({ params, searchParams }) {

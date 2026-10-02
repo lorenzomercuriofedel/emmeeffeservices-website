@@ -12,7 +12,7 @@ function profile(customer) {
   return { name: customer.name ?? '', project_name: customer.project_name ?? '', email: customer.email ?? '', description: typeof customer.description === 'string' ? customer.description : customer.description?.it ?? '', project_type: customer.project_type ?? '', logo_url: customer.logo_url ?? '', web_public: [true, 1, '1', 'true'].includes(customer.web_public) };
 }
 export default function CustomerArea({ verificationToken = '', initialRegistering = false }) {
-  const t = useTranslations('customerArea');
+  const t = useTranslations('weatherCustomerArea');
   const [customer, setCustomer] = useState(null);
   const [stations, setStations] = useState([]);
   const [form, setForm] = useState({});

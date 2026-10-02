@@ -256,7 +256,7 @@
     "menu": "Menü",
     "navigation": "Hauptnavigation",
     "map": "Karte",
-    "customerArea": "Wetter Kundenbereich"
+    "weatherCustomerArea": "Kundenbereich für Wetterstationen"
   },
   "customers": {
     "label": "Kunde",
@@ -313,9 +313,9 @@
     "weatherText": "Von der Sensorauswahl bis zur Inbetriebnahme: meteorologische Messsysteme, Datenerfassung und Einrichtung der Werkzeuge zur Anzeige der Messwerte. Kontaktieren Sie uns für eine neue Installation.",
     "weatherLink": "emme-effe meteo entdecken"
   },
-  "customerArea": {
-    "title": "Kundenbereich",
-    "intro": "Verwalten Sie Ihr Profil und das Logo Ihrer Wetterstationen.",
+  "weatherCustomerArea": {
+    "title": "Kundenbereich für Wetterstationen",
+    "intro": "Verwalten Sie Ihr Wetterprojekt, Ihre zugeordneten Stationen und Ihr Stationslogo.",
     "loading": "Wird geladen…",
     "login": "Anmelden",
     "email": "E-Mail",
@@ -356,7 +356,7 @@
     "createAccount": "Konto erstellen",
     "backToLogin": "Bereits ein Konto? Anmelden",
     "projectName": "Projektname",
-    "passwordHelp": "Wähle ein Passwort mit mindestens 12 Zeichen und vermeide sehr lange Sätze.",
+    "passwordHelp": "Wählen Sie ein Passwort mit mindestens 12 Zeichen und vermeiden Sie sehr lange Sätze.",
     "passwordMismatch": "Die Passwörter stimmen nicht überein.",
     "registered": "Konto erstellt. Sie können eine Beratung zum Kauf und zur Einrichtung einer Station anfragen.",
     "emailExists": "Diese E-Mail ist bereits registriert. Melden Sie sich an.",
@@ -371,7 +371,7 @@
     "consultationSent": "Anfrage Nr. {id} gespeichert. Bei Fragen: elaborazione@emmeeffeservices.it",
     "verifyEmail": "E-Mail-Adresse bestätigen",
     "verificationHelp": "Bestätigen Sie Ihre E-Mail mit der Schaltfläche. Der Link ist 24 Stunden gültig.",
-    "verified": "E-Mail bestätigt. Willkommen im Kundenbereich.",
+    "verified": "E-Mail bestätigt. Willkommen im Kundenbereich für Wetterstationen.",
     "verificationSent": "Registrierung erhalten. Bestätigen Sie Ihre E-Mail vor der Anmeldung.",
     "verificationNeeded": "Bestätigen Sie zuerst Ihre E-Mail. Fordern Sie bei Bedarf einen neuen Link an.",
     "resendVerification": "Bestätigung erneut senden",
@@ -384,9 +384,9 @@
     "registrationNotice": "Datenschutzhinweise zum Konto und Nutzungsbedingungen",
     "privacyPolicy": "Vollständige Datenschutzerklärung",
     "privacyAcknowledgement": "Ich habe die Datenschutzhinweise zum Konto und die Datenschutzerklärung gelesen.",
-    "termsAcceptance": "Ich akzeptiere die oben aufgeführten Bedingungen des Kundenbereichs.",
+    "termsAcceptance": "Ich akzeptiere die oben aufgeführten Nutzungsbedingungen des Kundenbereichs für Wetterstationen.",
     "privacySummary": "Verantwortlicher: Emme-Effe Services di Lorenzo Mercurio Fedel, Via dello Stadio 7, Baselga di Piné (TN), Italien. Datenschutzkontakt: elaborazione@emmeeffeservices.it.\nName, E-Mail, geschützte Zugangsdaten, Projekt und Beratungsanfragen werden zur Kontoverwaltung und Erbringung angefragter Leistungen verwendet (Art. 6 Abs. 1 lit. b DSGVO). Diese Angaben sind notwendig und werden nicht für Marketing genutzt. Technische Hosting- und E-Mail-Dienstleister verarbeiten Daten gemäß der vollständigen Erklärung.\nName/Projekt und Logo sind bei zugeordneten Stationen öffentlich. Die Suchmaschinenindexierung ist eine separate, änderbare Entscheidung.\nKontodaten werden während der Nutzung gespeichert. Beim Löschen werden Profil, Anfragen und hochgeladenes Logo entfernt; Stationsmessungen bleiben erhalten. Bestätigungslinks gelten 24 Stunden, Sitzungen 8 Stunden. Informationen zu Protokollen, Backups, Empfängern und Übermittlungen finden Sie in der vollständigen Erklärung.\nSie können gemäß Art. 15–22 DSGVO Auskunft, Berichtigung, Löschung, Einschränkung, Übertragbarkeit und Widerspruch im jeweils vorgesehenen Umfang verlangen und sich bei der italienischen Datenschutzbehörde beschweren.",
-    "termsSummary": "Der Kundenbereich dient der Profilverwaltung und Beratungsanfragen. Die Registrierung führt nicht zu Käufen oder automatischer Stationszuordnung. Leistungen und Käufe werden separat vereinbart. Schützen Sie Zugangsdaten, machen Sie korrekte Angaben und laden Sie nur Bilder hoch, die Sie veröffentlichen dürfen.",
+    "termsSummary": "Der Kundenbereich für Wetterstationen dient der Verwaltung Ihres Wetterprofils und Beratungsanfragen zum Kauf und zur Einrichtung von Wetterstationen. Andere Leistungen von Emme-Effe Services sind nicht Teil dieses Bereichs. Die Registrierung führt nicht zu Käufen oder einer automatischen Stationszuordnung. Leistungen und Käufe werden separat vereinbart. Schützen Sie Ihre Zugangsdaten, machen Sie korrekte Angaben und laden Sie nur Bilder hoch, die Sie veröffentlichen dürfen.",
     "stationVisible": "Auf der Karte sichtbar",
     "stationVisibilitySaved": "Stationssichtbarkeit aktualisiert.",
     "stationVisibilityHelp": "Deaktivieren, um die Station auf der Karte und in öffentlichen Listen auszublenden. Messungen bleiben erhalten."

@@ -256,7 +256,7 @@
     "menu": "Menu",
     "navigation": "Navigazione principale",
     "map": "Mappa",
-    "customerArea": "Area clienti meteo"
+    "weatherCustomerArea": "Area clienti meteo"
   },
   "customers": {
     "label": "Cliente",
@@ -313,7 +313,7 @@
     "weatherText": "Dalla scelta dei sensori alla messa in funzione: sistemi di rilevamento meteorologico, raccolta dei dati e configurazione degli strumenti per consultarli. Contattaci per valutare una nuova installazione.",
     "weatherLink": "Scopri emme-effe meteo"
   },
-  "customerArea": {
+  "weatherCustomerArea": {
     "title": "Area clienti meteo",
     "intro": "Gestisci il tuo profilo e il logo delle tue stazioni meteo.",
     "loading": "Caricamento…",
@@ -386,7 +386,7 @@
     "privacyAcknowledgement": "Dichiaro di aver letto l’informativa sul trattamento dei dati dell’account e la privacy policy.",
     "termsAcceptance": "Accetto le condizioni dell’area clienti meteo riportate sopra.",
     "privacySummary": "Titolare: Emme-Effe Services di Lorenzo Mercurio Fedel, Via dello Stadio 7, Baselga di Piné (TN). Contatto privacy: elaborazione@emmeeffeservices.it.\nNome, email, credenziali protette, progetto e richieste di consulenza sono usati per gestire l’account e le attività richieste (art. 6, par. 1, lett. b GDPR). Per l’account questi dati sono necessari; non sono usati per marketing. I fornitori tecnici di hosting e posta trattano i dati per erogare il servizio secondo l’informativa completa.\nNome/progetto e logo diventano pubblici sulle stazioni associate. L’indicizzazione del progetto nei motori di ricerca resta una scelta separata e modificabile.\nI dati dell’account sono conservati durante il servizio; cancellando l’account vengono eliminati profilo, richieste e logo caricato. Le misurazioni delle stazioni restano. Link di verifica: 24 ore; sessioni: 8 ore. Per log tecnici, backup, destinatari e trasferimenti consulta l’informativa completa.\nPuoi chiedere accesso, rettifica, cancellazione, limitazione, portabilità e opposizione nei casi previsti dagli artt. 15–22 GDPR, e presentare reclamo al Garante per la protezione dei dati personali.",
-    "termsSummary": "L’area clienti meteo consente di gestire il proprio profilo e richiedere consulenze. Registrarsi non comporta acquisti o assegnazioni automatiche di stazioni. Acquisti e prestazioni vengono concordati separatamente. Custodisci le credenziali e inserisci informazioni corrette; carica solo immagini che sei autorizzato a pubblicare.",
+    "termsSummary": "L’area clienti meteo permette di gestire il profilo meteo e richiedere consulenze per acquisto e configurazione di stazioni meteorologiche. Non comprende gli altri servizi di Emme-Effe Services. La registrazione non comporta acquisti né assegnazione automatica di stazioni. Acquisti e prestazioni sono concordati separatamente. Custodisci le credenziali, inserisci dati corretti e carica solo immagini che hai diritto di pubblicare.",
     "stationVisible": "Visibile in mappa",
     "stationVisibilitySaved": "Visibilità della stazione aggiornata.",
     "stationVisibilityHelp": "Disattiva per nascondere la stazione dalla mappa e dagli elenchi pubblici. Le misurazioni restano conservate."
