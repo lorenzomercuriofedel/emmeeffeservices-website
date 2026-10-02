@@ -51,7 +51,7 @@ export default function Navbar({ section }) {
         {section === 'meteo' && <a href={weatherHome(locale)}>{t('map')}</a>}
         {section === 'meteo' ? <a href={home}>{t('homepage')}</a> : <a href={`${home}#ambiti`}>{t('services')}</a>}
         {section !== 'meteo' && <a href={weatherHome(locale)} className={styles.weatherLink} aria-label="emme-effe meteo"><span className={styles.weatherLinkPrefix}>emme-effe </span>meteo</a>}
-        <a href={`${home}#contatti`} className={styles.contact}>{t('contacts')}</a>
+        <a href="#contatti" className={styles.contact}>{t('contacts')}</a>
         {section === 'meteo' && <a href={locale === 'it' ? '/meteo/customer-area' : `/meteo/${locale}/customer-area`}>{t('customerArea')}</a>}
         <LanguageSwitcher />
       </nav>
