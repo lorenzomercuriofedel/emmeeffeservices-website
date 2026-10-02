@@ -114,7 +114,7 @@
     "title": "Un portale meteo amatoriale, dal 2014",
     "p1": "emme-effe meteo raccoglie le rilevazioni dalle stazioni meteo sull'Altopiano di Piné (TN), gestite dal meteoappassionato locale Lorenzo Mercurio Fedel.",
     "p2": "Tutte le stazioni del progetto fanno parte della rete associativa dell'A.P.S. <b>Meteo Trentino Alto Adige</b>.",
-    "cta": "Contattaci per info o richieste"
+    "cta": "Installa una stazione meteo"
   },
   "contacts": {
     "eyebrow": "Contatti",
@@ -245,7 +245,7 @@
   "meteoServices": {
     "title": "Sistemi meteo, dai sensori ai dati",
     "description": "Emme-Effe Services offre consulenza e sviluppo di sistemi di rilevazione meteorologica, con elaborazione e analisi dei dati raccolti. Vuoi richiedere una nuova installazione o acquistare una prestazione su misura? Contattaci per informazioni e un preventivo.",
-    "cta": "Scopri di più",
+    "cta": "Installa una stazione meteo",
     "mapHint": "Seleziona una stazione sulla mappa per consultare rilevazioni, grafici e condizioni meteo."
   },
   "stationConditions": {
@@ -261,8 +261,7 @@
     "menu": "Menu",
     "navigation": "Navigazione principale",
     "map": "Mappa",
-    "weatherCustomerArea": "Area clienti meteo",
-    "installStation": "Installa stazione meteo"
+    "weatherCustomerArea": "Area clienti meteo"
   },
   "customers": {
     "label": "Cliente",
@@ -403,8 +402,6 @@
     "shareEmail": "Mostra pubblicamente l’email di contatto",
     "shareWebsite": "Mostra pubblicamente il sito web",
     "contactEmail": "Email di contatto",
-    "website": "Sito web",
-    "installTitle": "Installa stazione meteo",
-    "installIntro": "Richiedi una consulenza per scegliere, installare e configurare la tua stazione meteo. Registrati per raccontarci il tuo progetto oppure accedi se hai già un account."
+    "website": "Sito web"
   }
 }
