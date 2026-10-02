@@ -93,7 +93,7 @@
     "NNW": "Nordnordwest"
   },
   "map": {
-    "title": "Live-Stationskarte",
+    "title": "Karte der Kundenstationen in Echtzeit",
     "subtitle": "{online} von {total} Stationen online · für Details auf einen Marker klicken · aktualisiert um {time}",
     "openStation": "Station öffnen →",
     "offline": "offline",
@@ -356,7 +356,7 @@
     "createAccount": "Konto erstellen",
     "backToLogin": "Bereits ein Konto? Anmelden",
     "projectName": "Projektname",
-    "passwordHelp": "Mindestens 12 Zeichen und höchstens 72 Bytes verwenden (einige Zeichen benötigen mehrere Bytes).",
+    "passwordHelp": "Wähle ein Passwort mit mindestens 12 Zeichen und vermeide sehr lange Sätze.",
     "passwordMismatch": "Die Passwörter stimmen nicht überein.",
     "registered": "Konto erstellt. Sie können eine Beratung zum Kauf und zur Einrichtung einer Station anfragen.",
     "emailExists": "Diese E-Mail ist bereits registriert. Melden Sie sich an.",

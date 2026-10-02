@@ -93,7 +93,7 @@
     "NNW": "Nord-Nord-Ovest"
   },
   "map": {
-    "title": "Mappa stazioni in tempo reale",
+    "title": "Mappa stazioni dei clienti in tempo reale",
     "subtitle": "{online} di {total} stazioni online · clicca un marker per il dettaglio · aggiornata alle {time}",
     "openStation": "Apri stazione →",
     "offline": "offline",
@@ -356,7 +356,7 @@
     "createAccount": "Crea un account",
     "backToLogin": "Hai già un account? Accedi",
     "projectName": "Nome del progetto",
-    "passwordHelp": "Usa almeno 12 caratteri e al massimo 72 byte (i caratteri accentati possono occupare più byte).",
+    "passwordHelp": "Scegli una password di almeno 12 caratteri, evitando frasi troppo lunghe.",
     "passwordMismatch": "Le password non coincidono.",
     "registered": "Account creato. Puoi richiedere una consulenza per acquistare e configurare una stazione.",
     "emailExists": "Questa email è già registrata. Accedi con il tuo account.",

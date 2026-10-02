@@ -93,7 +93,7 @@
     "NNW": "North-Northwest"
   },
   "map": {
-    "title": "Live station map",
+    "title": "Live map of customer stations",
     "subtitle": "{online} of {total} stations online · click a marker for details · updated at {time}",
     "openStation": "Open station →",
     "offline": "offline",
@@ -356,7 +356,7 @@
     "createAccount": "Create an account",
     "backToLogin": "Already have an account? Sign in",
     "projectName": "Project name",
-    "passwordHelp": "Use at least 12 characters and at most 72 bytes (some characters take multiple bytes).",
+    "passwordHelp": "Choose a password with at least 12 characters, avoiding very long phrases.",
     "passwordMismatch": "Passwords do not match.",
     "registered": "Account created. You can request advice on purchasing and setting up a station.",
     "emailExists": "This email is already registered. Sign in with your account.",
