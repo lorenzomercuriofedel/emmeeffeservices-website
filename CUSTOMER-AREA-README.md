@@ -261,3 +261,9 @@ Il form accetta esclusivamente file PNG/JPEG/WebP (2 MB, 2048×2048). Il server 
 In Vercel → Storage crea un **Blob store pubblico** e collegalo a questo progetto, con variabile server `BLOB_READ_WRITE_TOKEN` disponibile negli ambienti necessari; quindi ridistribuisci il sito. Non usare il prefisso `NEXT_PUBLIC_` per il token. Senza storage configurato il caricamento restituisce 503. Carica anche il nuovo `php_tmp/customer.php` per disattivare il vecchio upload multipart. Non serve SQL aggiuntivo. I vecchi loghi vengono sostituiti al successivo caricamento; quelli già su AlterVista non sono migrati automaticamente.
 
 La Cookie Solution viene caricata sia nella home aziendale sia in `/meteo`, con policy aziendale `62711798` e sito Iubenda `4465329`, ricavati dalla policy pubblica di emmeeffeservices.it. Verifica che la Cookie Solution sia attiva nel pannello Iubenda e integra nella policy i trattamenti dell’area clienti e Vercel Blob.
+
+## Visibilità delle stazioni nell’area clienti
+
+Ogni stazione assegnata ha la casella “Visibile in mappa”. L’azione autenticata `POST {action:"station_visibility",station_id:42,disabled:true}` su `customer.php` aggiorna esclusivamente una stazione del cliente della sessione. `disabled=false` la rende nuovamente visibile. Le risposte private includono `stations[].disabled` booleano e anche le stazioni disabilitate, così possono essere riattivate. L’API pubblica già filtra `disabled=0`: la scelta nasconde anche dagli elenchi pubblici, senza cancellare dati o misurazioni; non è un controllo di accesso ai dettagli tramite URL diretto.
+
+Pubblicare il nuovo `php_tmp/customer.php` su AlterVista e ridistribuire il frontend. Nessuna modifica SQL necessaria, dato che `stazioni_meteo.disabled` esiste già.

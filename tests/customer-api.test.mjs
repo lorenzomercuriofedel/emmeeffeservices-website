@@ -91,3 +91,26 @@ test('resending confirmation is anonymous and never creates a session', async ()
   assert.equal(response.status, 200);
   assert.equal(response.cookies.entries.length, 0);
 });
+
+test('station visibility requires authentication and a boolean flag', async () => {
+  const anonymous = setup();
+  assert.equal((await anonymous.routes.POST(request('POST', { action: 'station_visibility', station_id: 1, disabled: true }))).status, 401);
+  assert.equal(anonymous.calls.length, 0);
+  const authorized = setup({ token: 'secret' });
+  for (const body of [{ station_id: 1, disabled: 'false' }, { station_id: 0, disabled: true }, { station_id: 1, disabled: true, customer_id: 5 }]) {
+    assert.equal((await authorized.routes.POST(request('POST', { action: 'station_visibility', ...body }))).status, 422);
+  }
+  assert.equal(authorized.calls.length, 0);
+});
+test('station visibility forwards the session and returns refreshed station flags', async () => {
+  const stations = [{ id: 1, nome: 'Station', disabled: true }];
+  const { routes, calls } = setup({ token: 'secret', upstream: { ok: true, status: 200, json: async () => ({ customer: { id: 42 }, stations }) } });
+  const body = { action: 'station_visibility', station_id: 1, disabled: true };
+  const response = await routes.POST(request('POST', body));
+  assert.equal(response.status, 200);
+  assert.deepEqual(response.body.stations, stations);
+  assert.deepEqual(JSON.parse(calls[0][1].body), body);
+  assert.equal(calls[0][1].headers.Authorization, 'Bearer secret');
+  const denied = setup({ token: 'secret', upstream: { ok: false, status: 404, json: async () => ({ error: 'Station not found' }) } });
+  assert.equal((await denied.routes.POST(request('POST', body))).status, 404);
+});

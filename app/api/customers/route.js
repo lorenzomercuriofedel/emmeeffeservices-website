@@ -27,9 +27,11 @@ async function handle(request) {
   const consultation = request.method === 'POST' && body?.action === 'consultation';
   const verify = request.method === 'POST' && body?.action === 'verify_email';
   const resend = request.method === 'POST' && body?.action === 'resend_verification';
+  const stationVisibility = request.method === 'POST' && body?.action === 'station_visibility';
+  if (stationVisibility && (!Number.isSafeInteger(body.station_id) || body.station_id < 1 || typeof body.disabled !== 'boolean' || Object.keys(body).some(key => !['action', 'station_id', 'disabled'].includes(key)))) return reply({ error: 'Invalid station visibility' }, 422);
   const anonymous = login || register || verify || resend;
   const logout = request.method === 'POST' && body?.action === 'logout';
-  if (request.method === 'POST' && !anonymous && !logout && !consultation) return reply({ error: 'Invalid action' }, 400);
+  if (request.method === 'POST' && !anonymous && !logout && !consultation && !stationVisibility) return reply({ error: 'Invalid action' }, 400);
   const token = jar.get(COOKIE)?.value;
   if (!anonymous && !token) return reply({ error: 'Unauthorized' }, 401);
   try {
