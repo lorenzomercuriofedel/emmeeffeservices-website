@@ -11,7 +11,7 @@ const button = 'rounded-xl bg-sky-700 text-white px-5 py-3 font-semibold disable
 function profile(customer) {
   return { name: customer.name ?? '', project_name: customer.project_name ?? '', email: customer.email ?? '', description: typeof customer.description === 'string' ? customer.description : customer.description?.it ?? '', project_type: customer.project_type ?? '', logo_url: customer.logo_url ?? '', web_public: [true, 1, '1', 'true'].includes(customer.web_public) };
 }
-export default function CustomerArea({ verificationToken = '' }) {
+export default function CustomerArea({ verificationToken = '', initialRegistering = false }) {
   const t = useTranslations('customerArea');
   const [customer, setCustomer] = useState(null);
   const [stations, setStations] = useState([]);
@@ -20,7 +20,7 @@ export default function CustomerArea({ verificationToken = '' }) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [registering, setRegistering] = useState(false);
+  const [registering, setRegistering] = useState(initialRegistering);
   const [consulting, setConsulting] = useState(false);
   const [verifyToken, setVerifyToken] = useState(verificationToken);
   const [resending, setResending] = useState(false);

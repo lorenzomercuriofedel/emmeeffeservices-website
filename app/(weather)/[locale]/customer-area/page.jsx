@@ -11,5 +11,5 @@ export default async function CustomerAreaPage({ params, searchParams }) {
   setRequestLocale(locale);
   const query = await searchParams;
   const verificationToken = typeof query?.verify === 'string' && /^[a-f0-9]{64}$/.test(query.verify) ? query.verify : '';
-  return <CustomerArea verificationToken={verificationToken} />;
+  return <CustomerArea verificationToken={verificationToken} initialRegistering={query?.register === 'true'} />;
 }
