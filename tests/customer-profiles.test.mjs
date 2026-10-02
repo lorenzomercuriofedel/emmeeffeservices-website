@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeCustomerIds, attachCustomerProfiles, fetchPublicCustomerProfiles } from '../src/services/customer-profiles.js';
 import { fetchStations, fetchStationInfo } from '../src/services/api.js';
-import { getCustomer, groupCustomers } from '../src/utils/customers.js';
+import { getCustomer, groupCustomers, customerPath } from '../src/utils/customers.js';
 
 test('validates and deduplicates customer IDs', () => {
   assert.deepEqual(normalizeCustomerIds([42, '42', null, undefined, 0, '01', -1, 'x', '4294967296']), ['42']);
@@ -63,4 +63,18 @@ test('project names remain distinct from customer names and survive public profi
   assert.equal(customer.projectName, 'Observatory');
   assert.equal(customer.description, 'Project description');
   assert.equal(profiles[0].email, undefined);
+});
+
+test('station detail resolves its customer ID and builds the canonical public link', async t => {
+  const calls = [];
+  t.mock.method(globalThis, 'fetch', async url => {
+    calls.push(url);
+    if (url.includes('customer.php')) return { ok: true, json: async () => ({ customers: [{ id: 42, name: 'Name from customer API', logo_url: 'https://example.com/current.png' }] }) };
+    return { ok: true, json: async () => ({ anagrafica: { id: 1, customer_id: 42, customer: 'Stale station name' } }) };
+  });
+  const customer = getCustomer(await fetchStationInfo(1));
+  assert.equal(customer.name, 'Name from customer API');
+  assert.equal(customer.logoUrl, 'https://example.com/current.png');
+  assert.equal(customerPath(customer), '/customer/42');
+  assert.ok(calls.some(url => url.includes('customer.php?public=true&ids=42')));
 });

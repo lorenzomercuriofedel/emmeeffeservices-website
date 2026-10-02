@@ -1,10 +1,10 @@
-// Public customer fields supplied by the station API. Never infer a customer from land ownership.
+// Public customer profiles resolved from customer.php using station.customer_id. Never infer a customer from land ownership.
 export function getCustomer(station) {
   const value = station?.customer;
   if (value == null || value === '') return null;
   const object = typeof value === 'object' && !Array.isArray(value) ? value : {};
   const scalar = typeof value === 'string' || typeof value === 'number' ? String(value).trim() : '';
-  // The current API sends the public display name directly in customer.
+  // The service attaches the current public profile; strings are legacy compatibility.
   const name = typeof value === 'string' ? scalar : String(object.name ?? station.customer_name ?? scalar).trim();
   const identity = String(object.id ?? station.customer_id ?? name).trim();
   if (!name || !identity) return null;
@@ -13,6 +13,7 @@ export function getCustomer(station) {
   const rawType = object.project_type ?? station.customer_project_type;
   return {
     id,
+    routeId: String(object.id ?? station.customer_id ?? id),
     name,
     projectName: typeof object.project_name === 'string' ? object.project_name.trim() : '',
     logoUrl: safeLogoUrl(object.logo_url ?? station.customer_logo_url),
@@ -23,7 +24,7 @@ export function getCustomer(station) {
 }
 
 export function customerPath(customer) {
-  return `/cliente/${encodeURIComponent(customer.id)}`;
+  return `/customer/${encodeURIComponent(customer.routeId ?? customer.id)}`;
 }
 
 export function groupCustomers(stations) {
@@ -50,7 +51,9 @@ export function customerDescription(customer, locale) {
 
 export function findCustomerByRouteId(customers, id) {
   // Next route params can retain percent encoding after the locale rewrite.
-  return customers.find((customer) => encodeURIComponent(customer.id) === id)
+  return customers.find((customer) => encodeURIComponent(customer.routeId ?? customer.id) === id)
+    ?? customers.find((customer) => (customer.routeId ?? customer.id) === id)
+    ?? customers.find((customer) => encodeURIComponent(customer.id) === id)
     ?? customers.find((customer) => customer.id === id);
 }
 

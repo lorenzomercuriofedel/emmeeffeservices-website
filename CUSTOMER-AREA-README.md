@@ -206,3 +206,5 @@ Prima di pubblicare il PHP aggiornato, eseguire una sola volta [php_tmp/customer
 - L'aiuto nell'area clienti mostra solo `elaborazione@emmeeffeservices.it` come testo, senza link alla pagina contatti né mailto. Il precedente indirizzo `mp@...` proveniva dalla pagina contatti meteo già presente nel repository.
 
 Verificare su AlterVista: registrazione ed email duplicata, accesso automatico e successivo login, nessuna assegnazione stazione alla registrazione, PATCH dei soli campi account/progetto, rifiuto di modifiche logo senza stazioni, salvataggio consulenza ed eliminazione account. Gli endpoint delle misurazioni e l'API anagrafica stazioni non cambiano con questo aggiornamento.
+
+Le pagine pubbliche usano `/meteo/customer/<id>` (ID del database, senza prefisso `id-`), con varianti `/meteo/en/customer/<id>` e `/meteo/de/customer/<id>`. Link in stazione/mappa, canonical e sitemap usano questi URL; i vecchi `/meteo/cliente/...` reindirizzano permanentemente quando il cliente è identificabile. Nome e logo nei dettagli stazione provengono dal profilo di `customer.php`, risolto tramite `customer_id`.

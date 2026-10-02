@@ -71,11 +71,11 @@ come campi dell'anagrafica. Un valore numerico richiede `customer_name` per
 mostrare un nome invece dell'identificatore. Un campo vuoto resta non assegnato;
 il proprietario del terreno non viene mai usato come cliente implicito.
 
-Le pagine sono pubbliche: `/meteo/cliente/<identificatore codificato>`, con
+Le pagine sono pubbliche: `/meteo/customer/<id>`, con
 prefissi `/meteo/en` e `/meteo/de` per le altre lingue. Il collegamento viene
-costruito dal frontend. Il prefisso `id-` identifica un ID stabile, `name-` un
-nome usato come identificatore provvisorio; quando si passa da nome a ID gli URL
-cambiano, quindi conviene fornire subito l'ID definitivo.
+costruito dal frontend usando direttamente l’ID del database. I prefissi `id-` e
+`name-` restano identificatori interni o legacy e non vengono aggiunti ai nuovi
+URL dei clienti con ID stabile.
 
 Le lingue della sezione meteo conservano gli URL attuali. La pagina aziendale e
 le future sezioni senza routing specifico usano `?lang=en` o `?lang=de`.
@@ -102,4 +102,6 @@ alcuna autenticazione o gestione delle stazioni in questa modifica.
 
 ## Area riservata e logo
 
-È disponibile il frontend `/meteo/customer-area`. Per implementare `customer.php`, sessioni e relazioni SQL consultare [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md). Le pagine `/cliente/...` descritte sopra rimangono pubbliche. Il logo si fornisce con `customer_logo_url` oppure `customer.logo_url` (URL HTTPS).
+È disponibile il frontend `/meteo/customer-area`. Per implementare `customer.php`, sessioni e relazioni SQL consultare [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md). Le pagine `/customer/...` descritte sopra rimangono pubbliche. Il logo si fornisce con `customer_logo_url` oppure `customer.logo_url` (URL HTTPS).
+
+Le pagine pubbliche usano `/meteo/customer/<id>` (ID del database, senza prefisso `id-`), con varianti `/meteo/en/customer/<id>` e `/meteo/de/customer/<id>`. Link in stazione/mappa, canonical e sitemap usano questi URL; i vecchi `/meteo/cliente/...` reindirizzano permanentemente quando il cliente è identificabile. Nome e logo nei dettagli stazione provengono dal profilo di `customer.php`, risolto tramite `customer_id`.

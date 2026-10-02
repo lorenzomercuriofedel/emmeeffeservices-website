@@ -26,13 +26,13 @@ test('groups by stable customer ID and keeps all stations', () => {
 test('supports string customers, safe URLs and unknown project types', () => {
   const customer = getCustomer({ customer: 'A & B / Piné', customer_project_type: 'unexpected' });
   assert.equal(customer.projectType, null);
-  assert.equal(decodeURIComponent(customerPath(customer).split('/')[2]), customer.id);
+  assert.equal(decodeURIComponent(customerPath(customer).split('/')[2]), customer.routeId);
   assert.notEqual(getCustomer({ customer: 'Piné' }).id, getCustomer({ customer: 'Pine' }).id);
 });
 test('switching weather language preserves station, query and fragment', () => {
   assert.equal(languageHref('/meteo/en/stazione/1', '?range=24h', 'de', '#grafici'), '/meteo/de/stazione/1?range=24h#grafici');
   assert.equal(languageHref('/meteo/de', '', 'it'), '/meteo');
-  assert.equal(languageHref('/meteo/cliente/id-42', '', 'en'), '/meteo/en/cliente/id-42');
+  assert.equal(languageHref('/meteo/customer/42', '', 'en'), '/meteo/en/customer/42');
 });
 test('root and future sections use the same language convention', () => {
   assert.equal(languageHref('/', '?lang=it', 'en', '#contatti'), '/?lang=en#contatti');
@@ -87,4 +87,11 @@ test('customer logos accept HTTPS and reject unsafe or malformed URLs', () => {
   assert.equal(getCustomer({ customer: 'Example', customer_logo_url: 'https://example.com/logo.png' }).logoUrl, 'https://example.com/logo.png');
   assert.equal(getCustomer({ customer: { id: 42, name: 'Example', logo_url: 'https://example.com/nested.png' } }).logoUrl, 'https://example.com/nested.png');
   assert.equal(getCustomer({ customer: 'Example' }).logoUrl, null);
+});
+
+test('public customer URLs use the database ID without internal grouping prefixes', () => {
+  const customer = getCustomer({ customer_id: 42, customer: { id: 42, name: 'Example' } });
+  assert.equal(customerPath(customer), '/customer/42');
+  assert.equal(findCustomerByRouteId([customer], '42'), customer);
+  assert.equal(findCustomerByRouteId([customer], 'id-42'), customer);
 });
