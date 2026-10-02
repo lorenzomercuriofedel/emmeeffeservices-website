@@ -46,7 +46,6 @@ export default async function sitemap() {
 
   const staticPaths = [
     { path: '/', changeFrequency: 'hourly', priority: 1.0 },
-    { path: '/contatti', changeFrequency: 'yearly', priority: 0.4 },
   ];
 
   let stations = [];

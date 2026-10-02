@@ -12,7 +12,6 @@ const nextConfig = {
         destination: 'https://emmeeffeservices.it/:path*',
         permanent: true,
       },
-      { source: '/contatti', destination: '/meteo/contatti', permanent: true },
       { source: '/stazioni/:path*', destination: '/meteo/stazione/:path*', permanent: true },
       { source: '/meteo/stazioni/:path*', destination: '/meteo/stazione/:path*', permanent: true },
       { source: '/meteo/en/stazioni/:path*', destination: '/meteo/en/stazione/:path*', permanent: true },
