@@ -16,7 +16,7 @@ function request(method, body, origin = 'https://example.com') {
 }
 test('unauthenticated requests never call the customer backend', async () => {
   const { routes, calls } = setup();
-  for (const method of ['GET', 'PATCH', 'DELETE']) assert.equal((await routes[method](request(method, method === 'GET' ? null : {}))).status, 401);
+  for (const method of ['GET', 'PATCH']) assert.equal((await routes[method](request(method, method === 'GET' ? null : {}))).status, 401);
   assert.equal(calls.length, 0);
 });
 test('cross-origin mutations are rejected before forwarding credentials', async () => {
@@ -43,7 +43,7 @@ test('authenticated operations use bearer tokens and no cache', async () => {
   assert.equal(calls[0][1].redirect, 'error');
 });
 test('logout, deletion and expired sessions clear the browser cookie', async () => {
-  for (const [method, body] of [['POST', { action: 'logout' }], ['DELETE', { password: 'test' }]]) {
+  for (const [method, body] of [['POST', { action: 'logout' }]]) {
     const { routes } = setup({ token: 'a'.repeat(64), upstream: { ok: true, status: 204 } });
     assert.equal((await routes[method](request(method, body))).cookies.entries[0][2].maxAge, 0);
   }
@@ -113,4 +113,12 @@ test('station visibility forwards the session and returns refreshed station flag
   assert.equal(calls[0][1].headers.Authorization, 'Bearer secret');
   const denied = setup({ token: 'secret', upstream: { ok: false, status: 404, json: async () => ({ error: 'Station not found' }) } });
   assert.equal((await denied.routes.POST(request('POST', body))).status, 404);
+});
+
+test('account deletion is disabled and never reaches the backend', async () => {
+  for (const token of [undefined, 'secret']) {
+    const { routes, calls } = setup({ token });
+    assert.equal((await routes.DELETE(request('DELETE', { password: 'test' }))).status, 405);
+    assert.equal(calls.length, 0);
+  }
 });

@@ -69,7 +69,7 @@ export default async function sitemap() {
     url, lastModified, changeFrequency: 'monthly', priority: 1,
     alternates: { languages: { ...companyLanguages, 'x-default': `${baseUrl}/` } },
   }));
-  const legalEntries = ['/privacy', '/cookie'].map(path => ({ url: `${baseUrl}${path}`, lastModified, changeFrequency: 'yearly', priority: 0.3 }));
+  const legalEntries = ['/privacy', '/cookie', '/termini-meteo'].map(path => ({ url: `${baseUrl}${path}`, lastModified, changeFrequency: 'yearly', priority: 0.3 }));
   return [...legalEntries, ...companyEntries, ...[...staticPaths, ...stationPaths, ...customerPaths].flatMap(({ path, changeFrequency, priority }) =>
     localizedEntries(path, { lastModified, changeFrequency, priority })
   )];

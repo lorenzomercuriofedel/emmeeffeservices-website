@@ -61,4 +61,4 @@ async function handle(request) {
 export const GET = handle;
 export const POST = handle;
 export const PATCH = handle;
-export const DELETE = handle;
+export async function DELETE() { return reply({ error: 'Account deletion must be requested by email' }, 405); }

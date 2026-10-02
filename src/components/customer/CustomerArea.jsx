@@ -25,7 +25,6 @@ export default function CustomerArea({ verificationToken = '', initialRegisterin
   const [verifyToken, setVerifyToken] = useState(verificationToken);
   const [resending, setResending] = useState(false);
   const [pendingEmail, setPendingEmail] = useState('');
-  const [deleting, setDeleting] = useState(false);
   async function api(method, body) {
     const response = await fetch('/api/customers', { method, cache: 'no-store', ...(body ? { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {}) });
     if (!response.ok) { const e = new Error(); e.status = response.status; throw e; }
@@ -50,7 +49,7 @@ export default function CustomerArea({ verificationToken = '', initialRegisterin
   async function perform(action) {
     setBusy(true); setError(''); setMessage('');
     try { await action(); } catch (e) {
-      if (e.status === 401 && customer) { setCustomer(null); setStations([]); setForm({}); setDeleting(false); setError(t('expired')); }
+      if (e.status === 401 && customer) { setCustomer(null); setStations([]); setForm({}); setError(t('expired')); }
       else setError(t(e.status === 401 ? 'invalidLogin' : e.status === 403 ? 'verificationNeeded' : e.status === 409 ? 'emailExists' : e.status === 422 ? 'invalidFields' : e.status === 429 ? 'rateLimited' : 'unavailable'));
     } finally { setBusy(false); }
   }
@@ -87,7 +86,7 @@ export default function CustomerArea({ verificationToken = '', initialRegisterin
           {registering && <div className="text-sm space-y-4 my-5">
             <details className="rounded-xl bg-sky-50 p-4"><summary className="cursor-pointer font-semibold">{t('registrationNotice')}</summary><p className="mt-3 whitespace-pre-line">{t('privacySummary')}</p><p className="mt-3">{t('termsSummary')}</p><a className="block mt-3 underline" href="/privacy" target="_blank" rel="noopener noreferrer">{t('privacyPolicy')}</a></details>
             <label className="flex gap-3 items-start"><input name="privacy_acknowledged" type="checkbox" required className="mt-1" /><span>{t('privacyAcknowledgement')} <a className="underline" href="/privacy" target="_blank" rel="noopener noreferrer">{t('privacyPolicy')}</a></span></label>
-            <label className="flex gap-3 items-start"><input name="terms_accepted" type="checkbox" required className="mt-1" /><span>{t('termsAcceptance')}</span></label>
+            <label className="flex gap-3 items-start"><input name="terms_accepted" type="checkbox" required className="mt-1" /><span>{t('termsAcceptance')} <a className="underline" href="/termini-meteo" target="_blank" rel="noopener noreferrer">{t('termsLink')}</a></span></label>
           </div>}
           <button className={button}>{busy ? t('working') : t(registering ? 'register' : 'login')}</button>
         </fieldset>
@@ -96,7 +95,7 @@ export default function CustomerArea({ verificationToken = '', initialRegisterin
         <p className="text-sm text-ink-mute mt-5">{t('accessHelp')} <span className="break-all">elaborazione@emmeeffeservices.it</span></p>
       </form> : <div className="grid md:grid-cols-[1fr_300px] gap-6">
         <form className="bg-white rounded-3xl border border-sky-100 p-6 md:p-8 shadow-card" onSubmit={event => { event.preventDefault(); if (form.logo_url && !safeLogoUrl(form.logo_url)) { setError(t('invalidLogo')); return; } perform(async () => { const { logo_url, ...editable } = form; const payload = stations.length ? editable : { name: form.name, email: form.email, project_name: form.project_name, description: form.description }; const result = await api('PATCH', payload); accept(result); setMessage(t(result.email_change_pending ? 'emailChangePending' : 'saved')); }); }}>
-          <div className="flex items-center justify-between gap-3 mb-6"><h2 className="text-xl font-bold">{t('profile')}</h2><button type="button" className="text-sky-700 underline" disabled={busy} onClick={() => perform(async () => { await api('POST', { action: 'logout' }); setCustomer(null); setStations([]); setForm({}); setDeleting(false); })}>{t('logout')}</button></div>
+          <div className="flex items-center justify-between gap-3 mb-6"><h2 className="text-xl font-bold">{t('profile')}</h2><button type="button" className="text-sky-700 underline" disabled={busy} onClick={() => perform(async () => { await api('POST', { action: 'logout' }); setCustomer(null); setStations([]); setForm({}); })}>{t('logout')}</button></div>
           <fieldset disabled={busy} className="space-y-5">
             <label className="block">{t('name')}<input className={input} name="name" value={form.name} onChange={change} required maxLength={255} autoComplete="organization" /></label>
             <label className="block">{t('email')}<input className={input} name="email" type="email" value={form.email} onChange={change} required maxLength={254} autoComplete="email" /></label>
@@ -128,7 +127,7 @@ export default function CustomerArea({ verificationToken = '', initialRegisterin
           <section className="bg-white rounded-3xl border border-sky-100 p-6"><h2 className="font-bold mb-4">{t('preview')}</h2><div className="bg-alpine rounded-2xl p-4"><CustomerLogo customer={{ name: form.name, projectName: form.project_name, projectType: form.project_type, logoUrl: safeLogoUrl(form.logo_url) }} />{!safeLogoUrl(form.logo_url) && <p className="text-sky-100 text-sm">{t('noLogo')}</p>}</div></section>
           <section className="bg-white rounded-3xl border border-sky-100 p-6"><h2 className="font-bold mb-4">{t('stations')}</h2><p className="text-sm text-ink-mute mb-4">{t('stationVisibilityHelp')}</p>{stations.length ? <ul className="space-y-3">{stations.map(station => <li key={station.id}><Link className="text-sky-700 underline" href={`/stazione/${encodeURIComponent(station.id)}`}>{station.nome} (ID: {station.id})</Link><label className="flex items-start gap-2 mt-2 text-sm"><input type="checkbox" className="mt-1" checked={![true, 1, '1'].includes(station.disabled)} disabled={busy} onChange={event => { const disabled = !event.currentTarget.checked; perform(async () => { const data = await api('POST', { action: 'station_visibility', station_id: Number(station.id), disabled }); setStations(data.stations ?? []); setMessage(t('stationVisibilitySaved')); }); }} /><span>{t('stationVisible')}</span></label></li>)}</ul> : <p className="text-sm text-ink-mute">{t('noStations')}</p>}<p className="text-sm text-ink-mute mt-5">{t('stationTechnicalHelp')} <span className="break-all">elaborazione@emmeeffeservices.it</span></p></section>
           </>}
-          <section className="rounded-3xl border border-red-200 p-6"><h2 className="font-bold mb-3">{t('deleteTitle')}</h2><p className="text-sm text-ink-mute mb-4">{t('deleteHelp')}</p>{!deleting ? <button disabled={busy} className="text-red-700 underline" onClick={() => setDeleting(true)}>{t('delete')}</button> : <form onSubmit={event => { event.preventDefault(); const password = new FormData(event.currentTarget).get('password'); perform(async () => { await api('DELETE', { password }); setCustomer(null); setStations([]); setForm({}); setDeleting(false); setMessage(t('deleted')); }); }}><label>{t('confirmPassword')}<input className={input} name="password" type="password" autoComplete="current-password" required maxLength={1024} disabled={busy} /></label><button className="mt-4 text-red-700 font-bold" disabled={busy}>{t('confirmDelete')}</button><button type="button" className="block mt-3 underline" disabled={busy} onClick={() => setDeleting(false)}>{t('cancel')}</button></form>}</section>
+          <section className="rounded-3xl border border-sky-200 p-6"><h2 className="font-bold mb-3">{t('deleteTitle')}</h2><p className="text-sm text-ink-mute">{t('deleteHelp')} <span className="break-all">elaborazione@emmeeffeservices.it</span></p></section>
         </aside>
       </div>}
     </div>

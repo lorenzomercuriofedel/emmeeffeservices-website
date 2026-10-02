@@ -279,3 +279,13 @@ Prima della pubblicazione il titolare deve verificare i contratti/DPA, eventuali
 ### Accesso diretto alle stazioni disabilitate
 
 Pubblicare anche `php_tmp/stazioni_meteo.php`: l’anagrafica pubblica esclude sempre `disabled=1`, anche per ID e con `disabled=true`. La pagina stazione verifica l’anagrafica senza cache a ogni richiesta e restituisce 404 prima di caricare le misurazioni. L’area privata conserva tutte le stazioni assegnate per permettere la riattivazione. Questa modifica blocca le pagine del sito, non modifica le API delle misurazioni `dati_stazioni.php`.
+
+## Condizioni del servizio e cancellazione tramite richiesta (v3)
+
+Le condizioni complete sono in `/termini-meteo`, collegate dal footer e dalla casella obbligatoria della registrazione. La versione registrata è `2026-10-03-v3`; le accettazioni precedenti non vengono modificate. La registrazione non è un acquisto né una richiesta di esecuzione anticipata durante il recesso.
+
+La cancellazione automatica è disattivata sia nel proxy Next.js sia in `customer.php` (DELETE risponde 405). Nell’area riservata sono indicate le istruzioni per richiederla a elaborazione@emmeeffeservices.it. Pubblicare il PHP aggiornato. Le precedenti istruzioni DELETE di questo documento sono superate. Gestire le richieste manualmente: verificare in modo proporzionato l’identità, rispettare i termini GDPR, revocare sessioni/token, rimuovere profilo e contenuti anche da Blob, valutare gli obblighi di conservazione e confermare l’esito. Non chiedere la password. La richiesta può essere inoltrata anche attraverso gli altri contatti privacy: non limitarne l’esercizio a un modulo o indirizzo esclusivo.
+
+**Rotazione 25 ore:** le condizioni descrivono un’opzione contrattuale; questo aggiornamento non implementa alcun DELETE periodico sulle misurazioni. Prima di offrirla come attiva, concordare la stazione, configurare una pulizia a finestra mobile di 25 ore (24 per grafici + 1 di margine), documentare frequenza, archivi/aggregati e rotazione dei backup, verificare almanacchi e grafici storici. Il primario sul sito cliente mantiene la propria politica. La copia speculare sui database meteo va concordata nell’incarico e non è un backup garantito.
+
+Riferimenti: Codice del consumo artt. 52, 56–57 e 59 ([Normattiva](https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-09-06;206)), GDPR artt. 12, 17 e 28. Verificare che preventivi e procedura operativa corrispondano alle condizioni pubblicate.
