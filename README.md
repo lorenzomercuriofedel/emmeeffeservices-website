@@ -33,3 +33,4 @@ Il sito necessita di un runtime Next.js: non è un export HTML statico.
 ## Area clienti meteo
 
 Area riservata: `/meteo/customer-area`. Contratto API, autenticazione PHP e migrazione SQL AlterVista: [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md).
+
