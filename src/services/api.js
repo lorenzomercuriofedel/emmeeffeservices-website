@@ -14,10 +14,10 @@ export async function fetchStations(options = { next: { revalidate: 60 } }) {
   return enrichCustomers(data.stazioni, options);
 }
 
-export async function fetchStationInfo(id, options = { next: { revalidate: 300 } }) {
+export async function fetchStationInfo(id, options = { cache: 'no-store' }) {
   const res = await fetch(`${API_BASE}/stazioni_meteo.php?id=${id}`, options);
   const data = await readApiJson(res);
-  if (!data.anagrafica) return null;
+  if (!data.anagrafica || [true, 1, '1'].includes(data.anagrafica.disabled)) return null;
   return (await enrichCustomers([data.anagrafica], options))[0];
 }
 

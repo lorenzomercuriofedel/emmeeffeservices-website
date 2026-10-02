@@ -264,7 +264,7 @@ La Cookie Solution viene caricata sia nella home aziendale sia in `/meteo`, con 
 
 ## Visibilità delle stazioni nell’area clienti meteo
 
-Ogni stazione assegnata ha la casella “Visibile in mappa”. L’azione autenticata `POST {action:"station_visibility",station_id:42,disabled:true}` su `customer.php` aggiorna esclusivamente una stazione del cliente della sessione. `disabled=false` la rende nuovamente visibile. Le risposte private includono `stations[].disabled` booleano e anche le stazioni disabilitate, così possono essere riattivate. L’API pubblica già filtra `disabled=0`: la scelta nasconde anche dagli elenchi pubblici, senza cancellare dati o misurazioni; non è un controllo di accesso ai dettagli tramite URL diretto.
+Ogni stazione assegnata ha la casella “Visibile in mappa”. L’azione autenticata `POST {action:"station_visibility",station_id:42,disabled:true}` su `customer.php` aggiorna esclusivamente una stazione del cliente della sessione. `disabled=false` la rende nuovamente visibile. Le risposte private includono `stations[].disabled` booleano e anche le stazioni disabilitate, così possono essere riattivate. L’API pubblica già filtra `disabled=0`: la scelta nasconde anche dagli elenchi pubblici, senza cancellare dati o misurazioni; i dettagli pubblici di una stazione disabilitata restituiscono 404 anche tramite URL diretto.
 
 Pubblicare il nuovo `php_tmp/customer.php` su AlterVista e ridistribuire il frontend. Nessuna modifica SQL necessaria, dato che `stazioni_meteo.disabled` esiste già.
 
@@ -275,3 +275,7 @@ Iubenda è rimosso dal codice del sito. `/privacy` e `/cookie` sono pagine local
 Dati del titolare verificati sulla precedente policy pubblica Iubenda (62711798); testi nuovi, adattati ai trattamenti del repository. Riferimenti: [GDPR](https://eur-lex.europa.eu/eli/reg/2016/679/oj/ita), D.lgs. 196/2003 aggiornato dal D.lgs. 101/2018, [Linee guida cookie Garante 10 giugno 2021](https://www.garanteprivacy.it/web/guest/home/docweb/-/docweb-display/docweb/9677876). Questa sezione sostituisce le istruzioni Iubenda precedenti del documento.
 
 Prima della pubblicazione il titolare deve verificare i contratti/DPA, eventuali trasferimenti extra SEE, regione del Blob store, durate effettive di log e backup e retention della corrispondenza. Il codice non elimina automaticamente Blob alla cancellazione account: verificare e rimuovere i file con procedura operativa. Le pagine descrivono questo limite e non promettono una cancellazione automatica inesistente. Verificare in produzione eventuali cookie infrastrutturali e integrazioni configurate fuori dal repository. Nessuna verifica del solo codice certifica la conformità complessiva GDPR. La rimozione del codice non annulla l'abbonamento Iubenda: gestire separatamente il relativo contratto.
+
+### Accesso diretto alle stazioni disabilitate
+
+Pubblicare anche `php_tmp/stazioni_meteo.php`: l’anagrafica pubblica esclude sempre `disabled=1`, anche per ID e con `disabled=true`. La pagina stazione verifica l’anagrafica senza cache a ogni richiesta e restituisce 404 prima di caricare le misurazioni. L’area privata conserva tutte le stazioni assegnate per permettere la riattivazione. Questa modifica blocca le pagine del sito, non modifica le API delle misurazioni `dati_stazioni.php`.

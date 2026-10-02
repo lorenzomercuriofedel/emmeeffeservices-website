@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { weatherTitle } from '@/src/utils/seo';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/src/i18n/navigation';
@@ -11,6 +12,8 @@ import StationInfo from '@/src/components/station/StationInfo';
 import StationAlmanac from '@/src/components/station/StationAlmanac';
 import StationConditions from '@/src/components/station/StationConditions';
 
+export const dynamic = 'force-dynamic';
+
 const OG_LOCALE = { it: 'it_IT', en: 'en_US', de: 'de_DE' };
 
 function stationPath(locale, id) {
@@ -22,6 +25,7 @@ export async function generateMetadata({ params }) {
   const t = await getTranslations({ locale, namespace: 'metadata.station' });
   try {
     const info = await fetchStationInfo(id);
+    if (!info) return { title: t('fallback'), robots: { index: false, follow: false } };
     const vars = { name: info.nome, comune: info.comune, alt: info.altitudine };
     return {
       title: t('title', vars),
@@ -74,6 +78,8 @@ export default async function StationPage({ params }) {
     console.error('Errore caricamento anagrafica:', e);
   }
 
+  if (!anagrafica) notFound();
+
   // Ultima rilevazione lato server (cache 60s): la card con la temperatura è già
   // nell'HTML iniziale → LCP veloce e niente layout shift sulla pagina stazione.
   let initialData = null;
@@ -82,13 +88,6 @@ export default async function StationPage({ params }) {
   } catch {}
   const initialOnline = isStationLive(initialData?.DateTime, id);
 
-  if (!anagrafica) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <p className="text-gray-500 text-lg">{t('notFound')}</p>
-      </div>
-    );
-  }
 
   const stationCustomer = getCustomer(anagrafica);
 
