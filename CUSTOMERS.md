@@ -1,12 +1,12 @@
 # API: clienti e progetti meteo
 
-## Formato attuale: customer testuale
+## Formato attuale: customer_id e customer.php
 
-L'API attuale espone `customer` come stringa. Il frontend usa quel testo come
-nome pubblico, lo mostra sotto la proprietà del terreno e raggruppa le stazioni
-con lo stesso valore (ignorando gli spazi iniziali e finali). Il nome non viene
-sostituito con il marchio del portale. Descrizione e categoria restano assenti
-finché non vengono fornite dall'API.
+L'API `stazioni_meteo.php` restituisce `customer_id` sia nell'elenco sia nel dettaglio. Il frontend risolve nome e campi pubblici con `customer.php?public=true&ids=...`, usando un'unica chiamata per ogni gruppo di ID distinti. Il logo proviene da `logo_url` nel profilo pubblico. Email e credenziali non vengono esposte.
+
+La FK si trova in **`stazioni_meteo.customer_id`**, non nella tabella delle misurazioni `dati_stazioni`. Il contratto attuale e l'implementazione PHP sono descritti in [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md).
+
+Le sezioni seguenti descrivono anche i formati precedenti supportati per compatibilità. Quando `customer_id` è presente, il suo profilo risolto è la fonte del nome, logo e consenso; un cliente mancante non viene ricavato dal vecchio testo.
 
 ## Tabella consigliata
 
@@ -102,4 +102,4 @@ alcuna autenticazione o gestione delle stazioni in questa modifica.
 
 ## Area riservata e logo
 
-È disponibile il frontend `/meteo/customer-area`. Per implementare `customers.php`, sessioni e relazioni SQL consultare [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md). Le pagine `/cliente/...` descritte sopra rimangono pubbliche. Il logo si fornisce con `customer_logo_url` oppure `customer.logo_url` (URL HTTPS).
+È disponibile il frontend `/meteo/customer-area`. Per implementare `customer.php`, sessioni e relazioni SQL consultare [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md). Le pagine `/cliente/...` descritte sopra rimangono pubbliche. Il logo si fornisce con `customer_logo_url` oppure `customer.logo_url` (URL HTTPS).

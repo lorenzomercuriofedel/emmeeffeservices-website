@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-const ENDPOINT = 'https://meteopine.altervista.org/api/customers.php';
+const ENDPOINT = 'https://meteopine.altervista.org/api/customer.php';
 const COOKIE = 'meteo_customer_session';
 const cookieOptions = { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', path: '/api/customers' };
 function reply(body, status = 200) {

@@ -32,6 +32,7 @@ test('login keeps the backend token exclusively in an HttpOnly cookie', async ()
   assert.equal(response.body.token, undefined);
   assert.equal(response.cookies.entries[0][1], token);
   assert.equal(response.cookies.entries[0][2].httpOnly, true);
+  assert.equal(calls[0][0], 'https://meteopine.altervista.org/api/customer.php');
   assert.equal(calls[0][1].headers.Authorization, undefined);
 });
 test('authenticated operations use bearer tokens and no cache', async () => {

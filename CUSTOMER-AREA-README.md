@@ -3,16 +3,18 @@
 ## Cosa implementa questo repository
 
 - `/meteo/customer-area`, `/meteo/en/customer-area`, `/meteo/de/customer-area`: login, modifica del proprio profilo, elenco delle stazioni assegnate, anteprima logo, logout e cancellazione account con password.
-- Il browser chiama `/api/customers` sul sito Next.js. Questa route inoltra le richieste a **https://meteopine.altervista.org/api/customers.php**, senza cache.
+- Il browser chiama `/api/customers` sul sito Next.js. Questa route inoltra le richieste a **https://meteopine.altervista.org/api/customer.php**, senza cache.
 - Il token PHP viene custodito in un cookie HttpOnly (Secure in produzione, SameSite=Lax, durata 8 ore). Non viene restituito al JavaScript o salvato in localStorage. Le mutazioni richiedono Origin uguale all'origine Next.js e Content-Type JSON.
 - Il logo HTTPS compare a destra del titolo nella pagina stazione, nella posizione indicata nello screenshot; su mobile va sotto il titolo. Senza logo o con immagine non caricabile il riquadro non appare. Il rosso dello screenshot è solo un'indicazione della posizione.
 - L'area ha `noindex, nofollow` e non viene aggiunta alla sitemap.
 
-**Il PHP e il database non sono in questo repository. Il frontend sarà operativo dopo aver implementato il contratto seguente.** Non ho verificato lo schema SQL reale: `dati_stazioni.php` è l'endpoint delle misurazioni, `stazioni_meteo.php` quello dell'anagrafica. Non si può dedurre da questi nomi il nome della tabella SQL. Gli esempi sotto assumono che `dati_stazioni` sia l'anagrafica, con PK `id` INT UNSIGNED: verificare con `SHOW CREATE TABLE dati_stazioni` e adattare nomi e tipi prima di eseguire.
+Il backend da caricare su AlterVista è [php_tmp/customer.php](php_tmp/customer.php). Usa la connessione già presente nelle API, con override tramite `CUSTOMER_DB_HOST`, `CUSTOMER_DB_USER`, `CUSTOMER_DB_PASSWORD`, `CUSTOMER_DB_NAME`. Richiede PHP 7.4 o successivo, mysqli/mysqlnd e directory temporanea PHP scrivibile per il rate limit persistente (5 tentativi/account e 100/IP ogni 15 minuti, compresi i login riusciti). Le sessioni durano 8 ore.
+
+La tabella anagrafica reale è **`stazioni_meteo`**: qui si trova `customer_id` con FK verso `customers.id`. **`dati_stazioni` contiene le misurazioni e non viene modificata.** Le due API esistenti mantengono il loro comportamento; `stazioni_meteo.php` aggiunge `customer_id` alle risposte esistenti; l’app ignora il vecchio nome testuale quando l’ID è presente. L'app recupera nome, descrizione, tipo, consenso e logo da `customer.php` tramite quell'ID.
 
 ## Relazioni SQL
 
-Un cliente ha più stazioni; una stazione ha al massimo un cliente. Aggiungere `customer_id` **nell'anagrafica**, non su ogni riga di rilevazione. Se `dati_stazioni` contiene invece le misurazioni, aggiungerlo alla vera tabella anagrafica (es. `stazioni_meteo`); le misurazioni continuano a riferirsi alla stazione con la loro FK esistente.
+Un cliente ha più stazioni; una stazione ha al massimo un cliente. Aggiungere `customer_id` **nell'anagrafica**, non su ogni riga di rilevazione. Le misurazioni continuano a riferirsi alla stazione con il campo `dati_stazioni.idStation` già esistente.
 
 ```sql
 CREATE TABLE customers (
@@ -28,8 +30,8 @@ CREATE TABLE customers (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- SOLO se dati_stazioni è l'anagrafica delle stazioni:
-ALTER TABLE dati_stazioni
+-- Se già applicato, NON ripetere questa migrazione:
+ALTER TABLE stazioni_meteo
   ADD COLUMN customer_id INT UNSIGNED NULL,
   ADD INDEX idx_station_customer (customer_id),
   ADD CONSTRAINT fk_station_customer FOREIGN KEY (customer_id)
@@ -49,9 +51,9 @@ CREATE TABLE customer_sessions (
 
 Verificare InnoDB su entrambe le tabelle. Se AlterVista non consente FK sul database attuale, applicare gli stessi vincoli esplicitamente nelle transazioni PHP e verificare gli orfani. Non usare `ON DELETE CASCADE` tra clienti e stazioni o misurazioni.
 
-Per migrare il campo testuale `customer`: creare un cliente per ogni identità verificata, assegnare `customer_id` alle stazioni, conservare il testo nell'API mediante JOIN. Non associare automaticamente clienti con stesso nome senza verificarli. Email e credenziali si raccolgono fuori dal sito; niente registrazione aperta. Generare password con `password_hash($password, PASSWORD_DEFAULT)` e consegnare le credenziali mediante un canale concordato. Gli assegnamenti delle stazioni si effettuano lato amministratore; il cliente non può cambiare `customer_id` né reclamare stazioni.
+Per migrare il campo testuale `customer`: creare un cliente per ogni identità verificata, assegnare `customer_id` alle stazioni, restituire solo `customer_id` nelle API stazioni e risolvere il profilo tramite `customer.php`. Non associare automaticamente clienti con stesso nome senza verificarli. Email e credenziali si raccolgono fuori dal sito; niente registrazione aperta. Generare password con `password_hash($password, PASSWORD_DEFAULT)` e consegnare le credenziali mediante un canale concordato. Gli assegnamenti delle stazioni si effettuano lato amministratore; il cliente non può cambiare `customer_id` né reclamare stazioni.
 
-## Contratto di customers.php
+## Contratto di customer.php
 
 Tutte le risposte JSON hanno `Content-Type: application/json; charset=utf-8` e `Cache-Control: no-store`. Tutti gli errori restituiscono uno status HTTP non 2xx e `{ "error": "..." }`; il frontend mostra messaggi generici. Non restituire HTML, redirect o messaggi SQL. Non serve CORS: PHP è chiamato dal server Next.js. Assicurarsi che il dominio senza `www` risponda direttamente, senza redirect; il proxy li rifiuta.
 
@@ -130,7 +132,7 @@ UPDATE customers
 SET name = ?, email = ?, description = ?, project_type = ?, logo_url = ?, web_public = ?
 WHERE id = ?; -- ultimo parametro: customerId della sessione
 
-SELECT id, nome FROM dati_stazioni WHERE customer_id = ?;
+SELECT id, nome FROM stazioni_meteo WHERE customer_id = ?;
 ```
 
 DELETE: richiedere password e `password_verify`, poi transazione. Con FK la cancellazione cliente scollega stazioni e revoca sessioni. Se le FK non sono disponibili:
@@ -140,7 +142,7 @@ $pdo->beginTransaction();
 try {
     // Bloccare e rileggere cliente con SELECT ... FOR UPDATE,
     // poi verificare password dentro la transazione.
-    $pdo->prepare('UPDATE dati_stazioni SET customer_id = NULL WHERE customer_id = ?')->execute([$customerId]);
+    $pdo->prepare('UPDATE stazioni_meteo SET customer_id = NULL WHERE customer_id = ?')->execute([$customerId]);
     $pdo->prepare('DELETE FROM customer_sessions WHERE customer_id = ?')->execute([$customerId]);
     $pdo->prepare('DELETE FROM customers WHERE id = ?')->execute([$customerId]);
     $pdo->commit();
@@ -150,39 +152,32 @@ try {
 }
 ```
 
-In migrazione, se rimane anche la vecchia colonna testuale `customer`, azzerarla sulle stazioni scollegate o smettere di esporla: altrimenti il frontend continuerà a mostrare il nome cancellato. Nessuna query deve eliminare misurazioni. Logout elimina solo la sessione con `token_hash` corrente. Rimuovere periodicamente le sessioni scadute. Implementare un rate limit persistente per login e tentativi di password di cancellazione (es. 5 tentativi/15 minuti per account e per IP, con backoff); non usare un contatore solo in memoria PHP. Limitare il body a 32 KB anche sul PHP.
+La vecchia colonna testuale `stazioni_meteo.customer` rimane nella risposta per compatibilità, ma l’app non la usa più per risolvere i clienti quando `customer_id` è presente. PATCH modifica la tabella `customers`; DELETE scollega le stazioni tramite `customer_id`, revoca le sessioni e rimuove il cliente in una transazione. Nessuna query elimina misurazioni.
 
-## Aggiungere logo e cliente alle API stazioni
+## Profili pubblici per le stazioni
 
-La pagina stazione legge il logo dall'anagrafica in `stazioni_meteo.php`, **non** dal profilo privato. Estendere sia elenco sia dettaglio tramite JOIN:
+`GET /api/customer.php?public=true&id=42` restituisce `{ "customer": { ... } }`, oppure 404 se il cliente non esiste/non ha stazioni associate.
 
-```sql
-SELECT s.*, c.id AS customer_id, c.name AS customer,
-       c.description AS customer_description,
-       c.project_type AS customer_project_type,
-       c.web_public AS customer_web_public,
-       c.logo_url AS customer_logo_url
-FROM dati_stazioni s
-LEFT JOIN customers c ON c.id = s.customer_id;
--- Usare filtri e ordinamento attuali, con parametri preparati per il dettaglio.
-```
-
-Per evitare campi duplicati/ambigui, in produzione preferire colonne esplicite a `s.*`, e rimuovere la vecchia colonna `s.customer` dalla selezione. Esempio compatibile con il frontend attuale:
+`GET /api/customer.php?public=true&ids=42,43` restituisce `{ "customers": [ ... ] }`. Massimo 100 ID interi positivi per chiamata; i clienti mancanti non compaiono nell'elenco. Nessun token richiesto. Solo questi campi possono comparire:
 
 ```json
 {
-  "id": 123,
-  "nome": "Stazione esempio",
-  "customer": "Cliente esempio",
-  "customer_id": 42,
-  "customer_description": "Il nostro osservatorio",
-  "customer_project_type": "hobby",
-  "customer_web_public": 0,
-  "customer_logo_url": "https://example.com/logo.png"
+  "id": 42,
+  "name": "Cliente esempio",
+  "description": "Il nostro osservatorio",
+  "project_type": "hobby",
+  "logo_url": "https://example.com/logo.png",
+  "web_public": false
 }
 ```
 
-È supportato anche `customer: {id, name, description, project_type, web_public, logo_url}`. Il logo è pubblico quando configurato; `web_public` controlla solo indicizzazione della pagina progetto, come documentato in [CUSTOMERS.md](CUSTOMERS.md). Nessun logo se cliente mancante. L'anagrafica della stazione è in cache fino a 300 secondi: aggiornamento/rimozione logo può richiedere 5 minuti; le risposte dell'area riservata sono immediate. Se PHP ha altra cache, invalidarla sulle mutazioni.
+Email, password e sessioni rimangono esclusivamente nell'API privata. `web_public` continua a controllare solo l'indicizzazione: il profilo pubblico è leggibile anche con consenso false.
+
+`stazioni_meteo.php` restituisce semplicemente `customer_id` sia in `stazioni` sia in `anagrafica`. Non serve JOIN alle tabelle clienti e non servono modifiche a `dati_stazioni.php`.
+
+Il servizio `src/services/api.js` raccoglie gli ID distinti e risolve i profili a gruppi di 100. Sul server chiama direttamente AlterVista; la mappa nel browser passa da `/api/customer-profiles`, evitando CORS e filtrando qualsiasi campo privato imprevisto. Nome e logo vengono quindi usati dalla mappa, dall'anagrafica, dalle pagine cliente e dalla sitemap. L'area riservata usa `/api/customers` come proxy verso lo stesso **`customer.php` singolare**.
+
+Se un profilo non esiste o il servizio clienti non risponde, i dati meteo restano disponibili e il cliente/logo non viene mostrato; nessun recupero del nome vecchio dalla colonna testuale. Le anagrafiche stazione possono restare in cache 5 minuti; le chiamate pubbliche della mappa sono in cache al massimo 60 secondi, l'area riservata non usa cache.
 
 ## Verifica prima della messa online
 
@@ -194,4 +189,4 @@ Per evitare campi duplicati/ambigui, in produzione preferire colonne esplicite a
 6. Provare cancellazione con password errata/corretta: cliente/sessioni spariscono, stazioni hanno customer_id NULL, misurazioni restano identiche, logo sparisce dopo cache.
 7. Verificare in browser desktop/mobile le tre lingue, URL privati noindex e assenza di dati privati nelle risposte pubbliche.
 
-Per chiamate manuali usare credenziali di test e un client HTTP; conservare il token solo per la durata della prova. Il backend non è stato distribuito da questa modifica.
+Per chiamate manuali usare credenziali di test e un client HTTP; conservare il token solo per la durata della prova. Il file PHP è pronto da caricare ma non è stato distribuito da questa modifica.
