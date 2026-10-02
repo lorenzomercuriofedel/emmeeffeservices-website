@@ -261,7 +261,8 @@
     "menu": "Menü",
     "navigation": "Hauptnavigation",
     "map": "Karte",
-    "weatherCustomerArea": "Kundenbereich für Wetterstationen"
+    "weatherCustomerArea": "Kundenbereich für Wetterstationen",
+    "installStation": "Wetterstation installieren"
   },
   "customers": {
     "label": "Kunde",
@@ -402,6 +403,8 @@
     "shareEmail": "Kontakt-E-Mail veröffentlichen",
     "shareWebsite": "Website veröffentlichen",
     "contactEmail": "Kontakt-E-Mail",
-    "website": "Website"
+    "website": "Website",
+    "installTitle": "Wetterstation installieren",
+    "installIntro": "Lassen Sie sich zur Auswahl, Installation und Einrichtung Ihrer Wetterstation beraten. Registrieren Sie sich und stellen Sie uns Ihr Projekt vor oder melden Sie sich mit Ihrem bestehenden Konto an."
   }
 }

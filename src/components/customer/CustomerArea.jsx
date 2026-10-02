@@ -53,9 +53,12 @@ export default function CustomerArea({ verificationToken = '', initialRegisterin
       else setError(t(e.status === 401 ? 'invalidLogin' : e.status === 403 ? 'verificationNeeded' : e.status === 409 ? 'emailExists' : e.status === 422 ? 'invalidFields' : e.status === 429 ? 'rateLimited' : 'unavailable'));
     } finally { setBusy(false); }
   }
+  useEffect(() => {
+    if (!loading) window.dispatchEvent(new CustomEvent('weather-customer-session', { detail: Boolean(customer) }));
+  }, [customer, loading]);
   function change(event) { const { name, value, checked, type } = event.target; setForm(old => ({ ...old, [name]: type === 'checkbox' ? checked : value })); }
   return <div className="pb-16">
-    <section className="bg-alpine px-4 py-12"><div className="max-w-5xl mx-auto"><p className="text-sky-100 uppercase tracking-widest text-xs mb-3">emme-effe meteo</p><h1 className="text-white text-3xl md:text-5xl font-extrabold">{t('title')}</h1><p className="text-sky-100 mt-4 max-w-xl">{t('intro')}</p></div></section>
+    <section className="bg-alpine px-4 py-12"><div className="max-w-5xl mx-auto"><p className="text-sky-100 uppercase tracking-widest text-xs mb-3">emme-effe meteo</p><h1 className="text-white text-3xl md:text-5xl font-extrabold">{t(customer ? 'title' : 'installTitle')}</h1><p className="text-sky-100 mt-4 max-w-xl">{t(customer ? 'intro' : 'installIntro')}</p></div></section>
     <div className="max-w-5xl mx-auto px-4 mt-8">
       {error && <p role="alert" className="rounded-xl bg-red-50 text-red-800 p-4 mb-5">{error}</p>}
       {message && <p role="status" className="rounded-xl bg-emerald-50 text-emerald-800 p-4 mb-5">{message}</p>}

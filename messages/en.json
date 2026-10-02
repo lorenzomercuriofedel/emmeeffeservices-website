@@ -261,7 +261,8 @@
     "menu": "Menu",
     "navigation": "Main navigation",
     "map": "Map",
-    "weatherCustomerArea": "Weather customer area"
+    "weatherCustomerArea": "Weather customer area",
+    "installStation": "Install a weather station"
   },
   "customers": {
     "label": "Customer",
@@ -402,6 +403,8 @@
     "shareEmail": "Publish contact email",
     "shareWebsite": "Publish website",
     "contactEmail": "Contact email",
-    "website": "Website"
+    "website": "Website",
+    "installTitle": "Install a weather station",
+    "installIntro": "Request advice on choosing, installing and setting up your weather station. Register to tell us about your project, or sign in if you already have an account."
   }
 }

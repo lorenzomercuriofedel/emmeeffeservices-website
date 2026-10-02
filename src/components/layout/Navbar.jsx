@@ -10,9 +10,22 @@ export default function Navbar({ section }) {
   const locale = useLocale();
   const t = useTranslations('siteNav');
   const home = siteHome(locale);
+  const [authenticated, setAuthenticated] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const header = useRef(null);
   const menuButton = useRef(null);
+
+  useEffect(() => {
+    if (section !== 'meteo') return;
+    let active = true;
+    let changed = false;
+    function update(event) { changed = true; setAuthenticated(event.detail === true); }
+    window.addEventListener('weather-customer-session', update);
+    fetch('/api/customers', { cache: 'no-store', signal: AbortSignal.timeout(10000) })
+      .then(async response => response.ok && Boolean((await response.json()).customer?.id))
+      .then(value => { if (active && !changed) setAuthenticated(value); }).catch(() => {});
+    return () => { active = false; window.removeEventListener('weather-customer-session', update); };
+  }, [section]);
 
   useEffect(() => {
     function closeOutside(event) {
@@ -51,7 +64,7 @@ export default function Navbar({ section }) {
         {section === 'meteo' && <a href={weatherHome(locale)}>{t('map')}</a>}
         {section === 'meteo' ? <a href={home}>{t('homepage')}</a> : <a href={`${home}#ambiti`}>{t('services')}</a>}
         {section !== 'meteo' && <a href={weatherHome(locale)} className={styles.weatherLink} aria-label="emme-effe meteo"><span className={styles.weatherLinkPrefix}>emme-effe </span>meteo</a>}
-        {section === 'meteo' && <a href={locale === 'it' ? '/meteo/customer-area' : `/meteo/${locale}/customer-area`}>{t('weatherCustomerArea')}</a>}
+        {section === 'meteo' && <a href={locale === 'it' ? '/meteo/customer-area' : `/meteo/${locale}/customer-area`}>{t(authenticated ? 'weatherCustomerArea' : 'installStation')}</a>}
         <a href="#contatti" className={styles.contact}>{t('contacts')}</a>
         <LanguageSwitcher />
       </nav>

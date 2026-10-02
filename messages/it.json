@@ -261,7 +261,8 @@
     "menu": "Menu",
     "navigation": "Navigazione principale",
     "map": "Mappa",
-    "weatherCustomerArea": "Area clienti meteo"
+    "weatherCustomerArea": "Area clienti meteo",
+    "installStation": "Installa stazione meteo"
   },
   "customers": {
     "label": "Cliente",
@@ -402,6 +403,8 @@
     "shareEmail": "Mostra pubblicamente l’email di contatto",
     "shareWebsite": "Mostra pubblicamente il sito web",
     "contactEmail": "Email di contatto",
-    "website": "Sito web"
+    "website": "Sito web",
+    "installTitle": "Installa stazione meteo",
+    "installIntro": "Richiedi una consulenza per scegliere, installare e configurare la tua stazione meteo. Registrati per raccontarci il tuo progetto oppure accedi se hai già un account."
   }
 }
