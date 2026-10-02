@@ -99,3 +99,7 @@ di ricerca applicherà le modifiche quando visiterà nuovamente la pagina.
 Il campo controlla l'indicizzazione: le pagine senza consenso restano visitabili
 tramite URL con `noindex, nofollow`. Non sono aree private e non viene aggiunta
 alcuna autenticazione o gestione delle stazioni in questa modifica.
+
+## Area riservata e logo
+
+È disponibile il frontend `/meteo/customer-area`. Per implementare `customers.php`, sessioni e relazioni SQL consultare [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md). Le pagine `/cliente/...` descritte sopra rimangono pubbliche. Il logo si fornisce con `customer_logo_url` oppure `customer.logo_url` (URL HTTPS).

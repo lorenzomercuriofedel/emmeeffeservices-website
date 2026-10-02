@@ -1,7 +1,7 @@
 import { customerRobots, weatherTitle, SITE_TITLE } from '../src/utils/seo.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getCustomer, groupCustomers, customerPath, customerDescription, findCustomerByRouteId } from '../src/utils/customers.js';
+import { getCustomer, groupCustomers, customerPath, customerDescription, findCustomerByRouteId, safeLogoUrl } from '../src/utils/customers.js';
 import { languageHref } from '../src/i18n/site-language.js';
 
 test('missing customer never falls back to the land owner or operator', () => {
@@ -80,4 +80,11 @@ test('customer indexing requires explicit consent on every station', () => {
 test('weather titles share the root branding', () => {
   assert.equal(weatherTitle(), `Meteo | ${SITE_TITLE}`);
   assert.equal(weatherTitle('Miola'), `Miola | Meteo | ${SITE_TITLE}`);
+});
+
+test('customer logos accept HTTPS and reject unsafe or malformed URLs', () => {
+  for (const value of [null, '', 'javascript:alert(1)', 'data:image/png;base64,abc', 'http://example.com/logo.png', '/logo.png', 'https://user:pass@example.com/logo.png']) assert.equal(safeLogoUrl(value), null);
+  assert.equal(getCustomer({ customer: 'Example', customer_logo_url: 'https://example.com/logo.png' }).logoUrl, 'https://example.com/logo.png');
+  assert.equal(getCustomer({ customer: { id: 42, name: 'Example', logo_url: 'https://example.com/nested.png' } }).logoUrl, 'https://example.com/nested.png');
+  assert.equal(getCustomer({ customer: 'Example' }).logoUrl, null);
 });

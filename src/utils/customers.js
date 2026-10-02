@@ -14,6 +14,7 @@ export function getCustomer(station) {
   return {
     id,
     name,
+    logoUrl: safeLogoUrl(object.logo_url ?? station.customer_logo_url),
     webPublic: hasWebConsent(station.customer_web_public ?? object.web_public),
     description: object.description ?? station.customer_description ?? null,
     projectType: ['professional', 'hobby', 'other'].includes(rawType) ? rawType : null,
@@ -54,4 +55,13 @@ export function findCustomerByRouteId(customers, id) {
 // Explicit opt-in only. Strings such as "0" or "false" are not truthy consent.
 export function hasWebConsent(value) {
   return value === true || value === 1 || value === '1' || value === 'true';
+}
+
+// Only absolute HTTPS images; reject credentials and script/data URLs.
+export function safeLogoUrl(value) {
+  if (typeof value !== 'string' || !value.trim()) return null;
+  try {
+    const url = new URL(value.trim());
+    return url.protocol === 'https:' && !url.username && !url.password ? url.href : null;
+  } catch { return null; }
 }

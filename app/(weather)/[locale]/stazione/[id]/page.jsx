@@ -5,6 +5,8 @@ import { routing } from '@/src/i18n/routing';
 import { fetchStationInfo, fetchStations, fetchLastData } from '@/src/services/api';
 import { isStationLive } from '@/src/utils/weather';
 import StationLiveData from '@/src/components/station/StationLiveData';
+import CustomerLogo from '@/src/components/customer/CustomerLogo';
+import { getCustomer } from '@/src/utils/customers';
 import StationInfo from '@/src/components/station/StationInfo';
 import StationAlmanac from '@/src/components/station/StationAlmanac';
 import StationConditions from '@/src/components/station/StationConditions';
@@ -133,12 +135,17 @@ export default async function StationPage({ params }) {
             </svg>
             {t('backToAll')}
           </Link>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
           <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
             {t('title', { name: anagrafica.nome })}
           </h1>
           <p className="text-sky-100/80 mt-2 text-base md:text-lg">
             {t('subtitle', { comune: anagrafica.comune, alt: anagrafica.altitudine })}
           </p>
+          </div>
+          <CustomerLogo customer={getCustomer(anagrafica)} />
+          </div>
         </div>
       </section>
 

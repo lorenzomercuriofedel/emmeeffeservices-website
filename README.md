@@ -29,3 +29,7 @@ Il codice reindirizza `www` al dominio canonico `https://emmeeffeservices.it`.
 Impostare `NEXT_PUBLIC_SITE_URL=https://emmeeffeservices.it` in produzione.
 L'indicizzazione del meteo e robots.txt seguono `VERCEL_ENV=production`.
 Il sito necessita di un runtime Next.js: non è un export HTML statico.
+
+## Area clienti meteo
+
+Area riservata: `/meteo/customer-area`. Contratto API, autenticazione PHP e migrazione SQL AlterVista: [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md).
