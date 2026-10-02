@@ -178,7 +178,7 @@
     },
     "info": {
       "eyebrow": "Information",
-      "registry": "Station details",
+      "registry": "Station information",
       "tabs": {
         "location": "Location",
         "details": "Technical details",
