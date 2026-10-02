@@ -15,6 +15,8 @@ export function getCustomer(station) {
     id,
     routeId: String(object.id ?? station.customer_id ?? id),
     name,
+    contactEmail: typeof object.contact_email === 'string' && /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(object.contact_email) ? object.contact_email : null,
+    websiteUrl: safeLogoUrl(object.website_url),
     projectName: typeof object.project_name === 'string' ? object.project_name.trim() : '',
     logoUrl: safeLogoUrl(object.logo_url ?? station.customer_logo_url),
     webPublic: hasWebConsent(station.customer_web_public ?? object.web_public),

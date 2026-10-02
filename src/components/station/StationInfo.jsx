@@ -16,6 +16,7 @@ export default function StationInfo({ anagrafica }) {
     { id: 'posizione', label: t('tabs.location') },
     { id: 'dettagli', label: t('tabs.details') },
     { id: 'info', label: t('tabs.info') },
+    ...(customer?.contactEmail || customer?.websiteUrl ? [{ id: 'contatti', label: t('tabs.contacts') }] : []),
   ];
 
   if (!anagrafica) return null;
@@ -44,7 +45,7 @@ export default function StationInfo({ anagrafica }) {
               <h2 className="text-xl font-bold text-ink mb-1">{t('registry')}</h2>
               <p className="text-ink-mute text-sm mb-5">{anagrafica.nome} · {anagrafica.comune}</p>
 
-              <div className="flex gap-1 mb-6 bg-sky-50 p-1 rounded-xl w-fit">
+              <div className="flex flex-wrap gap-1 mb-6 bg-sky-50 p-1 rounded-xl w-fit">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
@@ -59,6 +60,8 @@ export default function StationInfo({ anagrafica }) {
                   </button>
                 ))}
               </div>
+
+              {activeTab === 'contatti' && <div className="space-y-3"><h3 className="font-semibold text-ink">{t('customerContacts')}</h3>{customer?.contactEmail && <InfoRow label={t('contactEmail')} value={<a className="text-sky-700 underline break-all" href={`mailto:${customer.contactEmail}`}>{customer.contactEmail}</a>} />}{customer?.websiteUrl && <InfoRow label={t('website')} value={<a className="text-sky-700 underline break-all" href={customer.websiteUrl} target="_blank" rel="noopener noreferrer">{customer.websiteUrl}</a>} />}</div>}
 
               {activeTab === 'posizione' && (
                 <div className="space-y-3">

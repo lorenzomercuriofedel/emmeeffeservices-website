@@ -182,7 +182,8 @@
       "tabs": {
         "location": "Posizione",
         "details": "Dettagli tecnici",
-        "info": "Info"
+        "info": "Info",
+        "contacts": "Contatti del cliente"
       },
       "locality": "Località",
       "municipality": "Comune",
@@ -203,7 +204,10 @@
       "municipalityValue": "{comune} (TN)",
       "customer": "Cliente",
       "customerOwner": "di {owner}",
-      "projectOwner": "{project} di {owner}"
+      "projectOwner": "{project} di {owner}",
+      "customerContacts": "Contatti del cliente",
+      "contactEmail": "Email di contatto",
+      "website": "Sito web"
     }
   },
   "charts": {
@@ -392,6 +396,12 @@
     "stationVisible": "Visibile in mappa",
     "stationVisibilitySaved": "Visibilità della stazione aggiornata.",
     "stationTechnicalHelp": "Per aggiornare i dati tecnici della stazione comunicati durante la consulenza e l’inserimento, scrivi indicando nome e ID della stazione a:",
-    "stationVisibilityHelp": "Disattiva per nascondere la stazione dalla mappa e dagli elenchi pubblici. Le misurazioni restano conservate."
+    "stationVisibilityHelp": "Disattiva per nascondere la stazione dalla mappa e dagli elenchi pubblici. Le misurazioni restano conservate.",
+    "publicContacts": "Contatti pubblici",
+    "contactsHelp": "L’email di contatto è separata dall’email di accesso. I dati restano privati finché non scegli di pubblicarli; puoi cambiare scelta in ogni momento.",
+    "shareEmail": "Mostra pubblicamente l’email di contatto",
+    "shareWebsite": "Mostra pubblicamente il sito web",
+    "contactEmail": "Email di contatto",
+    "website": "Sito web"
   }
 }

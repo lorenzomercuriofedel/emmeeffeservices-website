@@ -182,7 +182,8 @@
       "tabs": {
         "location": "Location",
         "details": "Technical details",
-        "info": "Info"
+        "info": "Info",
+        "contacts": "Customer contacts"
       },
       "locality": "Locality",
       "municipality": "Municipality",
@@ -203,7 +204,10 @@
       "municipalityValue": "{comune} (TN)",
       "customer": "Customer",
       "customerOwner": "by {owner}",
-      "projectOwner": "{project} by {owner}"
+      "projectOwner": "{project} by {owner}",
+      "customerContacts": "Customer contacts",
+      "contactEmail": "Contact email",
+      "website": "Website"
     }
   },
   "charts": {
@@ -392,6 +396,12 @@
     "stationVisible": "Visible on the map",
     "stationVisibilitySaved": "Station visibility updated.",
     "stationTechnicalHelp": "To update the station’s technical details provided during the consultation and station setup, email us with the station name and ID at:",
-    "stationVisibilityHelp": "Uncheck to hide the station from the map and public lists. Measurements are retained."
+    "stationVisibilityHelp": "Uncheck to hide the station from the map and public lists. Measurements are retained.",
+    "publicContacts": "Public contacts",
+    "contactsHelp": "Your contact email is separate from your sign-in email. Details remain private unless you choose to publish them; you can change your choice at any time.",
+    "shareEmail": "Publish contact email",
+    "shareWebsite": "Publish website",
+    "contactEmail": "Contact email",
+    "website": "Website"
   }
 }
