@@ -244,8 +244,7 @@
   },
   "meteoServices": {
     "title": "Wettersysteme, von Sensoren zu Daten",
-    "description": "Emme-Effe Services bietet Beratung und Entwicklung meteorologischer Messsysteme sowie die Verarbeitung und Analyse der erfassten Daten. Sie möchten eine neue Anlage oder eine individuelle Dienstleistung beauftragen? Kontaktieren Sie uns für Informationen und ein Angebot.",
-    "cta": "Wetterstation installieren",
+    "description": "Emme-Effe Services bietet außerdem Beratung und Entwicklung von meteorologischen Messsystemen sowie die Verarbeitung und Analyse der erfassten Daten an. Möchten Sie eine neue Installation anfragen oder eine maßgeschneiderte Dienstleistung beauftragen? Kontaktieren Sie uns für weitere Informationen und ein Angebot.",    "cta": "Wetterstation installieren",
     "mapHint": "Wählen Sie eine Station auf der Karte, um Messwerte, Diagramme und Wetterbedingungen anzuzeigen."
   },
   "stationConditions": {

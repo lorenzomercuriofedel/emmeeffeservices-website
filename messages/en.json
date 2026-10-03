@@ -244,8 +244,7 @@
   },
   "meteoServices": {
     "title": "Weather systems, from sensors to data",
-    "description": "Emme-Effe Services offers consulting and development of weather monitoring systems, including processing and analysis of collected data. Interested in a new installation or a tailored service? Contact us for information and a quote.",
-    "cta": "Install a weather station",
+    "description": "Emme-Effe Services also provides consulting and development services for meteorological monitoring systems, including the processing and analysis of collected data. Would you like to request a new installation or purchase a custom service? Contact us for more information and a quote.",    "cta": "Install a weather station",
     "mapHint": "Select a station on the map to view readings, charts and weather conditions."
   },
   "stationConditions": {
