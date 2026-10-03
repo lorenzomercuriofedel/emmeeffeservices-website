@@ -110,19 +110,19 @@
     "retry": "Retry"
   },
   "intro": {
-    "eyebrow": "The project",
-    "title": "An amateur weather portal, since 2014",
-    "p1": "emme-effe meteo gathers readings from the weather stations on the Piné Plateau (Trento, Italy), run by local weather enthusiast Lorenzo Mercurio Fedel.",
-    "p2": "All the project's stations are part of the A.P.S. <b>Meteo Trentino Alto Adige</b> association network.",
+    "eyebrow": "The service",
+    "title": "Weather stations, consulting and installation",
+    "p1": "emme-effe meteo is EMME-EFFE SERVICES' professional service dedicated to weather stations, weather data collection and publishing, and technical consulting.",
+    "p2": "Founded in Trentino, the service provides design, installation, configuration and management of weather stations for private customers, businesses, public bodies and local projects.",
     "cta": "Install a weather station"
   },
   "contacts": {
     "eyebrow": "Contacts",
     "title": "Write to us",
-    "subtitle": "For information, reports or requests about the project's weather stations."
+    "subtitle": "For information, consulting, installation or technical support for weather stations and monitoring systems."
   },
   "footer": {
-    "tagline": "Amateur weather-monitoring portal for the Piné Plateau (Trento, Italy). Real-time data from the local station network.",
+    "tagline": "EMME-EFFE SERVICES' professional service for weather stations, consulting, installation and weather monitoring. Founded in Trentino.",
     "contactUs": "Contact us",
     "partner": "Partners",
     "usefulLinks": "Useful Links",
@@ -222,16 +222,16 @@
   },
   "metadata": {
     "home": {
-      "title": "emme-effe meteo — Piné Plateau Weather",
-      "description": "Real-time weather readings from the Piné Plateau (Trento, Italy). Amateur weather stations in Miola, Bedollo, Faida, Montesover, Serraia and other villages of the Trentino plateau.",
-      "ogDescription": "Real-time weather readings from the Piné Plateau (Trento, Italy), since 2014.",
-      "twitterDescription": "Real-time weather readings from the Piné Plateau (Trento, Italy)."
+      "title": "emme-effe meteo — Weather stations, consulting and installation",
+      "description": "Professional EMME-EFFE SERVICES service for weather stations, technical consulting, installation and weather monitoring. Founded in Trentino, Italy.",
+      "ogDescription": "Weather stations, consulting, installation and professional monitoring. An EMME-EFFE SERVICES service founded in Trentino.",
+      "twitterDescription": "Professional weather stations, consulting and installation by EMME-EFFE SERVICES."
     },
     "contacts": {
       "title": "Contacts",
-      "description": "Contact emme-effe meteo for information, reports or requests about the weather stations of the Trentino plateau.",
+      "description": "Contact emme-effe meteo by EMME-EFFE SERVICES for weather station consulting, installation, configuration and technical support.",
       "ogTitle": "Contacts | emme-effe meteo",
-      "ogDescription": "Contact emme-effe meteo for information or requests."
+      "ogDescription": "Contact EMME-EFFE SERVICES for weather stations, consulting and installation."
     },
     "station": {
       "title": "{name} station",

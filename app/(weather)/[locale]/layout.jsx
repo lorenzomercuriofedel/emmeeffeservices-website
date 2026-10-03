@@ -39,13 +39,6 @@ const baseUrl =
 
 const KEYWORDS = [
   'emme-effe meteo',
-  'meteo trentino',
-  'stazione meteo miola',
-  'meteo baselga di piné',
-  'meteo bedollo',
-  'meteo faida',
-  'meteo montesover',
-  'meteo lago serraia',
 ];
 
 export function generateStaticParams() {

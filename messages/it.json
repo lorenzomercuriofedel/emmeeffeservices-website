@@ -110,19 +110,19 @@
     "retry": "Riprova"
   },
   "intro": {
-    "eyebrow": "Il progetto",
-    "title": "Un portale meteo amatoriale, dal 2014",
-    "p1": "emme-effe meteo raccoglie le rilevazioni dalle stazioni meteo sull'Altopiano di Piné (TN), gestite dal meteoappassionato locale Lorenzo Mercurio Fedel.",
-    "p2": "Tutte le stazioni del progetto fanno parte della rete associativa dell'A.P.S. <b>Meteo Trentino Alto Adige</b>.",
+    "eyebrow": "Il servizio",
+    "title": "Stazioni meteo, consulenza e installazione",
+    "p1": "emme-effe meteo è il servizio professionale di EMME-EFFE SERVICES dedicato alle stazioni meteorologiche, alla raccolta e pubblicazione dei dati meteo e alla consulenza tecnica.",
+    "p2": "Nato in Trentino, il servizio segue progettazione, installazione, configurazione e gestione di stazioni meteo per privati, attività, enti e progetti territoriali.",
     "cta": "Installa una stazione meteo"
   },
   "contacts": {
     "eyebrow": "Contatti",
     "title": "Scrivici",
-    "subtitle": "Per informazioni, segnalazioni o richieste relative alle stazioni meteo del progetto."
+    "subtitle": "Per informazioni, consulenza, installazione o assistenza su stazioni meteorologiche e sistemi di monitoraggio."
   },
   "footer": {
-    "tagline": "Portale amatoriale di rilevazioni meteorologiche dall'Altopiano di Piné (TN). Dati in tempo reale dalle stazioni della rete locale.",
+    "tagline": "Servizio professionale di EMME-EFFE SERVICES per stazioni meteo, consulenza, installazione e monitoraggio meteorologico. Nato in Trentino.",
     "contactUs": "Contattaci",
     "partner": "Partner",
     "usefulLinks": "Link Utili",
@@ -222,16 +222,16 @@
   },
   "metadata": {
     "home": {
-      "title": "emme-effe meteo",
-      "description": "Rilevazioni meteorologiche in tempo reale dall'Altopiano di Piné (TN). Stazioni meteo amatoriali a Miola, Bedollo, Faida, Montesover, Serraia e altre località dell'altopiano trentino.",
-      "ogDescription": "Rilevazioni meteorologiche in tempo reale dall'Altopiano di Piné (TN), dal 2014.",
-      "twitterDescription": "Rilevazioni meteo in tempo reale dall'Altopiano di Piné (TN)."
+      "title": "emme-effe meteo — Stazioni meteo, consulenza e installazione",
+      "description": "Servizio professionale di EMME-EFFE SERVICES per stazioni meteo, consulenza tecnica, installazione e monitoraggio meteorologico. Nato in Trentino.",
+      "ogDescription": "Stazioni meteo, consulenza, installazione e monitoraggio professionale. Un servizio EMME-EFFE SERVICES nato in Trentino.",
+      "twitterDescription": "Stazioni meteo, consulenza e installazione professionale by EMME-EFFE SERVICES."
     },
     "contacts": {
       "title": "Contatti",
-      "description": "Contatta emme-effe meteo per informazioni, segnalazioni o richieste sulle stazioni meteorologiche dell'altopiano trentino.",
+      "description": "Contatta emme-effe meteo di EMME-EFFE SERVICES per consulenza, installazione, configurazione e assistenza su stazioni meteorologiche.",
       "ogTitle": "Contatti | emme-effe meteo",
-      "ogDescription": "Contatta emme-effe meteo per informazioni o richieste."
+      "ogDescription": "Contatta EMME-EFFE SERVICES per stazioni meteo, consulenza e installazione."
     },
     "station": {
       "title": "Stazione {name}",

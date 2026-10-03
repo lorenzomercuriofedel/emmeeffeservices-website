@@ -110,19 +110,19 @@
     "retry": "Erneut versuchen"
   },
   "intro": {
-    "eyebrow": "Das Projekt",
-    "title": "Ein Amateur-Wetterportal, seit 2014",
-    "p1": "emme-effe meteo sammelt die Messwerte der Wetterstationen auf der Hochebene von Piné (Trient, Italien), betreut vom örtlichen Wetterbegeisterten Lorenzo Mercurio Fedel.",
-    "p2": "Alle Stationen des Projekts gehören zum Vereinsnetzwerk der A.P.S. <b>Meteo Trentino Alto Adige</b>.",
+    "eyebrow": "Der Service",
+    "title": "Wetterstationen, Beratung und Installation",
+    "p1": "emme-effe meteo ist der professionelle Service von EMME-EFFE SERVICES für Wetterstationen, die Erfassung und Veröffentlichung meteorologischer Daten sowie technische Beratung.",
+    "p2": "Der in Trentino entstandene Service bietet Planung, Installation, Konfiguration und Betreuung von Wetterstationen für Privatkunden, Unternehmen, öffentliche Einrichtungen und lokale Projekte.",
     "cta": "Wetterstation installieren"
   },
   "contacts": {
     "eyebrow": "Kontakt",
     "title": "Schreiben Sie uns",
-    "subtitle": "Für Informationen, Meldungen oder Anfragen zu den Wetterstationen des Projekts."
+    "subtitle": "Für Informationen, Beratung, Installation oder technischen Support zu Wetterstationen und Messsystemen."
   },
   "footer": {
-    "tagline": "Amateur-Portal für Wetterbeobachtungen von der Hochebene von Piné (Trient, Italien). Echtzeitdaten aus dem lokalen Stationsnetz.",
+    "tagline": "Professioneller Service von EMME-EFFE SERVICES für Wetterstationen, Beratung, Installation und meteorologisches Monitoring. Entstanden in Trentino.",
     "contactUs": "Kontaktieren Sie uns",
     "partner": "Partner",
     "usefulLinks": "Nützliche Links",
@@ -222,16 +222,16 @@
   },
   "metadata": {
     "home": {
-      "title": "emme-effe meteo — Wetter Hochebene Piné",
-      "description": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien). Amateur-Wetterstationen in Miola, Bedollo, Faida, Montesover, Serraia und weiteren Orten der Trentiner Hochebene.",
-      "ogDescription": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien), seit 2014.",
-      "twitterDescription": "Echtzeit-Wetterdaten von der Hochebene von Piné (Trient, Italien)."
+      "title": "emme-effe meteo — Wetterstationen, Beratung und Installation",
+      "description": "Professioneller Service von EMME-EFFE SERVICES für Wetterstationen, technische Beratung, Installation und meteorologisches Monitoring. Entstanden in Trentino.",
+      "ogDescription": "Wetterstationen, Beratung, Installation und professionelles Monitoring. Ein in Trentino entstandener Service von EMME-EFFE SERVICES.",
+      "twitterDescription": "Professionelle Wetterstationen, Beratung und Installation von EMME-EFFE SERVICES."
     },
     "contacts": {
       "title": "Kontakt",
-      "description": "Kontaktieren Sie emme-effe meteo für Informationen, Meldungen oder Anfragen zu den Wetterstationen der Trentiner Hochebene.",
+      "description": "Kontaktieren Sie emme-effe meteo von EMME-EFFE SERVICES für Beratung, Installation, Konfiguration und technischen Support zu Wetterstationen.",
       "ogTitle": "Kontakt | emme-effe meteo",
-      "ogDescription": "Kontaktieren Sie emme-effe meteo für Informationen oder Anfragen."
+      "ogDescription": "Kontaktieren Sie EMME-EFFE SERVICES für Wetterstationen, Beratung und Installation."
     },
     "station": {
       "title": "Station {name}",
