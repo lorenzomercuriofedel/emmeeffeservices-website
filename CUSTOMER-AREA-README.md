@@ -301,3 +301,7 @@ Riferimenti: Codice del consumo artt. 52, 56–57 e 59 ([Normattiva](https://www
 ## Contatti facoltativi del cliente
 
 Eseguire una volta `php_tmp/customer-contacts.sql`, poi pubblicare il nuovo `customer.php` e il frontend. Email di contatto (`contact_email`) e sito HTTPS (`website_url`) sono separati dall’email di autenticazione. I flag `contact_email_public` e `website_public` sono falsi per default e modificabili separatamente nel profilo. La query pubblica restituisce NULL per i valori non condivisi: non vengono inviati al browser pubblico. La sezione “Contatti del cliente” nei dettagli stazione compare soltanto se almeno un dato è condiviso. Le modifiche possono richiedere il tempo di scadenza delle cache pubbliche (circa 60 secondi). Non inviare mai l’email privata di accesso alle API pubbliche.
+
+## Form consulenze aziendali
+
+`/consulenza` è il form unico per elaborazione dati e consulenze fondiarie. I link della home preselezionano `service=data` o `service=land`; la scelta resta modificabile. Usa `POST action=access_request` con il campo opzionale `service` (`weather`, `data`, `land`; default `weather`) e invia a `info@emmeeffeservices.it`, specificando il servizio nell’oggetto. Pubblicare `php_tmp/customer.php` aggiornato su AlterVista; nessuna migrazione SQL richiesta.
