@@ -426,7 +426,6 @@
     "sending": "Wird gesendet…",
     "sent": "Anfrage gesendet. Wir kontaktieren Sie unter der angegebenen E-Mail-Adresse.",
     "error": "Senden fehlgeschlagen. Versuchen Sie es erneut oder schreiben Sie an info@emmeeffeservices.it.",
-    "weather": "Wetterberatung",
-    "projectName": "Projektname (optional)"
+    "weather": "Wetterberatung"
   }
 }

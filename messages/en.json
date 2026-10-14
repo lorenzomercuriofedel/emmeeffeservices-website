@@ -426,7 +426,6 @@
     "sending": "Sending…",
     "sent": "Request sent. We will contact you at the email address provided.",
     "error": "Unable to send. Try again or email info@emmeeffeservices.it.",
-    "weather": "Weather consulting",
-    "projectName": "Project name (optional)"
+    "weather": "Weather consulting"
   }
 }
