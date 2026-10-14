@@ -403,8 +403,8 @@
     "shareWebsite": "Mostra pubblicamente il sito web",
     "contactEmail": "Email di contatto",
     "website": "Sito web",
-    "accessRequest": "Richiedi abilitazione o consulenza",
-    "requestHelp": "Invia la richiesta: sarai ricontattato per l’abilitazione manuale o per la consulenza. Non viene creato un account.",
+    "accessRequest": "Installa una stazione meteo",
+    "requestHelp": "Invia la richiesta: verrai ricontattato per concordare una consulenza.",
     "sendRequest": "Invia richiesta",
     "requestSent": "Richiesta inviata. Ti ricontatteremo all’indirizzo email indicato."
   }

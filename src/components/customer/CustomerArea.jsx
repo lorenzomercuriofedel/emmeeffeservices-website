@@ -70,8 +70,7 @@ export default function CustomerArea({ verificationToken = '', loginEnabled = fa
           else { if (response.request_sent !== true) throw new Error(); element.reset(); setMessage(t('requestSent')); }
         });
       }}>
-        <h2 className="text-xl font-bold mb-5">{t(loginEnabled ? 'login' : 'accessRequest')}</h2>
-        {!loginEnabled && <p className="text-sm text-ink-mute mb-5">{t('requestHelp')}</p>}
+        {loginEnabled && <h2 className="text-xl font-bold mb-5">{t('login')}</h2>}
         <fieldset disabled={busy}>
           {!loginEnabled && <>
             <label className="block mb-4">{t('name')}<input className={input} name="name" autoComplete="name" required maxLength={255} /></label>
