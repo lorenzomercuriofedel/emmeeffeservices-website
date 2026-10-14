@@ -388,7 +388,7 @@
     "logoUploaded": "Logo caricato e salvato.",
     "registrationNotice": "Informativa account e condizioni del servizio",
     "privacyPolicy": "Informativa privacy completa",
-    "privacyAcknowledgement": "Dichiaro di aver letto l’informativa sul trattamento dei dati dell’account e la privacy policy.",
+    "privacyAcknowledgement": "Dichiaro di aver letto l’informativa sul trattamento dei dati per la richiesta di abilitazione o consulenza.",
     "termsLink": "Leggi le condizioni del servizio meteo",
     "termsAcceptance": "Accetto le condizioni dell’area clienti meteo riportate sopra.",
     "privacySummary": "Titolare: Lorenzo Mercurio Fedel, Via dello Stadio 7, Baselga di Piné (TN). Contatto privacy: elaborazione@emmeeffeservices.it.\nNome, email, credenziali protette, progetto e richieste di consulenza sono usati per gestire l’account e le attività richieste (art. 6, par. 1, lett. b GDPR). Per l’account questi dati sono necessari; non sono usati per marketing. I fornitori tecnici di hosting e posta trattano i dati per erogare il servizio secondo l’informativa completa.\nNome/progetto e logo diventano pubblici sulle stazioni associate. L’indicizzazione del progetto nei motori di ricerca resta una scelta separata e modificabile.\nI dati dell’account sono conservati durante il servizio; la cancellazione va richiesta via email ed è gestita secondo l’informativa completa. Le misurazioni delle stazioni restano. Link di verifica: 24 ore; sessioni: 8 ore. Per log tecnici, backup, destinatari e trasferimenti consulta l’informativa completa.\nPuoi chiedere accesso, rettifica, cancellazione, limitazione, portabilità e opposizione nei casi previsti dagli artt. 15–22 GDPR, e presentare reclamo al Garante per la protezione dei dati personali.",
@@ -402,6 +402,10 @@
     "shareEmail": "Mostra pubblicamente l’email di contatto",
     "shareWebsite": "Mostra pubblicamente il sito web",
     "contactEmail": "Email di contatto",
-    "website": "Sito web"
+    "website": "Sito web",
+    "accessRequest": "Richiedi abilitazione o consulenza",
+    "requestHelp": "Invia la richiesta: sarai ricontattato per l’abilitazione manuale o per la consulenza. Non viene creato un account.",
+    "sendRequest": "Invia richiesta",
+    "requestSent": "Richiesta inviata. Ti ricontatteremo all’indirizzo email indicato."
   }
 }

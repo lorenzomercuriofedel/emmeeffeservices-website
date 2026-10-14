@@ -48,10 +48,8 @@ export default function Navbar({ section }) {
       </button>
       <nav id="site-navigation" aria-label={t('navigation')} onClick={(event) => { if (event.target.closest('a')) setMobileOpen(false); }}
         className={`${styles.navigation} ${mobileOpen ? styles.open : ''}`}>
-        {section === 'meteo' && <a href={weatherHome(locale)}>{t('map')}</a>}
         {section === 'meteo' ? <a href={home}>{t('homepage')}</a> : <a href={`${home}#ambiti`}>{t('services')}</a>}
         {section !== 'meteo' && <a href={weatherHome(locale)} className={styles.weatherLink} aria-label="emme-effe meteo"><span className={styles.weatherLinkPrefix}>emme-effe </span>meteo</a>}
-        {section === 'meteo' && <a href={locale === 'it' ? '/meteo/customer-area' : `/meteo/${locale}/customer-area`}>{t('weatherCustomerArea')}</a>}
         <a href="#contatti" className={styles.contact}>{t('contacts')}</a>
         <LanguageSwitcher />
       </nav>

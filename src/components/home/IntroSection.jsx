@@ -20,7 +20,7 @@ export default async function IntroSection() {
           </p>
         </div>
         <Link
-          href="/customer-area?register=true"
+          href="/customer-area"
           className="inline-flex items-center gap-2 mt-7 bg-ink hover:bg-sky-900 text-white font-semibold px-6 py-3 rounded-xl transition-colors shadow-card"
         >
           {t('cta')}

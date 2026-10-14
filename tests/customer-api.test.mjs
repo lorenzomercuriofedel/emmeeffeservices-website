@@ -51,11 +51,16 @@ test('logout, deletion and expired sessions clear the browser cookie', async () 
   assert.equal((await routes.GET(request('GET'))).cookies.entries[0][2].maxAge, 0);
 });
 
-test('registration awaits email confirmation without creating a session or leaking a token', async () => {
-  const { routes, calls } = setup({ token: 'old-session', upstream: { ok: true, status: 200, json: async () => ({ verification_required: true, token: 'should-not-leak' }) } });
-  const response = await routes.POST(request('POST', { action: 'register', name: 'New user', email: 'new@example.com', password: 'Long-password-123', privacy_acknowledged: true, terms_accepted: true }));
+test('self-registration is blocked without contacting the backend', async () => {
+  const { routes, calls } = setup();
+  assert.equal((await routes.POST(request('POST', { action: 'register' }))).status, 403);
+  assert.equal(calls.length, 0);
+});
+test('anonymous access requests return confirmation without exposing sessions', async () => {
+  const { routes, calls } = setup({ upstream: { ok: true, status: 200, json: async () => ({ request_sent: true, token: 'secret' }) } });
+  const response = await routes.POST(request('POST', { action: 'access_request', name: 'Mario', email: 'mario@example.com', privacy_acknowledged: true }));
   assert.equal(response.status, 200);
-  assert.deepEqual(response.body, { verification_required: true });
+  assert.deepEqual(response.body, { request_sent: true });
   assert.equal(response.cookies.entries.length, 0);
   assert.equal(calls[0][1].headers.Authorization, undefined);
 });
@@ -69,11 +74,11 @@ test('consultation requires authentication and returns the saved request referen
   assert.equal(calls[0][1].headers.Authorization, `Bearer ${'a'.repeat(64)}`);
   assert.equal(response.cookies.entries.length, 0);
 });
-test('registration rejects cross-origin requests and malformed backend sessions', async () => {
+test('access requests reject cross-origin requests and malformed backend responses', async () => {
   const { routes, calls } = setup();
-  assert.equal((await routes.POST(request('POST', { action: 'register' }, 'https://attacker.com'))).status, 403);
+  assert.equal((await routes.POST(request('POST', { action: 'access_request' }, 'https://attacker.com'))).status, 403);
   assert.equal(calls.length, 0);
-  assert.equal((await routes.POST(request('POST', { action: 'register' }))).status, 502);
+  assert.equal((await routes.POST(request('POST', { action: 'access_request' }))).status, 502);
 });
 
 test('email verification establishes an HttpOnly session without exposing the token', async () => {

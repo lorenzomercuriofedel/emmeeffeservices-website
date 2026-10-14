@@ -1,3 +1,11 @@
+## Abilitazione manuale e richieste pubbliche
+
+La registrazione autonoma è disabilitata sia nel proxy Next.js sia in `php_tmp/customer.php`. Il form su `/meteo/customer-area` invia una richiesta a `elaborazione@emmeeffeservices.it` tramite `POST action: access_request`, senza password, account o sessione. Nome, email e presa visione privacy sono obbligatori; progetto e descrizione sono facoltativi. Il backend valida i campi e applica il rate limit.
+
+**Pubblicare il PHP aggiornato su AlterVista** per abilitare l’invio delle richieste. Non servono nuove migrazioni SQL. Il mittente usa `CUSTOMER_MAIL_FROM` come le email operative esistenti. L’esito positivo indica l’accettazione da parte del servizio di posta.
+
+Il link pubblico al login è rimosso. Per gli utenti abilitati manualmente il login rimane raggiungibile direttamente su `/meteo/customer-area?login=true` (anche nelle varianti EN/DE). Le istruzioni di registrazione autonoma riportate sotto descrivono il flusso precedente e sono superate da questo aggiornamento.
+
 # Area clienti meteo — backend AlterVista PHP + MySQL
 
 ## Cosa implementa questo repository

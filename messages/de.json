@@ -244,7 +244,8 @@
   },
   "meteoServices": {
     "title": "Wettersysteme, von Sensoren zu Daten",
-    "description": "Emme-Effe Services bietet außerdem Beratung und Entwicklung von meteorologischen Messsystemen sowie die Verarbeitung und Analyse der erfassten Daten an. Möchten Sie eine neue Installation anfragen oder eine maßgeschneiderte Dienstleistung beauftragen? Kontaktieren Sie uns für weitere Informationen und ein Angebot.",    "cta": "Wetterstation installieren",
+    "description": "Emme-Effe Services bietet außerdem Beratung und Entwicklung von meteorologischen Messsystemen sowie die Verarbeitung und Analyse der erfassten Daten an. Möchten Sie eine neue Installation anfragen oder eine maßgeschneiderte Dienstleistung beauftragen? Kontaktieren Sie uns für weitere Informationen und ein Angebot.",
+    "cta": "Wetterstation installieren",
     "mapHint": "Wählen Sie eine Station auf der Karte, um Messwerte, Diagramme und Wetterbedingungen anzuzeigen."
   },
   "stationConditions": {
@@ -387,7 +388,7 @@
     "logoUploaded": "Logo hochgeladen und gespeichert.",
     "registrationNotice": "Datenschutzhinweise zum Konto und Nutzungsbedingungen",
     "privacyPolicy": "Vollständige Datenschutzerklärung",
-    "privacyAcknowledgement": "Ich habe die Datenschutzhinweise zum Konto und die Datenschutzerklärung gelesen.",
+    "privacyAcknowledgement": "Ich habe die Datenschutzhinweise für meine Freischaltungs- oder Beratungsanfrage gelesen.",
     "termsLink": "Bedingungen des Wetterdienstes lesen",
     "termsAcceptance": "Ich akzeptiere die oben aufgeführten Nutzungsbedingungen des Kundenbereichs für Wetterstationen.",
     "privacySummary": "Verantwortlicher: Lorenzo Mercurio Fedel, Via dello Stadio 7, Baselga di Piné (TN), Italien. Datenschutzkontakt: elaborazione@emmeeffeservices.it.\nName, E-Mail, geschützte Zugangsdaten, Projekt und Beratungsanfragen werden zur Kontoverwaltung und Erbringung angefragter Leistungen verwendet (Art. 6 Abs. 1 lit. b DSGVO). Diese Angaben sind notwendig und werden nicht für Marketing genutzt. Technische Hosting- und E-Mail-Dienstleister verarbeiten Daten gemäß der vollständigen Erklärung.\nName/Projekt und Logo sind bei zugeordneten Stationen öffentlich. Die Suchmaschinenindexierung ist eine separate, änderbare Entscheidung.\nKontodaten werden während der Nutzung gespeichert. Die Kontolöschung wird per E-Mail beantragt und gemäß der vollständigen Erklärung bearbeitet; Stationsmessungen bleiben erhalten. Bestätigungslinks gelten 24 Stunden, Sitzungen 8 Stunden. Informationen zu Protokollen, Backups, Empfängern und Übermittlungen finden Sie in der vollständigen Erklärung.\nSie können gemäß Art. 15–22 DSGVO Auskunft, Berichtigung, Löschung, Einschränkung, Übertragbarkeit und Widerspruch im jeweils vorgesehenen Umfang verlangen und sich bei der italienischen Datenschutzbehörde beschweren.",
@@ -401,6 +402,10 @@
     "shareEmail": "Kontakt-E-Mail veröffentlichen",
     "shareWebsite": "Website veröffentlichen",
     "contactEmail": "Kontakt-E-Mail",
-    "website": "Website"
+    "website": "Website",
+    "accessRequest": "Freischaltung oder Beratung anfragen",
+    "requestHelp": "Senden Sie Ihre Anfrage. Wir kontaktieren Sie zur manuellen Freischaltung oder Beratung. Es wird kein Konto erstellt.",
+    "sendRequest": "Anfrage senden",
+    "requestSent": "Anfrage gesendet. Wir kontaktieren Sie unter der angegebenen E-Mail-Adresse."
   }
 }
