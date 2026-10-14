@@ -125,11 +125,11 @@ export default async function StationPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(stationJsonLd) }}
       />
       {/* Header SSR — indicizzabile */}
-      <section className="bg-alpine pt-10 md:pt-12 pb-10 px-4 relative overflow-hidden">
+      <section className="pt-10 md:pt-12 pb-8 px-4">
         <div className="max-w-5xl mx-auto relative z-10">
           <Link
             href="/#mappa"
-            className="inline-flex items-center gap-1.5 text-sky-100/80 hover:text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sky-700 hover:text-sky-900 text-xs font-semibold uppercase tracking-[0.18em] mb-4 transition-colors"
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -138,13 +138,13 @@ export default async function StationPage({ params }) {
           </Link>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight">
             {t('title', { name: anagrafica.nome })}
           </h1>
-          <p className="text-sky-100/80 mt-2 text-base md:text-lg">
+          <p className="text-ink-soft mt-2 text-base md:text-lg">
             {t('subtitle', { comune: anagrafica.comune, alt: anagrafica.altitudine })}
           </p>
-          {stationCustomer && <p className="text-sky-100/80 text-xs mt-3">{stationCustomer.projectType === 'hobby' && stationCustomer.projectName ? stationCustomer.projectName : stationCustomer.name}</p>}
+          {stationCustomer && <p className="text-ink-soft text-xs mt-3">{stationCustomer.projectType === 'hobby' && stationCustomer.projectName ? stationCustomer.projectName : stationCustomer.name}</p>}
           </div>
           <CustomerLogo customer={getCustomer(anagrafica)} />
           </div>

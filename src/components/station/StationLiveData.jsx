@@ -78,7 +78,7 @@ export default function StationLiveData({ stationId, initialData = null, initial
   if (loading) {
     // Riserva lo spazio del contenuto live (card + grafici) per evitare layout shift (CLS)
     return (
-      <div className="px-4 -mt-6 relative z-10">
+      <div className="px-4 relative z-10">
         <div className="max-w-5xl mx-auto min-h-[42rem] flex items-start justify-center pt-24">
           <div className="spinner-alpine" />
         </div>
@@ -91,9 +91,9 @@ export default function StationLiveData({ stationId, initialData = null, initial
 
   return (
     <>
-      {/* Hero card with current conditions — overlaps the dark page header */}
+      {/* Current conditions card */}
       {lastData && (
-        <section className="px-4 -mt-6 relative z-10">
+        <section className="px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
             <div className="bg-white rounded-3xl shadow-elev border border-sky-100 overflow-hidden">
               <div className="grid md:grid-cols-[auto_1fr] gap-0">
