@@ -304,4 +304,4 @@ Eseguire una volta `php_tmp/customer-contacts.sql`, poi pubblicare il nuovo `cus
 
 ## Form consulenze aziendali
 
-`/consulenza` è il form unico per elaborazione dati e consulenze fondiarie. I link della home preselezionano `service=data` o `service=land`; la scelta resta modificabile. Usa `POST action=access_request` con il campo opzionale `service` (`weather`, `data`, `land`; default `weather`) e invia a `info@emmeeffeservices.it`, specificando il servizio nell’oggetto. Pubblicare `php_tmp/customer.php` aggiornato su AlterVista; nessuna migrazione SQL richiesta.
+`/consulenza` è il form unico per elaborazione dati e consulenze fondiarie. Entrambi i bottoni della home puntano a `/consulenza`; il servizio si sceglie nel form unico. Usa `POST action=access_request` con il campo opzionale `service` (`weather`, `data`, `land`; default `weather`) e invia a `info@emmeeffeservices.it`, specificando il servizio nell’oggetto. Pubblicare `php_tmp/customer.php` aggiornato su AlterVista; nessuna migrazione SQL richiesta.

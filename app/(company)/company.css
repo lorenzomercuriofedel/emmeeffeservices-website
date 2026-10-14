@@ -81,3 +81,5 @@
 @media(max-width:900px){.services{grid-template-columns:minmax(0,1fr);gap:24px;border:0}.services>.service{min-width:0;border:1px solid var(--line)}.services .service h3 br{display:none}}
 
 .service-actions{margin-top:auto}.service-actions .service-link{margin-top:0}.service-actions .service-link+.service-link{border-top:0;padding-top:14px}
+
+.service-consultation{margin-top:auto;justify-content:center;font-size:14px;font-weight:600;padding:16px 18px;text-align:center}.service-actions .service-consultation{display:flex;margin-top:18px}.service .service-ateco{margin-top:22px}
