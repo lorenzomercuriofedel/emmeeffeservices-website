@@ -317,7 +317,8 @@
     "weatherTitle": "Planung, Installation und Konfiguration meteorologischer Messsysteme",
     "weatherText": "Von der Sensorauswahl bis zur Inbetriebnahme: meteorologische Messsysteme, Datenerfassung und Einrichtung der Werkzeuge zur Anzeige der Messwerte. Kontaktieren Sie uns für eine neue Installation.",
     "weatherLink": "emme-effe meteo entdecken",
-    "requestConsultation": "Beratung anfragen"
+    "requestConsultation": "Beratung anfragen",
+    "consultationScope": "Wetter, Datenverarbeitung oder Grundstücksberatung: Erzählen Sie uns von Ihrem Projekt."
   },
   "weatherCustomerArea": {
     "title": "Kundenbereich für Wetterstationen",
@@ -411,7 +412,7 @@
   },
   "consultationForm": {
     "title": "Beratung anfragen",
-    "intro": "Senden Sie Ihre Anfrage. Wir kontaktieren Sie für eine Beratung zu Grundstücken oder Datenverarbeitung.",
+    "intro": "Senden Sie Ihre Anfrage. Wir kontaktieren Sie, um eine Beratung zu vereinbaren.",
     "service": "Gewünschte Leistung",
     "choose": "Leistung auswählen",
     "data": "Datenverarbeitung",
@@ -424,6 +425,8 @@
     "send": "Anfrage senden",
     "sending": "Wird gesendet…",
     "sent": "Anfrage gesendet. Wir kontaktieren Sie unter der angegebenen E-Mail-Adresse.",
-    "error": "Senden fehlgeschlagen. Versuchen Sie es erneut oder schreiben Sie an info@emmeeffeservices.it."
+    "error": "Senden fehlgeschlagen. Versuchen Sie es erneut oder schreiben Sie an info@emmeeffeservices.it.",
+    "weather": "Wetterberatung",
+    "projectName": "Projektname (optional)"
   }
 }

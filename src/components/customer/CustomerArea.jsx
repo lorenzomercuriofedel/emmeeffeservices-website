@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/src/i18n/navigation';
 import { safeLogoUrl } from '@/src/utils/customers';
 import CustomerLogo from './CustomerLogo';
+import ConsultationForm from '@/src/components/layout/ConsultationForm';
 
 const input = 'w-full rounded-xl border border-sky-200 bg-white px-4 py-3 mt-2 text-ink focus:outline-2 focus:outline-sky-600';
 const button = 'rounded-xl bg-sky-700 text-white px-5 py-3 font-semibold disabled:opacity-50';
@@ -57,29 +58,17 @@ export default function CustomerArea({ verificationToken = '', loginEnabled = fa
       {error && <p role="alert" className="rounded-xl bg-red-50 text-red-800 p-4 mb-5">{error}</p>}
       {message && <p role="status" className="rounded-xl bg-emerald-50 text-emerald-800 p-4 mb-5">{message}</p>}
       {verifyToken && <section className="max-w-md bg-white rounded-3xl p-6 border border-sky-100 mb-6"><h2 className="font-bold mb-3">{t('verifyEmail')}</h2><p className="text-sm mb-4">{t('verificationHelp')}</p><button className={button} disabled={busy} onClick={() => perform(async () => { accept(await api('POST', { action: 'verify_email', verification_token: verifyToken })); setVerifyToken(''); window.history.replaceState(null, '', window.location.pathname); setMessage(t('verified')); })}>{t('verifyEmail')}</button></section>}
-      {loading ? <p role="status">{t('loading')}</p> : !customer ? <form className="max-w-md bg-white rounded-3xl border border-sky-100 p-6 md:p-8 shadow-card" onSubmit={event => {
+      {loading ? <p role="status">{t('loading')}</p> : !customer ? !loginEnabled ? <ConsultationForm /> : <form className="max-w-md bg-white rounded-3xl border border-sky-100 p-6 md:p-8 shadow-card" onSubmit={event => {
         event.preventDefault();
-        const element = event.currentTarget;
-        const data = new FormData(element);
-        const payload = loginEnabled
-          ? { action: 'login', email: data.get('email'), password: data.get('password') }
-          : { action: 'access_request', name: data.get('name'), email: data.get('email'), project_name: data.get('project_name'), description: data.get('description'), privacy_acknowledged: data.get('privacy_acknowledged') === 'on' };
-        perform(async () => {
-          const response = await api('POST', payload);
-          if (loginEnabled) accept(response);
-          else { if (response.request_sent !== true) throw new Error(); element.reset(); setMessage(t('requestSent')); }
-        });
+        const data = new FormData(event.currentTarget);
+        const payload = { action: 'login', email: data.get('email'), password: data.get('password') };
+        perform(async () => { accept(await api('POST', payload)); });
       }}>
-        {loginEnabled && <h2 className="text-xl font-bold mb-5">{t('login')}</h2>}
+        <h2 className="text-xl font-bold mb-5">{t('login')}</h2>
         <fieldset disabled={busy}>
-          {!loginEnabled && <>
-            <label className="block mb-4">{t('name')}<input className={input} name="name" autoComplete="name" required maxLength={255} /></label>
-            <label className="block mb-4">{t('projectName')}<input className={input} name="project_name" maxLength={255} /></label>
-            <label className="block mb-4">{t('description')}<textarea className={input} name="description" maxLength={5000} rows={3} /></label>
-          </>}
-          <label className="block mb-4">{t('email')}<input className={input} name="email" type="email" autoComplete={loginEnabled ? 'username' : 'email'} required maxLength={254} /></label>
-          {loginEnabled ? <label className="block mb-4">{t('password')}<input className={input} name="password" type="password" autoComplete="current-password" required maxLength={1024} /></label> : <label className="flex gap-3 items-start text-sm my-5"><input name="privacy_acknowledged" type="checkbox" required className="mt-1" /><span>{t('privacyAcknowledgement')} <a className="underline" href="/privacy" target="_blank" rel="noopener noreferrer">{t('privacyPolicy')}</a></span></label>}
-          <button className={button}>{busy ? t('working') : t(loginEnabled ? 'login' : 'sendRequest')}</button>
+          <label className="block mb-4">{t('email')}<input className={input} name="email" type="email" autoComplete="username" required maxLength={254} /></label>
+          <label className="block mb-4">{t('password')}<input className={input} name="password" type="password" autoComplete="current-password" required maxLength={1024} /></label>
+          <button className={button}>{busy ? t('working') : t('login')}</button>
         </fieldset>
       </form> : <div className="grid md:grid-cols-[1fr_300px] gap-6">
         <form className="bg-white rounded-3xl border border-sky-100 p-6 md:p-8 shadow-card" onSubmit={event => { event.preventDefault(); if (form.logo_url && !safeLogoUrl(form.logo_url)) { setError(t('invalidLogo')); return; } perform(async () => { const { logo_url, ...editable } = form; const payload = stations.length ? editable : { name: form.name, email: form.email, project_name: form.project_name, description: form.description, contact_email: form.contact_email, website_url: form.website_url, contact_email_public: form.contact_email_public, website_public: form.website_public }; const result = await api('PATCH', payload); accept(result); setMessage(t(result.email_change_pending ? 'emailChangePending' : 'saved')); }); }}>

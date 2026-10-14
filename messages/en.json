@@ -317,7 +317,8 @@
     "weatherTitle": "Design, installation and configuration of weather monitoring systems",
     "weatherText": "From sensor selection to commissioning: weather monitoring systems, data collection and configuration of tools to view the readings. Contact us to discuss a new installation.",
     "weatherLink": "Discover emme-effe meteo",
-    "requestConsultation": "Request a consultation"
+    "requestConsultation": "Request a consultation",
+    "consultationScope": "Weather, data processing or land consulting: tell us about your project."
   },
   "weatherCustomerArea": {
     "title": "Weather customer area",
@@ -411,7 +412,7 @@
   },
   "consultationForm": {
     "title": "Request a consultation",
-    "intro": "Send your request. We will contact you to arrange land consulting or data processing advice.",
+    "intro": "Send your request. We will contact you to arrange a consultation.",
     "service": "Requested service",
     "choose": "Select a service",
     "data": "Data processing",
@@ -424,6 +425,8 @@
     "send": "Send request",
     "sending": "Sending…",
     "sent": "Request sent. We will contact you at the email address provided.",
-    "error": "Unable to send. Try again or email info@emmeeffeservices.it."
+    "error": "Unable to send. Try again or email info@emmeeffeservices.it.",
+    "weather": "Weather consulting",
+    "projectName": "Project name (optional)"
   }
 }
