@@ -1,6 +1,6 @@
 ## Abilitazione manuale e richieste pubbliche
 
-La registrazione autonoma è disabilitata sia nel proxy Next.js sia in `php_tmp/customer.php`. Il form su `/meteo/customer-area` invia una richiesta a `elaborazione@emmeeffeservices.it` tramite `POST action: access_request`, senza password, account o sessione. Nome, email e presa visione privacy sono obbligatori; progetto e descrizione sono facoltativi. Il backend valida i campi e applica il rate limit.
+La registrazione autonoma è disabilitata sia nel proxy Next.js sia in `php_tmp/customer.php`. Il form su `/meteo/customer-area` invia una richiesta a `info@emmeeffeservices.it` tramite `POST action: access_request`, senza password, account o sessione. Nome, email e presa visione privacy sono obbligatori; progetto e descrizione sono facoltativi. Il backend valida i campi e applica il rate limit.
 
 **Pubblicare il PHP aggiornato su AlterVista** per abilitare l’invio delle richieste. Non servono nuove migrazioni SQL. Il mittente usa `CUSTOMER_MAIL_FROM` come le email operative esistenti. L’esito positivo indica l’accettazione da parte del servizio di posta.
 
@@ -211,7 +211,7 @@ Prima di pubblicare il PHP aggiornato, eseguire una sola volta [php_tmp/customer
 - I nuovi account vedono nel menu solo la consulenza per acquisto e configurazione di una stazione. Possono modificare dati account, nome/descrizione progetto e cancellare il proprio account; logo, tipo progetto, consenso e stazioni compaiono dopo l'associazione amministrativa di una stazione. Il PHP rifiuta le modifiche a logo/tipo/consenso per account senza stazioni.
 - `POST {"action":"consultation","message":"Vorrei una stazione…"}` richiede Bearer token: salva una richiesta e restituisce profilo/stazioni e `consultation: {id, status:"new"}`. Massimo 5000 caratteri; 3 richieste/cliente e 100/IP ogni 15 minuti. Nessuna email automatica. Le richieste si consultano in phpMyAdmin con la SELECT inclusa nel file SQL; `status` può essere gestito amministrativamente. La cancellazione account rimuove anche le sue richieste.
 - `project_name` è distinto da `name` (nome della persona/azienda), opzionale, max 255 caratteri. Compare nelle risposte private e pubbliche; la pagina progetto usa il nome progetto come titolo quando configurato. PATCH accetta `project_name` oltre a `description`.
-- L'aiuto nell'area clienti meteo mostra solo `elaborazione@emmeeffeservices.it` come testo, senza link alla pagina contatti né mailto. Il precedente indirizzo `mp@...` proveniva dalla pagina contatti meteo già presente nel repository.
+- L'aiuto nell'area clienti meteo mostra solo `info@emmeeffeservices.it` come testo, senza link alla pagina contatti né mailto. Il precedente indirizzo `mp@...` proveniva dalla pagina contatti meteo già presente nel repository.
 
 Verificare su AlterVista: registrazione ed email duplicata, conferma email e successivo login, nessuna assegnazione stazione alla registrazione, PATCH dei soli campi account/progetto, rifiuto di modifiche logo senza stazioni, salvataggio consulenza ed eliminazione account. Gli endpoint delle misurazioni e l'API anagrafica stazioni non cambiano con questo aggiornamento.
 
@@ -228,7 +228,7 @@ La struttura attuale di `stazioni_meteo` non contiene `propr_terreno` né `desc_
 ### Migrazione e pubblicazione
 
 1. Dopo la precedente migrazione `customer-registration.sql`, eseguire una sola volta [php_tmp/customer-security.sql](php_tmp/customer-security.sql).
-2. Caricare il nuovo `customer.php`. Richiede PHP 7.4+, mysqli/mysqlnd, la funzione **mail()** abilitata su AlterVista. Impostare `CUSTOMER_MAIL_FROM` a un mittente autorizzato dall'hosting (default `meteopine@altervista.org`); Reply-To è `elaborazione@emmeeffeservices.it`. Verificare invio e recapito, incluso spam, su un indirizzo di prova dopo la pubblicazione. L'accettazione di `mail()` non prova il recapito.
+2. Caricare il nuovo `customer.php`. Richiede PHP 7.4+, mysqli/mysqlnd, la funzione **mail()** abilitata su AlterVista. Impostare `CUSTOMER_MAIL_FROM` a un mittente autorizzato dall'hosting (default `meteopine@altervista.org`); Reply-To è `info@emmeeffeservices.it`. Verificare invio e recapito, incluso spam, su un indirizzo di prova dopo la pubblicazione. L'accettazione di `mail()` non prova il recapito.
 3. Collegare un Blob store pubblico al progetto Vercel (istruzioni in fondo). Il PHP non riceve file.
 4. Pubblicare il frontend aggiornato. I cookie di sessione con path `/api/customers` vengono inviati anche a `/api/customers/logo`.
 
@@ -292,7 +292,7 @@ Pubblicare anche `php_tmp/stazioni_meteo.php`: l’anagrafica pubblica esclude s
 
 Le condizioni complete sono in `/termini-meteo`, collegate dal footer e dalla casella obbligatoria della registrazione. La versione registrata è `2026-10-03-v3`; le accettazioni precedenti non vengono modificate. La registrazione non è un acquisto né una richiesta di esecuzione anticipata durante il recesso.
 
-La cancellazione automatica è disattivata sia nel proxy Next.js sia in `customer.php` (DELETE risponde 405). Nell’area riservata sono indicate le istruzioni per richiederla a elaborazione@emmeeffeservices.it. Pubblicare il PHP aggiornato. Le precedenti istruzioni DELETE di questo documento sono superate. Gestire le richieste manualmente: verificare in modo proporzionato l’identità, rispettare i termini GDPR, revocare sessioni/token, rimuovere profilo e contenuti anche da Blob, valutare gli obblighi di conservazione e confermare l’esito. Non chiedere la password. La richiesta può essere inoltrata anche attraverso gli altri contatti privacy: non limitarne l’esercizio a un modulo o indirizzo esclusivo.
+La cancellazione automatica è disattivata sia nel proxy Next.js sia in `customer.php` (DELETE risponde 405). Nell’area riservata sono indicate le istruzioni per richiederla a info@emmeeffeservices.it. Pubblicare il PHP aggiornato. Le precedenti istruzioni DELETE di questo documento sono superate. Gestire le richieste manualmente: verificare in modo proporzionato l’identità, rispettare i termini GDPR, revocare sessioni/token, rimuovere profilo e contenuti anche da Blob, valutare gli obblighi di conservazione e confermare l’esito. Non chiedere la password. La richiesta può essere inoltrata anche attraverso gli altri contatti privacy: non limitarne l’esercizio a un modulo o indirizzo esclusivo.
 
 **Rotazione 25 ore:** le condizioni descrivono un’opzione contrattuale; questo aggiornamento non implementa alcun DELETE periodico sulle misurazioni. Prima di offrirla come attiva, concordare la stazione, configurare una pulizia a finestra mobile di 25 ore (24 per grafici + 1 di margine), documentare frequenza, archivi/aggregati e rotazione dei backup, verificare almanacchi e grafici storici. Il primario sul sito cliente mantiene la propria politica. La copia speculare sui database meteo va concordata nell’incarico e non è un backup garantito.
 
