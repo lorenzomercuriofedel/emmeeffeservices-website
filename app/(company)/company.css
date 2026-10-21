@@ -18,7 +18,7 @@
 
 /* Sezione servizi centrata, con più spazio laterale su desktop. */
 @media(min-width:901px){#ambiti{width:min(1240px,calc(100% - 112px))}}
-.services{grid-template-columns:repeat(3,minmax(0,1fr))}
+.services{grid-template-columns:repeat(2,minmax(0,1fr))}
 .service-link{overflow-wrap:anywhere}
 .service-link>span{flex-shrink:0}
 .contact-emails{display:grid;gap:14px;margin-bottom:16px}
@@ -48,7 +48,7 @@
 .contact-business{font-family:var(--serif);font-size:28px;line-height:1.2;font-weight:400;color:var(--paper);margin:0 0 22px}
 .contact-business>span{display:block;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;letter-spacing:.3px;color:#d7e2ed;margin-top:8px}
 
-#ambiti .section-heading{display:block}
+#ambiti .section-heading{display:block;text-align:center}
 #ambiti .section-heading h2{margin-bottom:0}
 
 /* Footer su due righe ordinate, allineato ai contenuti del sito. */
