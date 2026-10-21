@@ -61,7 +61,7 @@ test('resolves customer routes with spaces, accents and punctuation', () => {
   assert.equal(findCustomerByRouteId(groups, 'missing'), undefined);
 });
 
-test('customer indexing requires explicit consent on every station', () => {
+test('weather customer pages stay unindexed even with publication consent', () => {
   for (const value of [undefined, null, false, 0, '0', 'false', '', 'yes']) {
     const customer = getCustomer({ customer: 'Example', customer_web_public: value });
     assert.equal(customer.webPublic, false);
@@ -69,7 +69,7 @@ test('customer indexing requires explicit consent on every station', () => {
   }
   for (const value of [true, 1, '1', 'true']) {
     const customer = getCustomer({ customer: 'Example', customer_web_public: value });
-    assert.equal(customerRobots(customer, true).index, true);
+    assert.equal(customerRobots(customer, true).index, false);
     assert.equal(customerRobots(customer, false).index, false);
   }
   const stations = [{ customer: 'Example', customer_web_public: 1 }, { customer: 'Example', customer_web_public: 0 }];

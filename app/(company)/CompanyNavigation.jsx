@@ -12,7 +12,7 @@ export default function CompanyNavigation() {
     </button>
     <nav id="navigation" aria-label="Navigazione principale" className={`menu-ready${open ? ' is-open' : ''}`}
       onClick={() => setOpen(false)} onKeyDown={closeOnEscape}>
-      <a href="#ambiti">Servizi</a><a href="/meteo">Meteo</a><a className="nav-contact" href="#contatti">Contatti</a>
+      <a href="#ambiti">Servizi</a><a className="nav-contact" href="#contatti">Contatti</a>
     </nav>
   </>;
 

@@ -34,6 +34,14 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/meteo/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noimageindex' }],
+      },
+      {
+        source: '/termini-meteo',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+      {
         // Asset statici serviti direttamente da /public (immagini, icone meteo)
         source: '/:dir(images|icons)/:path*',
         headers: [

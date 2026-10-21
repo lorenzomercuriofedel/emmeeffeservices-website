@@ -10,7 +10,6 @@ import Footer from '@/src/components/layout/Footer';
 import CookieNotice from '@/src/components/legal/CookieNotice';
 
 const PROD_URL = 'https://emmeeffeservices.it';
-const isProd = process.env.VERCEL_ENV === 'production';
 
 // Font self-hosted via next/font (no render-blocking, preload e cache immutabile)
 const manrope = Manrope({
@@ -77,14 +76,11 @@ export async function generateMetadata({ params }) {
       title: WEATHER_TITLE,
       description: t('twitterDescription'),
     },
-    robots: isProd
-      ? { index: true, follow: true, googleBot: { index: true, follow: true } }
-      : {
-          index: false,
-          follow: false,
-          nocache: true,
-          googleBot: { index: false, follow: false, noimageindex: true },
-        },
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: { index: false, follow: false, noimageindex: true },
+    },
     category: 'weather',
   };
 }
@@ -145,7 +141,7 @@ export default async function LocaleLayout({ children, params }) {
         <NextIntlClientProvider>
           <Navbar section="meteo" />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer section="meteo" />
         </NextIntlClientProvider>
 
         {/* JSON-LD strutturato (Google lo legge ovunque nel documento) */}

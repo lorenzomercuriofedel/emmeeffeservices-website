@@ -3,7 +3,7 @@ export const WEATHER_TITLE = `Meteo | ${SITE_TITLE}`;
 export function weatherTitle(pageTitle) {
   return pageTitle ? `${pageTitle} | ${WEATHER_TITLE}` : WEATHER_TITLE;
 }
-export function customerRobots(customer, production = process.env.VERCEL_ENV === 'production') {
-  const index = production && customer?.webPublic === true;
-  return { index, follow: index, googleBot: { index, follow: index } };
+// All weather pages remain unlisted, regardless of customer visibility settings.
+export function customerRobots() {
+  return { index: false, follow: false, googleBot: { index: false, follow: false } };
 }

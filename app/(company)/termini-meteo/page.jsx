@@ -1,5 +1,5 @@
 import LegalPage from '@/src/components/legal/LegalPage';
-export const metadata = { title: 'Condizioni del servizio meteo | Emme-Effe Services', alternates: { canonical: '/termini-meteo' } };
+export const metadata = { robots: { index: false, follow: false }, title: 'Condizioni del servizio meteo | Emme-Effe Services', alternates: { canonical: '/termini-meteo' } };
 export default function WeatherTermsPage() {
   return <LegalPage title="Condizioni del servizio meteo e di consulenza">
     <p>Versione 2026-10-03-v3. Queste condizioni disciplinano l’area clienti meteo e le prestazioni consulenziali di Lorenzo Mercurio Fedel, Via dello Stadio 7, 38042 Baselga di Piné (TN), P. IVA 02833120229. Contatto operativo: info@emmeeffeservices.it. Non riguardano gli altri servizi aziendali.</p>
