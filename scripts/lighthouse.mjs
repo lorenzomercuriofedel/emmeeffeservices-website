@@ -2,9 +2,9 @@
 /**
  * Lighthouse runner ripetibile da CLI.
  *
- *   node scripts/lighthouse.mjs [path...]      # default: /, /meteo e /meteo/stazione/1
+ *   node scripts/lighthouse.mjs [path...]      # default: / e /consulenza
  *   npm run lighthouse                          # build + start + audit
- *   npm run lighthouse:fast -- /meteo/en              # salta il build (server già buildato)
+ *   npm run lighthouse:fast -- /consulenza              # salta il build (server già buildato)
  *
  * Avvia `next start`, esegue Lighthouse desktop + mobile su ogni path,
  * stampa punteggi e metriche chiave, poi spegne il server.
@@ -17,7 +17,7 @@ import { join } from 'node:path';
 const PORT = 3000;
 const BASE = `http://localhost:${PORT}`;
 const paths = process.argv.slice(2).filter((a) => !a.startsWith('-'));
-const PATHS = paths.length ? paths : ['/', '/meteo', '/meteo/stazione/1'];
+const PATHS = paths.length ? paths : ['/', '/consulenza'];
 const skipBuild = process.argv.includes('--no-build');
 const out = mkdtempSync(join(tmpdir(), 'lh-'));
 

@@ -15,7 +15,7 @@ export default function ConsultationForm() {
     const data = new FormData(element);
     setBusy(true); setStatus(''); setError(false);
     try {
-      const response = await fetch('/api/customers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'access_request', service: data.get('service'), name: data.get('name'), email: data.get('email'), description: data.get('description'), privacy_acknowledged: data.get('privacy_acknowledged') === 'on' }) });
+      const response = await fetch('/api/consultation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'access_request', service: data.get('service'), name: data.get('name'), email: data.get('email'), description: data.get('description'), privacy_acknowledged: data.get('privacy_acknowledged') === 'on' }) });
       const result = await response.json();
       if (!response.ok || result.request_sent !== true) throw new Error();
       element.reset(); setStatus(t('sent'));

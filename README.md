@@ -1,14 +1,6 @@
-# Emme-Effe Services e emme-effe meteo
+# Emme-Effe Services
 
-Applicazione Next.js con due sezioni:
-
-- `/`: sito aziendale, convertito in JSX da `../emmeeffeservices-website`.
-- `/meteo`: portale meteo in italiano.
-- `/meteo/en` e `/meteo/de`: portale meteo in inglese e tedesco.
-
-I layout radice separati mantengono indipendenti gli stili delle due sezioni.
-Il cambio lingua e i link meteo usano i prefissi definiti in `src/i18n/routing.js`.
-I vecchi indirizzi di contatti, stazioni e lingue hanno redirect permanenti.
+Sito aziendale Next.js in italiano, inglese e tedesco. La lingua è selezionata tramite `?lang=en` o `?lang=de`.
 
 ## Avvio
 
@@ -21,16 +13,15 @@ npm run build
 npm start
 ```
 
+## Consulenze
+
+`/consulenza` raccoglie richieste per elaborazione dati e consulenza fondiaria.
+`POST /api/consultation` inoltra le richieste al servizio email AlterVista esistente; non gestisce account né sessioni.
+
 ## Dominio
 
-Collegare `emmeeffeservices.it` e `www.emmeeffeservices.it` allo stesso deployment
-nelle impostazioni del provider e configurare i relativi record DNS.
-Il codice reindirizza `www` al dominio canonico `https://emmeeffeservices.it`.
+Collegare `emmeeffeservices.it` e `www.emmeeffeservices.it` allo stesso deployment.
 Impostare `NEXT_PUBLIC_SITE_URL=https://emmeeffeservices.it` in produzione.
-L'indicizzazione del meteo e robots.txt seguono `VERCEL_ENV=production`.
-Il sito necessita di un runtime Next.js: non è un export HTML statico.
+Il sito necessita di un runtime Next.js.
 
-## Area clienti meteo
-
-Area riservata: `/meteo/customer-area`. Contratto API, autenticazione PHP e migrazione SQL AlterVista: [CUSTOMER-AREA-README.md](CUSTOMER-AREA-README.md).
-
+L’area meteo è stata rimossa: il relativo sito è gestito separatamente su meteopine.it.

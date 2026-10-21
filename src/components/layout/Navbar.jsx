@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { siteHome, weatherHome } from '@/src/i18n/site-language';
+import { siteHome } from '@/src/i18n/site-language';
 import LanguageSwitcher from './LanguageSwitcher';
 import styles from './Navbar.module.css';
 
-export default function Navbar({ section }) {
+export default function Navbar() {
   const locale = useLocale();
   const t = useTranslations('siteNav');
   const home = siteHome(locale);
@@ -34,12 +34,11 @@ export default function Navbar({ section }) {
 
   return (
     <header ref={header} className={styles.header} onKeyDown={closeOnEscape}>
-      <div className={`${styles.brand} ${section === 'meteo' ? styles.weatherBrand : ''}`}>
+      <div className={styles.brand}>
         <a href={home} className={styles.logoLink}>
         <img src="/company/emme_effe__logouff.png" width="2172" height="724"
           alt="Emme-Effe Services di Lorenzo Mercurio Fedel" />
         </a>
-        {section === 'meteo' && <span className={styles.sectionLabel}>meteo</span>}
       </div>
       <button ref={menuButton} className={styles.menuToggle}
         aria-expanded={mobileOpen} aria-controls="site-navigation"
@@ -48,8 +47,7 @@ export default function Navbar({ section }) {
       </button>
       <nav id="site-navigation" aria-label={t('navigation')} onClick={(event) => { if (event.target.closest('a')) setMobileOpen(false); }}
         className={`${styles.navigation} ${mobileOpen ? styles.open : ''}`}>
-        {section === 'meteo' ? <a href={home}>{t('homepage')}</a> : <a href={`${home}#ambiti`}>{t('services')}</a>}
-        {section === 'meteo' && <a href={weatherHome(locale)} className={styles.weatherLink} aria-label="emme-effe meteo"><span className={styles.weatherLinkPrefix}>emme-effe </span>meteo</a>}
+        <a href={`${home}#ambiti`}>{t('services')}</a>
         <a href="#contatti" className={styles.contact}>{t('contacts')}</a>
         <LanguageSwitcher />
       </nav>
