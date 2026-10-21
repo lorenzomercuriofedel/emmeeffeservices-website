@@ -56,13 +56,12 @@ test('self-registration is blocked without contacting the backend', async () => 
   assert.equal((await routes.POST(request('POST', { action: 'register' }))).status, 403);
   assert.equal(calls.length, 0);
 });
-test('anonymous access requests return confirmation without exposing sessions', async () => {
-  const { routes, calls } = setup({ upstream: { ok: true, status: 200, json: async () => ({ request_sent: true, token: 'secret' }) } });
-  const response = await routes.POST(request('POST', { action: 'access_request', name: 'Mario', email: 'mario@example.com', privacy_acknowledged: true }));
-  assert.equal(response.status, 200);
-  assert.deepEqual(response.body, { request_sent: true });
-  assert.equal(response.cookies.entries.length, 0);
-  assert.equal(calls[0][1].headers.Authorization, undefined);
+test('removed public request action never reaches the backend', async () => {
+  for (const token of [undefined, 'a'.repeat(64)]) {
+    const { routes, calls } = setup({ token });
+    assert.equal((await routes.POST(request('POST', { action: 'access_request' }))).status, 400);
+    assert.equal(calls.length, 0);
+  }
 });
 test('consultation requires authentication and returns the saved request reference', async () => {
   const anonymous = setup();
@@ -73,12 +72,6 @@ test('consultation requires authentication and returns the saved request referen
   assert.deepEqual(response.body.consultation, { id: 10, status: 'new' });
   assert.equal(calls[0][1].headers.Authorization, `Bearer ${'a'.repeat(64)}`);
   assert.equal(response.cookies.entries.length, 0);
-});
-test('access requests reject cross-origin requests and malformed backend responses', async () => {
-  const { routes, calls } = setup();
-  assert.equal((await routes.POST(request('POST', { action: 'access_request' }, 'https://attacker.com'))).status, 403);
-  assert.equal(calls.length, 0);
-  assert.equal((await routes.POST(request('POST', { action: 'access_request' }))).status, 502);
 });
 
 test('email verification establishes an HttpOnly session without exposing the token', async () => {

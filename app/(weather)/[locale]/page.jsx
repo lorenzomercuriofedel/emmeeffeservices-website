@@ -12,7 +12,6 @@ export default async function HomePage({ params }) {
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-ink mb-5">{t('title')}</h1>
           <p className="max-w-3xl text-ink-soft leading-relaxed">{t('description')}</p>
-          <a href={locale === 'it' ? '/consulenza' : `/consulenza?lang=${locale}`} className="inline-flex mt-6 bg-[#224f8b] text-white px-6 py-3 font-semibold hover:bg-[#1b4275]">{t('cta')}</a>
         </div>
       </section>
       <WeatherMapLoader />

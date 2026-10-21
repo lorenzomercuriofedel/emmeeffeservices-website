@@ -24,13 +24,12 @@ async function handle(request) {
   }
   const login = request.method === 'POST' && body?.action === 'login';
   if (request.method === 'POST' && body?.action === 'register') return reply({ error: 'Self-registration disabled' }, 403);
-  const accessRequest = request.method === 'POST' && body?.action === 'access_request';
   const consultation = request.method === 'POST' && body?.action === 'consultation';
   const verify = request.method === 'POST' && body?.action === 'verify_email';
   const resend = request.method === 'POST' && body?.action === 'resend_verification';
   const stationVisibility = request.method === 'POST' && body?.action === 'station_visibility';
   if (stationVisibility && (!Number.isSafeInteger(body.station_id) || body.station_id < 1 || typeof body.disabled !== 'boolean' || Object.keys(body).some(key => !['action', 'station_id', 'disabled'].includes(key)))) return reply({ error: 'Invalid station visibility' }, 422);
-  const anonymous = login || accessRequest || verify || resend;
+  const anonymous = login || verify || resend;
   const logout = request.method === 'POST' && body?.action === 'logout';
   if (request.method === 'POST' && !anonymous && !logout && !consultation && !stationVisibility) return reply({ error: 'Invalid action' }, 400);
   const token = jar.get(COOKIE)?.value;
@@ -46,10 +45,6 @@ async function handle(request) {
       const response = reply({ error: 'Customer API request failed' }, upstream.status);
       if (upstream.status === 401) response.cookies.set(COOKIE, '', { ...cookieOptions, maxAge: 0 });
       return response;
-    }
-    if (accessRequest) {
-      if (data.request_sent !== true) return reply({ error: 'Invalid request response' }, 502);
-      return reply({ request_sent: true });
     }
     if (resend) {
       if (data.verification_required !== true) return reply({ error: 'Invalid verification response' }, 502);

@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/src/i18n/navigation';
 import { safeLogoUrl } from '@/src/utils/customers';
 import CustomerLogo from './CustomerLogo';
-import ConsultationForm from '@/src/components/layout/ConsultationForm';
 
 const input = 'w-full rounded-xl border border-sky-200 bg-white px-4 py-3 mt-2 text-ink focus:outline-2 focus:outline-sky-600';
 const button = 'rounded-xl bg-sky-700 text-white px-5 py-3 font-semibold disabled:opacity-50';
@@ -53,12 +52,12 @@ export default function CustomerArea({ verificationToken = '', loginEnabled = fa
   }
   function change(event) { const { name, value, checked, type } = event.target; setForm(old => ({ ...old, [name]: type === 'checkbox' ? checked : value })); }
   return <div className="pb-16">
-    <section className="px-4 pt-10 md:pt-12 pb-2"><div className="max-w-5xl mx-auto"><h1 className="text-ink text-3xl md:text-5xl font-extrabold">{t(loginEnabled || customer ? 'title' : 'accessRequest')}</h1><p className="text-ink-soft mt-4 max-w-xl">{t(loginEnabled || customer ? 'intro' : 'requestHelp')}</p></div></section>
+    <section className="px-4 pt-10 md:pt-12 pb-2"><div className="max-w-5xl mx-auto"><h1 className="text-ink text-3xl md:text-5xl font-extrabold">{t('title')}</h1><p className="text-ink-soft mt-4 max-w-xl">{t('intro')}</p></div></section>
     <div className="max-w-5xl mx-auto px-4 mt-8">
       {error && <p role="alert" className="rounded-xl bg-red-50 text-red-800 p-4 mb-5">{error}</p>}
       {message && <p role="status" className="rounded-xl bg-emerald-50 text-emerald-800 p-4 mb-5">{message}</p>}
       {verifyToken && <section className="max-w-md bg-white rounded-3xl p-6 border border-sky-100 mb-6"><h2 className="font-bold mb-3">{t('verifyEmail')}</h2><p className="text-sm mb-4">{t('verificationHelp')}</p><button className={button} disabled={busy} onClick={() => perform(async () => { accept(await api('POST', { action: 'verify_email', verification_token: verifyToken })); setVerifyToken(''); window.history.replaceState(null, '', window.location.pathname); setMessage(t('verified')); })}>{t('verifyEmail')}</button></section>}
-      {loading ? <p role="status">{t('loading')}</p> : !customer ? !loginEnabled ? <ConsultationForm /> : <form className="max-w-md bg-white rounded-3xl border border-sky-100 p-6 md:p-8 shadow-card" onSubmit={event => {
+      {loading ? <p role="status">{t('loading')}</p> : !customer ? !loginEnabled ? <a className={button} href="mailto:info@emmeeffeservices.it">info@emmeeffeservices.it</a> : <form className="max-w-md bg-white rounded-3xl border border-sky-100 p-6 md:p-8 shadow-card" onSubmit={event => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const payload = { action: 'login', email: data.get('email'), password: data.get('password') };

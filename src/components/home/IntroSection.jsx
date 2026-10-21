@@ -1,9 +1,7 @@
 import { getTranslations } from 'next-intl/server';
-import { getLocale } from 'next-intl/server';
 
 export default async function IntroSection() {
   const t = await getTranslations('intro');
-  const locale = await getLocale();
 
   return (
     <section className="px-4 py-20">
@@ -20,15 +18,6 @@ export default async function IntroSection() {
             })}
           </p>
         </div>
-        <a
-          href={locale === 'it' ? '/consulenza' : `/consulenza?lang=${locale}`}
-          className="inline-flex items-center gap-2 mt-7 bg-ink hover:bg-sky-900 text-white font-semibold px-6 py-3 rounded-xl transition-colors shadow-card"
-        >
-          {t('cta')}
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
       </div>
     </section>
   );

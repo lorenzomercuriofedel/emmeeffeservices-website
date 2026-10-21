@@ -113,8 +113,7 @@
     "eyebrow": "The service",
     "title": "Weather stations, consulting and installation",
     "p1": "emme-effe meteo is EMME-EFFE SERVICES' professional service dedicated to weather stations, weather data collection and publishing, and technical consulting.",
-    "p2": "Founded in Trentino, the service provides design, installation, configuration and management of weather stations for private customers, businesses, public bodies and local projects.",
-    "cta": "Install a weather station"
+    "p2": "Founded in Trentino, the service provides design, installation, configuration and management of weather stations for private customers, businesses, public bodies and local projects."
   },
   "contacts": {
     "eyebrow": "Contacts",
@@ -245,7 +244,6 @@
   "meteoServices": {
     "title": "Weather systems, from sensors to data",
     "description": "Emme-Effe Services also provides consulting and development services for meteorological monitoring systems, including the processing and analysis of collected data. Would you like to request a new installation or purchase a custom service? Contact us for more information and a quote.",
-    "cta": "Install a weather station",
     "mapHint": "Select a station on the map to view readings, charts and weather conditions."
   },
   "stationConditions": {
@@ -404,28 +402,6 @@
     "shareEmail": "Publish contact email",
     "shareWebsite": "Publish website",
     "contactEmail": "Contact email",
-    "website": "Website",
-    "accessRequest": "Request access or advice",
-    "requestHelp": "Send your request. We will contact you about manual account activation or advice. No account is created.",
-    "sendRequest": "Send request",
-    "requestSent": "Request sent. We will contact you at the email address provided."
-  },
-  "consultationForm": {
-    "title": "Request a free consultation",
-    "intro": "Send your request. We will contact you to arrange a consultation.",
-    "service": "Requested service",
-    "choose": "Select a service",
-    "data": "Data processing",
-    "land": "Land consulting",
-    "name": "Full name",
-    "email": "Email",
-    "message": "Describe your request",
-    "privacy": "I have read the privacy notice.",
-    "privacyLink": "Privacy policy",
-    "send": "Send request",
-    "sending": "Sending…",
-    "sent": "Request sent. We will contact you at the email address provided.",
-    "error": "Unable to send. Try again or email info@emmeeffeservices.it.",
-    "weather": "Weather consulting"
+    "website": "Website"
   }
 }
