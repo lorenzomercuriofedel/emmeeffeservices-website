@@ -56,12 +56,23 @@ test('self-registration is blocked without contacting the backend', async () => 
   assert.equal((await routes.POST(request('POST', { action: 'register' }))).status, 403);
   assert.equal(calls.length, 0);
 });
-test('removed public request action never reaches the backend', async () => {
-  for (const token of [undefined, 'a'.repeat(64)]) {
-    const { routes, calls } = setup({ token });
-    assert.equal((await routes.POST(request('POST', { action: 'access_request' }))).status, 400);
+test('anonymous access requests return confirmation without exposing sessions', async () => {
+  const { routes, calls } = setup({ upstream: { ok: true, status: 200, json: async () => ({ request_sent: true, token: 'secret' }) } });
+  const response = await routes.POST(request('POST', { action: 'access_request', service: 'data', name: 'Mario', email: 'mario@example.com', privacy_acknowledged: true }));
+  assert.equal(response.status, 200);
+  assert.deepEqual(response.body, { request_sent: true });
+  assert.equal(response.cookies.entries.length, 0);
+  assert.equal(calls[0][1].headers.Authorization, undefined);
+});
+test('public consultation only accepts data and land services', async () => {
+  for (const service of [undefined, 'weather', 'invalid']) {
+    const { routes, calls } = setup();
+    assert.equal((await routes.POST(request('POST', { action: 'access_request', service }))).status, 422);
     assert.equal(calls.length, 0);
   }
+  const { routes, calls } = setup({ upstream: { ok: true, status: 200, json: async () => ({ request_sent: true }) } });
+  assert.equal((await routes.POST(request('POST', { action: 'access_request', service: 'land' }))).status, 200);
+  assert.equal(calls.length, 1);
 });
 test('consultation requires authentication and returns the saved request reference', async () => {
   const anonymous = setup();
@@ -119,4 +130,11 @@ test('account deletion is disabled and never reaches the backend', async () => {
     assert.equal((await routes.DELETE(request('DELETE', { password: 'test' }))).status, 405);
     assert.equal(calls.length, 0);
   }
+});
+
+test('access requests reject cross-origin requests and malformed backend responses', async () => {
+  const { routes, calls } = setup();
+  assert.equal((await routes.POST(request('POST', { action: 'access_request', service: 'data' }, 'https://attacker.com'))).status, 403);
+  assert.equal(calls.length, 0);
+  assert.equal((await routes.POST(request('POST', { action: 'access_request', service: 'data' }))).status, 502);
 });

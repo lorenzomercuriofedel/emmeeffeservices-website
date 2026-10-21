@@ -403,5 +403,22 @@
     "shareWebsite": "Publish website",
     "contactEmail": "Contact email",
     "website": "Website"
+  },
+  "consultationForm": {
+    "title": "Request a free consultation",
+    "intro": "Send your request. We will contact you to arrange a consultation.",
+    "service": "Requested service",
+    "choose": "Select a service",
+    "data": "Data processing",
+    "land": "Land consulting",
+    "name": "Full name",
+    "email": "Email",
+    "message": "Describe your request",
+    "privacy": "I have read the privacy notice.",
+    "privacyLink": "Privacy policy",
+    "send": "Send request",
+    "sending": "Sending…",
+    "sent": "Request sent. We will contact you at the email address provided.",
+    "error": "Unable to send. Try again or email info@emmeeffeservices.it."
   }
 }

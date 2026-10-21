@@ -350,7 +350,7 @@ try {
     $body = $method === 'GET' ? [] : readBody();
     $action = $body['action'] ?? null;
     if ($method === 'POST' && $action === 'register') rejectRequest(403, 'Self-registration disabled');
-    if ($method === 'POST' && !in_array($action, ['login', 'verify_email', 'resend_verification', 'logout', 'consultation', 'station_visibility'], true)) {
+    if ($method === 'POST' && !in_array($action, ['login', 'access_request', 'verify_email', 'resend_verification', 'logout', 'consultation', 'station_visibility'], true)) {
         rejectRequest(422, 'Invalid action');
     }
 
@@ -372,6 +372,23 @@ try {
         $loginPassword = validatePassword($body['password'] ?? null);
         // Conta anche i login riusciti: 5/account e 100/IP ogni 15 minuti.
         rateLimit(['login:ip:' . $ip => 100, 'login:account:' . $loginEmail => 5], $rateSecret);
+    } elseif ($method === 'POST' && $action === 'access_request') {
+        whitelist($body, ['action', 'name', 'email', 'description', 'privacy_acknowledged', 'service']);
+        if (($body['privacy_acknowledged'] ?? null) !== true) rejectRequest(422, 'Privacy acknowledgement required');
+        $service = $body['service'] ?? null;
+        if (!in_array($service, ['data', 'land'], true)) rejectRequest(422, 'Invalid service');
+        $serviceName = ['data' => 'elaborazione dati', 'land' => 'fondiaria'][$service];
+        $requestName = validateText($body['name'] ?? null, 255, true);
+        $requestEmail = validateEmail($body['email'] ?? null);
+        $requestDescription = validateText($body['description'] ?? '', 5000);
+        rateLimit(['access:ip:' . $ip => 20, 'access:email:' . $requestEmail => 3], $rateSecret);
+        $from = getenv('CUSTOMER_MAIL_FROM') ?: 'meteopine@altervista.org';
+        if (!filter_var($from, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $from)) throw new RuntimeException('Invalid mail sender');
+        if (preg_match('/[\r\n]/', $requestEmail)) rejectRequest(422, 'Invalid email');
+        $headers = 'From: ' . $from . "\r\n" . 'Reply-To: ' . $requestEmail . "\r\n" . 'Content-Type: text/plain; charset=UTF-8';
+        $message = "Richiesta di consulenza " . $serviceName . "\n\nNome: " . $requestName . "\nEmail: " . $requestEmail . "\n\n" . $requestDescription . "\n\nInformativa privacy presa in visione. Nessun account creato.";
+        if (!mail('info@emmeeffeservices.it', 'Richiesta consulenza ' . $serviceName, $message, $headers)) rejectRequest(503, 'Request email could not be sent');
+        respond(200, ['request_sent' => true]);
     } elseif ($method === 'POST' && $action === 'verify_email') {
         whitelist($body, ['action', 'verification_token']);
         if (!is_string($body['verification_token'] ?? null) || !preg_match('/^[a-f0-9]{64}$/', $body['verification_token'])) rejectRequest(422, 'Invalid verification token');

@@ -302,6 +302,6 @@ Riferimenti: Codice del consumo artt. 52, 56–57 e 59 ([Normattiva](https://www
 
 Eseguire una volta `php_tmp/customer-contacts.sql`, poi pubblicare il nuovo `customer.php` e il frontend. Email di contatto (`contact_email`) e sito HTTPS (`website_url`) sono separati dall’email di autenticazione. I flag `contact_email_public` e `website_public` sono falsi per default e modificabili separatamente nel profilo. La query pubblica restituisce NULL per i valori non condivisi: non vengono inviati al browser pubblico. La sezione “Contatti del cliente” nei dettagli stazione compare soltanto se almeno un dato è condiviso. Le modifiche possono richiedere il tempo di scadenza delle cache pubbliche (circa 60 secondi). Non inviare mai l’email privata di accesso alle API pubbliche.
 
-## Contatti pubblici
+## Form consulenze aziendali
 
-Il modulo pubblico e la pagina di raccolta richieste sono stati rimossi. Le richieste pubbliche non vengono più elaborate dalle API Next.js e PHP; i contatti avvengono tramite email. Pubblicare anche `php_tmp/customer.php` su AlterVista per aggiornare il backend remoto. Nessuna migrazione SQL richiesta.
+`/consulenza` mantiene il form per elaborazione dati e consulenza fondiaria. Il meteo è escluso dal selettore e le API Next.js e PHP rifiutano richieste pubbliche con servizio meteo o mancante. Il collegamento nella home aziendale apre il form; le pagine meteo non lo propongono. Pubblicare anche `php_tmp/customer.php` su AlterVista per aggiornare il backend remoto. Nessuna migrazione SQL richiesta.

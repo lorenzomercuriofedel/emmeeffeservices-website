@@ -6,6 +6,7 @@ import Navbar from '@/src/components/layout/Navbar';
 export default async function CompanyPage() {
   const t = await getTranslations('company');
   const locale = await getLocale();
+  const consultationHref = locale === 'it' ? '/consulenza' : `/consulenza?lang=${locale}`;
   return <>
 
 <a className="skip" href="#contenuto">{t('skip')}</a>
@@ -30,7 +31,7 @@ export default async function CompanyPage() {
 </div>
 <div className="services-consultation">
   <p>{t('consultationScope')}</p>
-  <a href="mailto:info@emmeeffeservices.it" className="button services-consultation-button">{t('requestConsultation')}<span aria-hidden="true">→</span></a>
+  <a href={consultationHref} className="button services-consultation-button">{t('requestConsultation')}<span aria-hidden="true">→</span></a>
 </div>
 </section>
 
