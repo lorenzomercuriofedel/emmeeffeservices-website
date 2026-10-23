@@ -47,21 +47,10 @@
     "requestConsultation": "Request a free consultation",
     "consultationScope": "Weather, data processing or land consulting: tell us about your project."
   },
-  "consultationForm": {
-    "title": "Request a free consultation",
-    "intro": "Send your request. We will contact you to arrange a consultation.",
-    "service": "Requested service",
-    "choose": "Select a service",
-    "data": "Data processing",
-    "land": "Land consulting",
-    "name": "Full name",
-    "email": "Email",
-    "message": "Describe your request",
-    "privacy": "I have read the privacy notice.",
-    "privacyLink": "Privacy policy",
-    "send": "Send request",
-    "sending": "Sending…",
-    "sent": "Request sent. We will contact you at the email address provided.",
-    "error": "Unable to send. Try again or email info@emmeeffeservices.it."
+  "consultationPopup": {
+    "title": "Let’s talk about your project",
+    "intro": "To request a free consultation, send us an email or a message on WhatsApp.",
+    "email": "Send an email",
+    "close": "Close"
   }
 }

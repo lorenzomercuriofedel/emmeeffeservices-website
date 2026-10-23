@@ -15,8 +15,7 @@ npm start
 
 ## Consulenze
 
-`/consulenza` raccoglie richieste per elaborazione dati e consulenza fondiaria.
-`POST /api/consultation` inoltra le richieste al servizio email AlterVista esistente; non gestisce account né sessioni.
+Il pulsante di richiesta consulenza apre un popup con i contatti email e WhatsApp presenti anche nel footer.
 
 ## Dominio
 

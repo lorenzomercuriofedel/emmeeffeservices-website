@@ -47,21 +47,10 @@
     "requestConsultation": "Chiedi una consulenza gratuita",
     "consultationScope": "Vuoi raccontarci il tuo progetto o avere maggiori informazioni?"
   },
-  "consultationForm": {
-    "title": "Richiedi una consulenza",
-    "intro": "Invia la richiesta: verrai ricontattato per concordare una consulenza.",
-    "service": "Servizio richiesto",
-    "choose": "Seleziona un servizio",
-    "data": "Elaborazione dati",
-    "land": "Consulenza fondiaria",
-    "name": "Nome e cognome",
-    "email": "Email",
-    "message": "Descrivi la tua richiesta",
-    "privacy": "Dichiaro di aver letto l’informativa sul trattamento dei dati.",
-    "privacyLink": "Informativa privacy",
-    "send": "Invia richiesta",
-    "sending": "Invio in corso…",
-    "sent": "Richiesta inviata. Ti ricontatteremo all’indirizzo email indicato.",
-    "error": "Invio non riuscito. Riprova oppure scrivi a info@emmeeffeservices.it."
+  "consultationPopup": {
+    "title": "Parliamo del tuo progetto",
+    "intro": "Per richiedere una consulenza gratuita, scrivi un’email o inviaci un messaggio su WhatsApp.",
+    "email": "Scrivi un’email",
+    "close": "Chiudi"
   }
 }
