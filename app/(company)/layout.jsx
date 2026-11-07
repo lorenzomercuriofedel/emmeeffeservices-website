@@ -7,6 +7,13 @@ import { NextIntlClientProvider } from 'next-intl';
 const companyMetadata = {
   metadataBase: new URL('https://emmeeffeservices.it'),
   title: SITE_TITLE,
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      { url: '/icon.png', type: 'image/png', sizes: '192x192' },
+    ],
+    apple: { url: '/apple-icon.png', sizes: '180x180' },
+  },
   description: 'Analisi di dati meteo-climatici, ambientali, catastali e storici. Analisi fondiarie, mappe e report.',
   alternates: { canonical: '/' },
   openGraph: {
@@ -30,5 +37,5 @@ export async function generateMetadata() {
 export default async function CompanyLayout({ children }) {
   const locale = await getLocale();
   const messages = await getMessages();
-  return <html lang={locale}><head><link rel="icon" href="data:," /></head><body><NextIntlClientProvider locale={locale} messages={messages}>{children}</NextIntlClientProvider><CookieNotice locale={locale} /></body></html>;
+  return <html lang={locale}><body><NextIntlClientProvider locale={locale} messages={messages}>{children}</NextIntlClientProvider><CookieNotice locale={locale} /></body></html>;
 }
