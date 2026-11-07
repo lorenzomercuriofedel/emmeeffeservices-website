@@ -89,3 +89,5 @@
 .services-consultation-button{justify-content:center;gap:20px;padding:18px 28px;border-radius:10px;font-size:15px;font-weight:600;box-shadow:0 4px 12px #224f8b18}
 .services-consultation-button span{font-size:20px;line-height:1}
 @media(max-width:760px){.services-consultation{margin-top:24px;padding:28px 20px}.services-consultation-button{width:100%;max-width:340px}.services-consultation p{font-size:15px}}
+
+.service-partner-link{text-decoration:underline;text-underline-offset:3px}
